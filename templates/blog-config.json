@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "onboarded_at": null,
+  "business": {
+    "business_name": "",
+    "website": "",
+    "product_type": "",
+    "primary_use_case": "",
+    "key_features": [],
+    "integrations": [],
+    "business_model": "",
+    "target_geography": "",
+    "pricing_model": "",
+    "key_differentiator": "",
+    "icp_signals": {
+      "roles": [],
+      "industries": [],
+      "company_size": "",
+      "pain_points": []
+    },
+    "brand_voice_signals": "",
+    "inferred_fields": []
+  },
+  "competitors": [
+    {
+      "domain": "",
+      "company_name": "",
+      "reason": ""
+    }
+  ],
+  "topics": {
+    "last_research_run": null,
+    "total_keywords": 0,
+    "cluster_count": 0,
+    "pipeline": [],
+    "approved": [],
+    "used": []
+  }
+}

@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Never commit real keys or generated data
+.env
+.claude/blog-config.json
+.claude/blog-keywords.json
+.claude/blog-clusters.json
+.claude/exports/
+CONTENT-PLAN.md
+blog-posts/
