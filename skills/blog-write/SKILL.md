@@ -38,23 +38,23 @@ Starting now...
 
 Read these three files. If any are missing, stop with the indicated message:
 
-1. `.claude/blog-config.json` — if missing: `"Run /user:blog-onboard first."`
-2. `.claude/blog-keywords.json` — if missing: `"Run /user:blog-topics first."`
-3. `.claude/blog-clusters.json` — if missing: `"Run /user:blog-topics first."`
+1. `.claude/blog-config.json` — if missing: `"Run /blog-onboard first."`
+2. `.claude/blog-keywords.json` — if missing: `"Run /blog-topics first."`
+3. `.claude/blog-clusters.json` — if missing: `"Run /blog-topics first."`
 
 **Select the topic:**
 
 If the user passed `$ARGUMENTS`:
 
-- **If it's a number (1–10)** (e.g. `/user:blog-write 3`):
+- **If it's a number (1–10)** (e.g. `/blog-write 3`):
   - Treat it as a 1-based index into `topics.pipeline` sorted by `opportunity_score` descending
   - Select the item at that position (1 = highest scored, 10 = tenth)
-  - If the index is out of range: stop — `"Only {n} topics in pipeline. Run /user:blog-topics to add more."`
+  - If the index is out of range: stop — `"Only {n} topics in pipeline. Run /blog-topics to add more."`
 
-- **If it's a keyword string** (e.g. `/user:blog-write "salesforce google sheets integration"`):
+- **If it's a keyword string** (e.g. `/blog-write "salesforce google sheets integration"`):
   - Search `topics.pipeline` in blog-config.json for a matching keyword (case-insensitive)
   - If NOT found in pipeline: search `blog-keywords.json` for the keyword, and if found, use that record directly (it's an off-pipeline write)
-  - If not found anywhere: stop — `"Keyword not found in your keyword database. Run /user:blog-topics or check spelling."`
+  - If not found anywhere: stop — `"Keyword not found in your keyword database. Run /blog-topics or check spelling."`
 
 For any matched pipeline item:
 - If status is `queued`: use it
@@ -63,7 +63,7 @@ For any matched pipeline item:
 
 If NO argument was passed:
 - Find the first item in `topics.pipeline` with `status: "queued"`, sorted by `opportunity_score` descending
-- If no queued items exist: stop — `"Pipeline is empty. Run /user:blog-topics to generate new topics."`
+- If no queued items exist: stop — `"Pipeline is empty. Run /blog-topics to generate new topics."`
 
 Store the selected keyword record as `{topic}`.
 
@@ -118,7 +118,7 @@ From `blog-config.json`:
 - `brand_voice` ← `{ tone: business.brand_voice_signals, avoid: [] }`
 - `competitors` ← `competitors` array
 - `target_market` ← derive from `business.target_geography` (e.g. "Global" → "us", "US-focused" → "us")
-- `dataforseo_location_code` ← map target_market using the same table from /user:blog-topics (us→2840, uk→2826, etc.)
+- `dataforseo_location_code` ← map target_market using the same table from /blog-topics (us→2840, uk→2826, etc.)
 
 From `blog-keywords.json` — find the record matching `{topic.keyword}`:
 - `keyword`, `volume`, `kd`, `cpc`, `intent`, `funnel`, `cluster`, `opportunity_score`
@@ -128,7 +128,7 @@ From `blog-clusters.json` — find the cluster matching `{topic.cluster_id}`:
 - `secondary_keywords` ← collect all supporting keyword strings from this cluster (exclude the topic keyword itself). Take top 5 by opportunity score from blog-keywords.json.
 
 If `{topic}` came from the pipeline, also pull:
-- `related_keywords` from the pipeline item (these are the top 3 pre-selected in /user:blog-topics Step 10)
+- `related_keywords` from the pipeline item (these are the top 3 pre-selected in /blog-topics Step 10)
 
 Merge `related_keywords` and `secondary_keywords` into one deduplicated list. Cap at 8 keywords.
 
@@ -941,10 +941,10 @@ Show a structured summary:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Write the next queued post:
-    /user:blog-write
+    /blog-write
 
   Or pick a specific topic:
-    /user:blog-write "{next_queued_keyword}"
+    /blog-write "{next_queued_keyword}"
 
   Review your full content plan:
     Open CONTENT-PLAN.md

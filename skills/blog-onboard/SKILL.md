@@ -261,7 +261,7 @@ Write the following JSON to `.claude/blog-config.json`:
 
 ## STEP 5 — Create Scaffold Files
 
-Create two empty scaffold files so the user sees the full structure immediately — before running `/user:blog-topics`.
+Create two empty scaffold files so the user sees the full structure immediately — before running `/blog-topics`.
 
 **5a — Create `CONTENT-PLAN.md` in the project root:**
 
@@ -271,23 +271,23 @@ Write this file (do not overwrite if it already exists — check first with Read
 # Content Plan — {business_name}
 
 > Managed by Blog Engine · Created: {current_date}
-> Run `/user:blog-topics` to populate this plan with researched keyword opportunities.
+> Run `/blog-topics` to populate this plan with researched keyword opportunities.
 
 ---
 
 ## Pipeline
 
-Topics queued for writing. Populated after running `/user:blog-topics`.
+Topics queued for writing. Populated after running `/blog-topics`.
 
 | # | Topic | Cluster | Funnel | Vol/mo | KD | Score | Action | Status |
 |---|-------|---------|--------|--------|----|-------|--------|--------|
-| — | *(run `/user:blog-topics` to populate)* | | | | | | | |
+| — | *(run `/blog-topics` to populate)* | | | | | | | |
 
 ---
 
 ## Written
 
-Articles completed via `/user:blog-write`. Updated automatically when an article is written.
+Articles completed via `/blog-write`. Updated automatically when an article is written.
 
 | # | Topic | Cluster | Funnel | Written | Article URL |
 |---|-------|---------|--------|---------|-------------|
@@ -297,9 +297,9 @@ Articles completed via `/user:blog-write`. Updated automatically when an article
 
 ## Keyword Clusters
 
-Topic clusters populated after running `/user:blog-topics`.
+Topic clusters populated after running `/blog-topics`.
 
-*(none yet — run `/user:blog-topics` to generate clusters)*
+*(none yet — run `/blog-topics` to generate clusters)*
 
 ---
 
@@ -326,7 +326,7 @@ Topic clusters populated after running `/user:blog-topics`.
 
 For `{icp_roles}`, join `business_profile.icp_signals.roles` as a comma-separated string. For competitor domains, use the first 3 from `{competitor_data.competitors}`.
 
-**5b — The `.claude/exports/` folder** is already created in Step 4. No further action needed — CSVs will be written here by `/user:blog-topics`.
+**5b — The `.claude/exports/` folder** is already created in Step 4. No further action needed — CSVs will be written here by `/blog-topics`.
 
 ---
 
@@ -363,9 +363,9 @@ After saving, show the user a clean summary:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Run keyword research to populate your content plan:
-    /user:blog-topics         (defaults to US)
-    /user:blog-topics uk      (UK market)
-    /user:blog-topics in      (India market)
+    /blog-topics         (defaults to US)
+    /blog-topics uk      (UK market)
+    /blog-topics in      (India market)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

@@ -45,7 +45,7 @@ Starting now...
 Read `.claude/blog-config.json`.
 
 If it does not exist or `business.business_name` is empty, stop and tell the user:
-> "No business profile found. Run `/user:blog-onboard https://yoursite.com` first, then re-run `/user:blog-topics`."
+> "No business profile found. Run `/blog-onboard https://yoursite.com` first, then re-run `/blog-topics`."
 
 Extract and store these values from the config — you will use them throughout:
 - `{business_name}` ← `business.business_name`
@@ -537,16 +537,16 @@ After all 10:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Write your first post (picks #1 from pipeline automatically):
-    /user:blog-write
+    /blog-write
 
   Write a specific topic by number:
-    /user:blog-write 1
-    /user:blog-write 3
+    /blog-write 1
+    /blog-write 3
 
   Write a specific topic by keyword:
-    /user:blog-write "{top_topic_keyword}"
+    /blog-write "{top_topic_keyword}"
 
   Run research again next week (this week's topics auto-excluded):
-    /user:blog-topics
+    /blog-topics
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

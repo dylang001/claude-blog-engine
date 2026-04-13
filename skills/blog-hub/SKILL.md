@@ -26,15 +26,15 @@ Show this if `.claude/blog-config.json` does not exist or has no `business.busin
 
   GETTING STARTED
   ───────────────
-  Step 1 →  /user:blog-onboard yoursite.com
+  Step 1 →  /blog-onboard yoursite.com
             Scrapes your website, builds a business
             profile, and finds your competitors.
 
-  Step 2 →  /user:blog-topics
+  Step 2 →  /blog-topics
             Keyword research, clustering, and
             Week 1 topic selection (10 topics).
 
-  Step 3 →  /user:blog-write
+  Step 3 →  /blog-write
             Writes a full SEO article with images,
             schema markup, and publishing checklist.
 
@@ -60,9 +60,9 @@ Show this if `business.business_name` exists but `topics.pipeline` is empty and 
   ───────────
   Run keyword research to find your first topics:
 
-    /user:blog-topics           (US market — default)
-    /user:blog-topics uk        (UK market)
-    /user:blog-topics in        (India)
+    /blog-topics           (US market — default)
+    /blog-topics uk        (UK market)
+    /blog-topics in        (India)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -100,12 +100,12 @@ Count the queued, in_progress, and done items in the pipeline. Count items in `t
   ───────────
   Write the next article:
 
-    /user:blog-write                (picks the top-scored topic)
-    /user:blog-write "topic name"   (pick a specific topic)
+    /blog-write                (picks the top-scored topic)
+    /blog-write "topic name"   (pick a specific topic)
 
   Or refresh your pipeline:
 
-    /user:blog-topics               (find more topics)
+    /blog-topics               (find more topics)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -131,7 +131,7 @@ Show this if `topics.pipeline` has no queued items but `topics.used` is not empt
   ───────────
   Run another round of keyword research:
 
-    /user:blog-topics
+    /blog-topics
 
   Previous topics won't repeat — the engine
   tracks what's already been written.

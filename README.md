@@ -14,26 +14,26 @@ bash ~/claude-blog-engine/install.sh
 # 3. Restart Claude Code (or start a new session)
 ```
 
-That's it. The install script copies 4 slash commands to `~/.claude/commands/` so they're available in any project.
+That's it. The install script copies 4 skills to `~/.claude/skills/` so they're available in any project.
 
-## Commands
+## Skills
 
-| Command | What it does |
-|---------|-------------|
-| `/user:blog-hub` | Dashboard — shows your status and what to do next |
-| `/user:blog-onboard [url]` | Scrapes your website, builds business profile, finds 3 competitors |
-| `/user:blog-topics [market]` | Keyword research, clustering, scoring, and 10 topic picks |
-| `/user:blog-write [topic\|number]` | Full SEO article with images, schema, and publishing checklist |
+| Skill | What it does |
+|-------|-------------|
+| `/blog-hub` | Dashboard — shows your status and what to do next |
+| `/blog-onboard [url]` | Scrapes your website, builds business profile, finds 3 competitors |
+| `/blog-topics [market]` | Keyword research, clustering, scoring, and 10 topic picks |
+| `/blog-write [topic\|number]` | Full SEO article with images, schema, and publishing checklist |
 
 ## Quick Start
 
 ```
-/user:blog-hub                              ← see where you are
-/user:blog-onboard https://yoursite.com     ← one-time setup
-/user:blog-topics                           ← find 10 topics (defaults to US)
-/user:blog-write                            ← write the top-scored article
-/user:blog-write 3                          ← write topic #3 from your pipeline
-/user:blog-write "marketing attribution"    ← write a specific topic by keyword
+/blog-hub                              ← see where you are
+/blog-onboard https://yoursite.com     ← one-time setup
+/blog-topics                           ← find 10 topics (defaults to US)
+/blog-write                            ← write the top-scored article
+/blog-write 3                          ← write topic #3 from your pipeline
+/blog-write "marketing attribution"    ← write a specific topic by keyword
 ```
 
 ## Example Output
@@ -50,7 +50,7 @@ Generated from keyword `marketing attribution models` — includes title, meta d
 
 ## API Keys
 
-When you run `/user:blog-onboard` for the first time, it will automatically create a `.env` file in your project root with placeholders. Open it, fill in your keys, and reply to continue.
+When you run `/blog-onboard` for the first time, it will automatically create a `.env` file in your project root with placeholders. Open it, fill in your keys, and reply to continue.
 
 ```
 # Required
@@ -65,7 +65,7 @@ YOUTUBE_API_KEY=AIza...                # console.cloud.google.com — video insi
 OPENAI_API_KEY=sk-...                  # platform.openai.com — DALL-E article images
 ```
 
-Only `DATAFORSEO` + `ANTHROPIC` are required. Optional keys enhance `/user:blog-write` — it works fine without them.
+Only `DATAFORSEO` + `ANTHROPIC` are required. Optional keys enhance `/blog-write` — it works fine without them.
 
 You can also copy `.env.example` from this repo as a starting point.
 
@@ -77,7 +77,7 @@ Three engines run sequentially. Each one feeds the next.
 
 ---
 
-### Engine 1 — Onboarding (`/user:blog-onboard`)
+### Engine 1 — Onboarding (`/blog-onboard`)
 
 Runs once. Builds your business profile and finds competitors.
 
@@ -92,7 +92,7 @@ Outputs: `.claude/blog-config.json` with business profile + 3 competitor domains
 
 ---
 
-### Engine 2 — Site Intelligence (`/user:blog-topics`)
+### Engine 2 — Site Intelligence (`/blog-topics`)
 
 Runs weekly. Builds your full keyword universe and picks 10 topics.
 
@@ -119,7 +119,7 @@ Outputs: `CONTENT-PLAN.md`, `.claude/blog-keywords.json`, `.claude/blog-clusters
 
 ---
 
-### Engine 3 — Content Engine (`/user:blog-write`)
+### Engine 3 — Content Engine (`/blog-write`)
 
 Runs per article. Research → outline → full article → images → schema.
 
@@ -164,7 +164,7 @@ Outputs: `blog-posts/{date}-{slug}/article.md`, `publish-kit.md`, `images/`
 
 ### Shared State
 
-All commands read/write `.claude/blog-config.json`. The pipeline tracks every queued, in-progress, and written topic — re-running `/user:blog-topics` always surfaces fresh keywords, never repeats.
+All commands read/write `.claude/blog-config.json`. The pipeline tracks every queued, in-progress, and written topic — re-running `/blog-topics` always surfaces fresh keywords, never repeats.
 
 ### Output Files
 
@@ -179,13 +179,13 @@ All commands read/write `.claude/blog-config.json`. The pipeline tracks every qu
 ## Market Targeting
 
 ```
-/user:blog-topics            US (default)
-/user:blog-topics uk         United Kingdom
-/user:blog-topics in         India
-/user:blog-topics au         Australia
-/user:blog-topics ca         Canada
-/user:blog-topics de         Germany
-/user:blog-topics sg         Singapore
+/blog-topics            US (default)
+/blog-topics uk         United Kingdom
+/blog-topics in         India
+/blog-topics au         Australia
+/blog-topics ca         Canada
+/blog-topics de         Germany
+/blog-topics sg         Singapore
 ```
 
 ## Data Privacy
@@ -203,20 +203,41 @@ blog-posts/
 ## Uninstall
 
 ```bash
-rm ~/.claude/commands/blog-hub.md
-rm ~/.claude/commands/blog-onboard.md
-rm ~/.claude/commands/blog-topics.md
-rm ~/.claude/commands/blog-write.md
+rm -rf ~/.claude/skills/blog-hub
+rm -rf ~/.claude/skills/blog-onboard
+rm -rf ~/.claude/skills/blog-topics
+rm -rf ~/.claude/skills/blog-write
+rm -rf ~/.claude/blog-scripts
 ```
 
-## File Structure
+## Repo Structure
+
+```
+claude-blog-engine/                  ← this repo
+├── .claude-plugin/
+│   └── plugin.json                  ← plugin manifest
+├── skills/
+│   ├── blog-hub/SKILL.md            ← dashboard
+│   ├── blog-onboard/SKILL.md        ← business profiling + competitors
+│   ├── blog-topics/SKILL.md         ← keyword research + clustering
+│   └── blog-write/SKILL.md          ← article generation
+├── scripts/
+│   └── topics_pipeline.py           ← deterministic data processing (12 subcommands)
+├── docs/
+│   └── apis.md                      ← API setup guide
+├── install.sh
+├── .env.example
+└── README.md
+```
+
+## Generated Files (in your project)
 
 ```
 your-project/
 ├── .claude/
 │   ├── blog-config.json         ← business profile + pipeline
-│   ├── blog-keywords.json       ← keyword data (after blog-topics)
-│   ├── blog-clusters.json       ← cluster map (after blog-topics)
+│   ├── blog-keywords.json       ← keyword data (after /blog-topics)
+│   ├── blog-clusters.json       ← cluster map (after /blog-topics)
 │   └── exports/
 │       └── keywords-2026-04-10.csv
 ├── blog-posts/
