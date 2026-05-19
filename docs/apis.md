@@ -14,6 +14,12 @@ export DATAFORSEO_LOGIN="your@email.com"
 export DATAFORSEO_PASSWORD="yourpassword"
 ```
 
+Alternatively, set a pre-encoded Basic Auth token:
+
+```bash
+export DATAFORSEO_AUTH_BASE64="$(printf '%s' 'your@email.com:yourpassword' | base64)"
+```
+
 **Endpoints used:**
 | Skill | Endpoint | Cost |
 |-------|----------|------|
@@ -101,14 +107,18 @@ export YOUTUBE_API_KEY="AIza..."
 
 ---
 
-### OpenAI (DALL-E)
+### Banana Claude / Gemini Images
 
-Generates article images — a thumbnail/featured image and a mid-article visual.
+Generates article images through the Banana Claude creative-director pattern
+using Gemini image models.
 
-1. Get your key at [platform.openai.com](https://platform.openai.com)
+1. Get your key from Google AI Studio.
 
 ```bash
-export OPENAI_API_KEY="sk-..."
+export GEMINI_API_KEY="..."
+export BANANA_MODEL="gemini-3.1-flash-image-preview"
+export BANANA_ASPECT_RATIO="16:9"
+export BANANA_RESOLUTION="2K"
 ```
 
 **Fallback:** Image positions are marked with descriptive HTML comments in the article:
@@ -116,6 +126,29 @@ export OPENAI_API_KEY="sk-..."
 <!-- THUMBNAIL IMAGE: description — recommended size 1792x1024 -->
 ```
 You can use these descriptions to create images manually or with any image tool.
+
+---
+
+### IndexNow
+
+Notifies supported search engines when a post is published or refreshed.
+
+```bash
+export INDEXNOW_KEY="32-character-random-key"
+export INDEXNOW_KEY_LOCATION="https://example.com/indexnow-key.txt"
+export INDEXNOW_ENGINES="bing,yandex,seznam,indexnow"
+```
+
+The updated WordPress bridge serves the key file at `/indexnow-key.txt`.
+After uploading the bridge, run:
+
+```bash
+python -m content_machine indexnow --configure-wordpress
+python -m content_machine indexnow --verify
+```
+
+**Fallback:** If IndexNow is not configured, publishing still works; the worker
+just skips immediate IndexNow notifications.
 
 ---
 
@@ -127,13 +160,18 @@ You can use these descriptions to create images manually or with any image tool.
 # Required
 export DATAFORSEO_LOGIN="your@email.com"
 export DATAFORSEO_PASSWORD="yourpassword"
+# Or:
+export DATAFORSEO_AUTH_BASE64="base64-login-password-token"
 export ANTHROPIC_API_KEY="sk-ant-..."
 
 # Optional
 export FIRECRAWL_API_KEY="fc-..."
 export TAVILY_API_KEY="tvly-..."
 export YOUTUBE_API_KEY="AIza..."
-export OPENAI_API_KEY="sk-..."
+export GEMINI_API_KEY="..."
+export INDEXNOW_KEY="32-character-random-key"
+export INDEXNOW_KEY_LOCATION="https://example.com/indexnow-key.txt"
+export INDEXNOW_ENGINES="bing,yandex,seznam,indexnow"
 ```
 
 After adding, run `source ~/.zshrc` (or restart your terminal) to load them.

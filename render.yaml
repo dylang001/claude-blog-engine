@@ -1,0 +1,47 @@
+services:
+  - type: worker
+    name: ultimate-seo-content-machine
+    runtime: python
+    region: oregon
+    plan: starter
+    buildCommand: pip install -r requirements-worker.txt
+    startCommand: python -m content_machine worker
+    disk:
+      name: content-machine-state
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: CONTENT_MACHINE_DATA_DIR
+        value: /var/data
+      - key: CONTENT_MACHINE_DB
+        value: /var/data/content_machine.db
+      - key: CONTENT_MACHINE_DRY_RUN
+        value: "false"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DATAFORSEO_LOGIN
+        sync: false
+      - key: DATAFORSEO_PASSWORD
+        sync: false
+      - key: DATAFORSEO_AUTH_BASE64
+        sync: false
+      - key: WP_BASE_URL
+        sync: false
+      - key: WP_USERNAME
+        sync: false
+      - key: WP_APP_PASSWORD
+        sync: false
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        sync: false
+      - key: GA4_PROPERTY_ID
+        sync: false
+      - key: GSC_SITE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: BANANA_MODEL
+        value: gemini-3.1-flash-image-preview
+      - key: BANANA_ASPECT_RATIO
+        value: "16:9"
+      - key: BANANA_RESOLUTION
+        value: 2K

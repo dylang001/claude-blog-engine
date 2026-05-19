@@ -1,0 +1,20 @@
+brand_name: "Example Brand"
+site_url: "https://example.com"
+audience: "B2B buyers looking for practical, evidence-backed guidance"
+products:
+  - "SEO content automation"
+  - "WordPress content operations"
+voice: "Clear, specific, practical, founder-led"
+competitors:
+  - "competitor-one.com"
+  - "competitor-two.com"
+forbidden_topics:
+  - "claims without evidence"
+cta: "Book a demo or read the related guide."
+timezone: "Africa/Johannesburg"
+publishing_slots:
+  - "09:00"
+  - "15:00"
+min_publish_score: 85
+min_draft_score: 70
+seo_plugin: "yoast"

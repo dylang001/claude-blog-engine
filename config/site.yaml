@@ -1,0 +1,49 @@
+brand_name: "MeetLyra"
+
+site_url: "https://blog.meetlyra.app"
+
+audience: "Startup founders, lean marketing teams, SaaS operators, agencies, and business owners who want to automate marketing strategy, content creation, SEO, social content, email campaigns, and campaign execution without managing multiple AI tools or hiring a full marketing team."
+
+products:
+  - "Autonomous AI Marketing Agent"
+  - "AI SEO and GEO Content Engine"
+  - "AI Campaign Planning and Execution System"
+  - "AI Social Content and Distribution Agent"
+  - "AI Blog, Email, and Marketing Asset Generator"
+
+voice: "Clear, specific, practical, founder-led, direct, strategic, and execution-focused. Avoid hype. Explain things like a smart operator building in public."
+
+competitors:
+  - "jasper.ai"
+  - "okara.ai"
+  - "enrichlabs.ai"
+  - "copy.ai"
+  - "surferseo.com"
+  - "writesonic.com"
+  - "anyword.com"
+  - "hubspot.com"
+  - "zapier.com"
+
+forbidden_topics:
+  - "Generic AI news with no relevance to marketing execution"
+  - "Crypto, gambling, adult content, political persuasion, or medical advice"
+  - "Low-quality AI prompt listicles"
+  - "Thin SEO content created only to rank"
+  - "Claims that MeetLyra fully replaces every marketer or agency"
+  - "Fake case studies, fake customer results, or unsupported statistics"
+  - "Overhyped AI claims such as guaranteed growth, instant rankings, or fully passive income"
+  - "Competitor attack pieces that are unfair, misleading, or legally risky"
+
+cta: "Try MeetLyra by entering your website URL and see how an autonomous AI marketing agent can turn it into a strategy, content plan, and execution system."
+
+timezone: "Africa/Johannesburg"
+
+publishing_slots:
+  - "09:00"
+  - "15:00"
+
+min_publish_score: 85
+
+min_draft_score: 70
+
+seo_plugin: "yoast"

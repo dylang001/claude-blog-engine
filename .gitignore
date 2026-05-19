@@ -9,3 +9,7 @@
 .claude/exports/
 CONTENT-PLAN.md
 blog-posts/
+.content-machine/
+.pytest_cache/
+__pycache__/
+*.pyc

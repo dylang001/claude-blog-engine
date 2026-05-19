@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ultimate-seo-content-machine"
+version = "0.1.0"
+description = "Autonomous SEO content worker for WordPress, Yoast, DataForSEO, GA4, and GSC."
+requires-python = ">=3.11"
+dependencies = [
+  "apscheduler>=3.10.4",
+  "httpx>=0.27.0",
+  "markdown>=3.6",
+  "python-dotenv>=1.0.1",
+  "pyyaml>=6.0.1",
+]
+
+[project.optional-dependencies]
+google = [
+  "google-api-python-client>=2.0.0",
+  "google-analytics-data>=0.18.0",
+  "google-auth>=2.0.0",
+  "google-auth-oauthlib>=1.2.0",
+]
+test = [
+  "pytest>=8.0.0",
+  "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+content-machine = "content_machine.cli:main"
+
+[tool.setuptools]
+packages = ["content_machine"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

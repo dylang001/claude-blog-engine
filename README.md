@@ -56,13 +56,14 @@ When you run `/blog-onboard` for the first time, it will automatically create a 
 # Required
 DATAFORSEO_LOGIN=your@email.com        # dataforseo.com — free trial
 DATAFORSEO_PASSWORD=yourpassword
+# Or set DATAFORSEO_AUTH_BASE64 with base64(login:password)
 ANTHROPIC_API_KEY=sk-ant-...           # console.anthropic.com
 
 # Optional — improve article quality
 FIRECRAWL_API_KEY=fc-...               # firecrawl.dev — better page scraping
 TAVILY_API_KEY=tvly-...                # tavily.com — deeper topic research
 YOUTUBE_API_KEY=AIza...                # console.cloud.google.com — video insights
-OPENAI_API_KEY=sk-...                  # platform.openai.com — DALL-E article images
+GEMINI_API_KEY=...                     # Google AI Studio — Banana Claude/Gemini article images
 ```
 
 Only `DATAFORSEO` + `ANTHROPIC` are required. Optional keys enhance `/blog-write` — it works fine without them.
@@ -145,9 +146,9 @@ Step 5  Article Generation — Claude Sonnet
         Full article in one shot following the outline exactly
         Image placeholders {{IMAGE_THUMBNAIL}} {{IMAGE_MID_ARTICLE}} embedded at spec'd positions
 
-Step 6  Image Generation — Claude Haiku + DALL-E 3
-        Haiku reads written content → generates DALL-E prompt + alt text
-        Both images generated in parallel, downloaded immediately
+Step 6  Image Generation — Banana Claude + Gemini image model
+        Content is converted into a 5-part creative prompt + alt text
+        Blog header image is generated and downloaded when GEMINI_API_KEY is set
 
 Step 7  Image placeholder replacement (code only)
 
@@ -174,7 +175,7 @@ All commands read/write `.claude/blog-config.json`. The pipeline tracks every qu
 | `.claude/exports/*.csv` | Full keyword dataset — open in Excel or Google Sheets |
 | `blog-posts/*/article.md` | Pure article, images embedded at correct positions |
 | `blog-posts/*/publish-kit.md` | Publishing checklist — meta, schema JSON, SEO checks |
-| `blog-posts/*/images/` | Thumbnail + mid-article images (requires `OPENAI_API_KEY`) |
+| `blog-posts/*/images/` | Thumbnail + mid-article images (requires `GEMINI_API_KEY`) |
 
 ## Market Targeting
 

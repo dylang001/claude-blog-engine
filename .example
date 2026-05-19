@@ -17,17 +17,8 @@ WP_APP_PASSWORD=xxxx xxxx xxxx xxxx xxxx xxxx
 
 # Required for setup-complete analytics/refresher mode
 GOOGLE_SERVICE_ACCOUNT_JSON=/absolute/path/to/google-service-account.json
-# Optional alternative when GSC/GA4 reject service-account emails:
-GOOGLE_OAUTH_CLIENT_SECRETS_JSON=/absolute/path/to/oauth-client-secret.json
-GOOGLE_OAUTH_TOKEN_JSON=.content-machine/google-oauth-token.json
 GA4_PROPERTY_ID=123456789
 GSC_SITE_URL=sc-domain:example.com
-PAGESPEED_API_KEY=
-
-# IndexNow notifications for Bing/Yandex/Naver/Seznam
-INDEXNOW_KEY=generate-a-32-character-hex-key
-INDEXNOW_KEY_LOCATION=https://example.com/indexnow-key.txt
-INDEXNOW_ENGINES=bing,yandex,seznam,indexnow
 
 # Worker/runtime
 CONTENT_MACHINE_SITE_CONFIG=config/site.yaml
@@ -40,10 +31,7 @@ ANTHROPIC_MODEL=claude-sonnet-4-5
 FIRECRAWL_API_KEY=           # better page scraping  (firecrawl.dev — free tier)
 TAVILY_API_KEY=              # deeper topic research  (tavily.com — free tier)
 YOUTUBE_API_KEY=             # video insights         (console.cloud.google.com)
-
-# Optional — Banana Claude / Gemini article images
-GEMINI_API_KEY=
+GEMINI_API_KEY=              # Banana Claude/Gemini article images
 BANANA_MODEL=gemini-3.1-flash-image-preview
 BANANA_ASPECT_RATIO=16:9
 BANANA_RESOLUTION=2K
-BANANA_STYLE_PROMPT=Pixar-meets-reality cinematic 3D realism: warm expressive original characters, real SaaS workspace lighting, tactile product interfaces, and a subtle Lyra AI operator presence that represents the software without using logos or readable text.
