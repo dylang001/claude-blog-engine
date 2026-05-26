@@ -9,7 +9,7 @@ import httpx
 from .content_optimizer import optimize_content
 from .config import Settings
 from .models import AuditReport, GeneratedContent, Opportunity
-from .utils import excerpt, markdown_to_html, slugify
+from .utils import excerpt, markdown_to_html, repair_json_quotes, slugify
 
 
 class ContentWriter:
@@ -185,11 +185,12 @@ Current content JSON: {json.dumps(content.__dict__, default=str)[:12000]}
 """
 
     def _parse_json(self, text: str) -> dict[str, Any]:
-        start = text.find("{")
-        end = text.rfind("}")
+        repaired_text = repair_json_quotes(text)
+        start = repaired_text.find("{")
+        end = repaired_text.rfind("}")
         if start == -1 or end == -1:
             raise ValueError("No JSON object found")
-        json_str = text[start : end + 1]
+        json_str = repaired_text[start : end + 1]
         try:
             return json.loads(json_str, strict=False)
         except json.JSONDecodeError as exc:

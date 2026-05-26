@@ -45,3 +45,61 @@ def excerpt(text: str, limit: int = 155) -> str:
     truncated = clean[: limit - 1].rsplit(" ", 1)[0]
     return truncated.rstrip(".,;:!? ") + "..."
 
+
+def repair_json_quotes(text: str) -> str:
+    """Repair unescaped double quotes inside JSON string values.
+    Uses a state machine to distinguish structural JSON quotes from
+    unescaped literal quotes inside values.
+    """
+    start = text.find('{')
+    end = text.rfind('}')
+    if start == -1 or end == -1:
+        return text
+
+    json_str = text[start:end+1]
+    repaired = []
+
+    state = "STRUCTURAL"
+    i = 0
+    length = len(json_str)
+
+    while i < length:
+        char = json_str[i]
+
+        if state == "STRUCTURAL":
+            if char == '"':
+                state = "STRING"
+                repaired.append(char)
+            else:
+                repaired.append(char)
+            i += 1
+        elif state == "STRING":
+            if char == '\\':
+                if i + 1 < length:
+                    repaired.append(json_str[i:i+2])
+                    i += 2
+                else:
+                    repaired.append(char)
+                    i += 1
+            elif char == '"':
+                next_non_ws = None
+                look_ahead = i + 1
+                while look_ahead < length:
+                    next_char = json_str[look_ahead]
+                    if not next_char.isspace():
+                        next_non_ws = next_char
+                        break
+                    look_ahead += 1
+
+                if next_non_ws in (':', ',', '}', ']'):
+                    state = "STRUCTURAL"
+                    repaired.append(char)
+                else:
+                    repaired.append('\\"')
+                i += 1
+            else:
+                repaired.append(char)
+                i += 1
+
+    return text[:start] + "".join(repaired) + text[end+1:]
+

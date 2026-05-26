@@ -17,7 +17,7 @@ import httpx
 from .content_optimizer import optimize_content
 from .config import Settings
 from .models import AuditReport, GeneratedContent, Opportunity
-from .utils import excerpt, markdown_to_html, slugify
+from .utils import excerpt, markdown_to_html, slugify, repair_json_quotes
 
 logger = logging.getLogger("content_machine.gemini_writer")
 
@@ -162,12 +162,13 @@ Current content JSON: {json.dumps(content.__dict__, default=str)[:12000]}
 """
 
     def _parse_json(self, text: str) -> dict[str, Any]:
-        start = text.find("{")
-        end = text.rfind("}")
+        repaired_text = repair_json_quotes(text)
+        start = repaired_text.find("{")
+        end = repaired_text.rfind("}")
         if start == -1 or end == -1:
             raise ValueError(f"No JSON object found in Gemini response. Got: {text[:500]}")
         try:
-            return json.loads(text[start: end + 1], strict=False)
+            return json.loads(repaired_text[start: end + 1], strict=False)
         except json.JSONDecodeError as exc:
             try:
                 debug_path = self.settings.data_dir / "gemini_failed_json_raw.txt"
