@@ -24,16 +24,18 @@ services:
         value: /var/data/content_machine.db
       - key: CONTENT_MACHINE_DRY_RUN
         value: "false"
+      - key: CONTENT_MACHINE_SITE_CONFIG
+        value: config/site.yaml
       # ---- AI Providers ----
       - key: ANTHROPIC_API_KEY
-        sync: false
-      - key: GEMINI_API_KEY
         sync: false
       - key: ANTHROPIC_MODEL
         value: claude-sonnet-4-5
       # ---- Gemini (images + writing fallback) ----
       - key: GEMINI_API_KEY
         sync: false
+      - key: GEMINI_MODEL
+        value: "gemini-2.5-pro"
       - key: GEMINI_WRITING_MODEL
         value: "gemini-2.5-pro-preview-05-06"
       # ---- DataForSEO ----
@@ -42,6 +44,8 @@ services:
       - key: DATAFORSEO_PASSWORD
         sync: false
       - key: DATAFORSEO_AUTH_BASE64
+        sync: false
+      - key: DATAFORSEO_BASE_64
         sync: false
       # ---- WordPress ----
       - key: WP_BASE_URL
@@ -77,8 +81,15 @@ services:
         value: "16:9"
       - key: BANANA_RESOLUTION
         value: 2K
+      - key: BANANA_STYLE_PROMPT
+        value: "Premium editorial photography: clean realistic scenes, natural lighting, shot on Sony A7R IV with an 85mm f/1.4 lens, shallow depth of field, and a modern professional magazine aesthetic (like WIRED or Fast Company). Relatable real-world references, clear visual story, no illustration, no 3D renders, no Pixar styles."
       # ---- Firecrawl (content research) ----
       - key: FIRECRAWL_API_KEY
+        sync: false
+      # ---- Optional AI & Research Fallbacks ----
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: YOUTUBE_API_KEY
         sync: false
       # ---- SMTP (daily + monthly reports) ----
       - key: SMTP_HOST
@@ -87,11 +98,22 @@ services:
         sync: false
       - key: SMTP_USER
         sync: false
+      - key: SMTP_USERNAME
+        sync: false
       - key: SMTP_PASSWORD
         sync: false
       - key: SMTP_FROM
         sync: false
       - key: SMTP_TO
+        sync: false
+      # ---- IMAP (Inbox monitoring reply scan) ----
+      - key: IMAP_HOST
+        sync: false
+      - key: IMAP_PORT
+        sync: false
+      - key: IMAP_USERNAME
+        sync: false
+      - key: IMAP_PASSWORD
         sync: false
       # ---- Knowledge Graph ----
       - key: SUPERMEMORY_API_KEY
@@ -130,6 +152,15 @@ services:
         sync: false
       # ---- Research ----
       - key: EXA_API_KEY
+        sync: false
+      # ---- Outreach Integration ----
+      - key: OUTREACH_CLIENT_ID
+        sync: false
+      - key: OUTREACH_CLIENT_SECRET
+        sync: false
+      - key: OUTREACH_REDIRECT_URI
+        sync: false
+      - key: NEXT_PUBLIC_SITE_URL
         sync: false
       # ---- SMTP Outbound ----
       - key: SMTP_HOST

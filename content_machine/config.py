@@ -83,6 +83,8 @@ class Settings:
     outbound_email_agent_url: str = "http://localhost:3000"
     supermemory_api_key: str = ""
     open_seo_url: str = ""
+    tavily_api_key: str = ""
+    youtube_api_key: str = ""
 
     def missing_required(self) -> list[str]:
         required = {
@@ -156,7 +158,7 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         ga4_property_id=os.getenv("GA4_PROPERTY_ID", ""),
         gsc_site_url=os.getenv("GSC_SITE_URL", ""),
         gemini_api_key=os.getenv("GEMINI_API_KEY", os.getenv("GOOGLE_AI_API_KEY", os.getenv("GOOGLE_API_KEY", ""))),
-        gemini_writing_model=os.getenv("GEMINI_WRITING_MODEL", "gemini-2.5-pro-preview-05-06"),
+        gemini_writing_model=os.getenv("GEMINI_WRITING_MODEL", os.getenv("GEMINI_MODEL", "gemini-2.5-pro-preview-05-06")),
         banana_model=os.getenv("BANANA_MODEL", "gemini-3.1-flash-image-preview"),
         banana_aspect_ratio=os.getenv("BANANA_ASPECT_RATIO", "16:9"),
         banana_resolution=os.getenv("BANANA_RESOLUTION", "2K"),
@@ -182,5 +184,7 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         outbound_email_agent_url=os.getenv("OUTBOUND_EMAIL_AGENT_URL", "http://localhost:3000"),
         supermemory_api_key=os.getenv("SUPERMEMORY_API_KEY", ""),
         open_seo_url=os.getenv("OPEN_SEO_URL", ""),
+        tavily_api_key=os.getenv("TAVILY_API_KEY", ""),
+        youtube_api_key=os.getenv("YOUTUBE_API_KEY", ""),
     )
 

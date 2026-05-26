@@ -107,11 +107,12 @@ class ContentMachine:
 
                     # --- IndexNow: notify Bing, Yandex, Seznam, IndexNow network ---
                     indexnow_results = await self.indexnow.submit([wordpress_url])
-                    for r in indexnow_results:
-                        if r.success:
-                            _pl.info("IndexNow: %s submitted to %s (%d)", wordpress_url, r.engine, r.status)
-                        else:
-                            _pl.warning("IndexNow: %s failed for %s — %s", r.engine, wordpress_url, r.message)
+                    if indexnow_results:
+                        for r in indexnow_results:
+                            if r.success:
+                                _pl.info("IndexNow: %s submitted to %s (%d)", wordpress_url, r.engine, r.status)
+                            else:
+                                _pl.warning("IndexNow: %s failed for %s — %s", r.engine, wordpress_url, r.message)
 
                     # --- Google Indexing API: notify Google directly ---
                     try:
