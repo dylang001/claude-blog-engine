@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "steps": {
+    "node_modules/.pnpm/workflow@4.2.0-beta.74_@nestjs+common@11.1.17_reflect-metadata@0.2.2_rxjs@7.8.2__@nestj_fd66249ef8e8c0e0ca6f82c4e7e530a4/node_modules/workflow/dist/stdlib.js": {
+      "fetch": {
+        "stepId": "step//workflow@4.2.0-beta.74//fetch"
+      }
+    },
+    "node_modules/.pnpm/workflow@4.2.0-beta.74_@nestjs+common@11.1.17_reflect-metadata@0.2.2_rxjs@7.8.2__@nestj_fd66249ef8e8c0e0ca6f82c4e7e530a4/node_modules/workflow/dist/internal/builtins.js": {
+      "__builtin_response_array_buffer": {
+        "stepId": "__builtin_response_array_buffer"
+      },
+      "__builtin_response_json": {
+        "stepId": "__builtin_response_json"
+      },
+      "__builtin_response_text": {
+        "stepId": "__builtin_response_text"
+      }
+    },
+    "workflows/process-contact.ts": {
+      "stepAddToSequence": {
+        "stepId": "step//./workflows/process-contact//stepAddToSequence"
+      },
+      "stepGenerateEmail": {
+        "stepId": "step//./workflows/process-contact//stepGenerateEmail"
+      },
+      "stepLoadContactAndCampaign": {
+        "stepId": "step//./workflows/process-contact//stepLoadContactAndCampaign"
+      },
+      "stepMarkFailed": {
+        "stepId": "step//./workflows/process-contact//stepMarkFailed"
+      },
+      "stepResearchCompany": {
+        "stepId": "step//./workflows/process-contact//stepResearchCompany"
+      },
+      "stepResearchPerson": {
+        "stepId": "step//./workflows/process-contact//stepResearchPerson"
+      },
+      "stepSaveEmail": {
+        "stepId": "step//./workflows/process-contact//stepSaveEmail"
+      },
+      "stepSaveProspectId": {
+        "stepId": "step//./workflows/process-contact//stepSaveProspectId"
+      },
+      "stepSaveResearch": {
+        "stepId": "step//./workflows/process-contact//stepSaveResearch"
+      },
+      "stepSetProspectFields": {
+        "stepId": "step//./workflows/process-contact//stepSetProspectFields"
+      },
+      "stepUpdateStatus": {
+        "stepId": "step//./workflows/process-contact//stepUpdateStatus"
+      },
+      "stepUpsertProspect": {
+        "stepId": "step//./workflows/process-contact//stepUpsertProspect"
+      }
+    }
+  },
+  "workflows": {
+    "workflows/process-contact.ts": {
+      "processContactWorkflow": {
+        "workflowId": "workflow//./workflows/process-contact//processContactWorkflow",
+        "graph": {
+          "nodes": [
+            {
+              "id": "start",
+              "type": "workflowStart",
+              "data": {
+                "label": "Start: processContactWorkflow",
+                "nodeKind": "workflow_start"
+              }
+            },
+            {
+              "id": "end",
+              "type": "workflowEnd",
+              "data": {
+                "label": "Return",
+                "nodeKind": "workflow_end"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "e_start_end",
+              "source": "start",
+              "target": "end",
+              "type": "default"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "classes": {}
+}

@@ -1,0 +1,6 @@
+{
+  "apphosting": {
+    "backendId": "outbound-email-agent",
+    "rootDir": "./"
+  }
+}

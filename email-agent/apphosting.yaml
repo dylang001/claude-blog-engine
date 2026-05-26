@@ -1,0 +1,37 @@
+# apphosting.yaml
+# Configuration for deploying the outbound-email-agent on Firebase App Hosting
+
+runConfig:
+  cpu: 1
+  memoryMiB: 1024
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+
+env:
+  - variable: DATABASE_URL
+    secret: databaseUrl
+  - variable: ANTHROPIC_API_KEY
+    secret: anthropicApiKey
+  - variable: EXA_API_KEY
+    secret: exaApiKey
+  - variable: SMTP_HOST
+    value: mail.spacemail.com
+  - variable: SMTP_PORT
+    value: "465"
+  - variable: SMTP_USERNAME
+    value: contact@meetlyra.app
+  - variable: SMTP_USER
+    value: contact@meetlyra.app
+  - variable: SMTP_PASSWORD
+    secret: smtpPassword
+  - variable: SMTP_FROM
+    value: contact@meetlyra.app
+  - variable: IMAP_HOST
+    value: imap.spacemail.com
+  - variable: IMAP_PORT
+    value: "993"
+  - variable: IMAP_USERNAME
+    value: contact@meetlyra.app
+  - variable: IMAP_PASSWORD
+    secret: imapPassword
