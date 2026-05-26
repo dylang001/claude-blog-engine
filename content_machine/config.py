@@ -80,6 +80,8 @@ class Settings:
     imap_username: str = ""
     imap_password: str = ""
     outbound_email_agent_url: str = "http://localhost:3000"
+    supermemory_api_key: str = ""
+    open_seo_url: str = ""
 
     def missing_required(self) -> list[str]:
         required = {
@@ -176,4 +178,7 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         imap_username=os.getenv("IMAP_USERNAME", os.getenv("IMAP_USER", os.getenv("SMTP_USERNAME", os.getenv("SMTP_USER", "")))),
         imap_password=os.getenv("IMAP_PASSWORD", os.getenv("SMTP_PASSWORD", "")),
         outbound_email_agent_url=os.getenv("OUTBOUND_EMAIL_AGENT_URL", "http://localhost:3000"),
+        supermemory_api_key=os.getenv("SUPERMEMORY_API_KEY", ""),
+        open_seo_url=os.getenv("OPEN_SEO_URL", ""),
     )
+

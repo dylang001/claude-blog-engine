@@ -1,4 +1,10 @@
 services:
+  # ===========================================================================
+  # Python Background Worker — content_machine
+  # Handles: article generation, publishing, SuperMemory sync,
+  #          Google Indexing API, IndexNow, outreach triggering,
+  #          weekly SEO audits, monthly reports
+  # ===========================================================================
   - type: worker
     name: ultimate-seo-content-machine
     runtime: python
@@ -11,48 +17,102 @@ services:
       mountPath: /var/data
       sizeGB: 1
     envVars:
+      # ---- Paths ----
       - key: CONTENT_MACHINE_DATA_DIR
         value: /var/data
       - key: CONTENT_MACHINE_DB
         value: /var/data/content_machine.db
       - key: CONTENT_MACHINE_DRY_RUN
         value: "false"
+      # ---- AI Providers ----
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-4-5
+      # ---- DataForSEO ----
       - key: DATAFORSEO_LOGIN
         sync: false
       - key: DATAFORSEO_PASSWORD
         sync: false
       - key: DATAFORSEO_AUTH_BASE64
         sync: false
+      # ---- WordPress ----
       - key: WP_BASE_URL
         sync: false
       - key: WP_USERNAME
         sync: false
       - key: WP_APP_PASSWORD
         sync: false
+      # ---- Google (GSC + GA4 + Indexing API) ----
       - key: GOOGLE_SERVICE_ACCOUNT_JSON
         sync: false
+      - key: GOOGLE_OAUTH_CLIENT_SECRETS_JSON
+        sync: false
+      - key: GOOGLE_OAUTH_TOKEN_JSON
+        value: /var/data/google-oauth-token.json
       - key: GA4_PROPERTY_ID
         sync: false
       - key: GSC_SITE_URL
         sync: false
-      - key: GEMINI_API_KEY
+      - key: PAGESPEED_API_KEY
         sync: false
+      # ---- IndexNow (Bing, Yandex, Seznam, IndexNow network) ----
+      - key: INDEXNOW_KEY
+        sync: false
+      - key: INDEXNOW_KEY_LOCATION
+        sync: false
+      - key: INDEXNOW_ENGINES
+        value: "bing,yandex,seznam,indexnow"
+      # ---- Image Generation ----
       - key: BANANA_MODEL
         value: gemini-3.1-flash-image-preview
       - key: BANANA_ASPECT_RATIO
         value: "16:9"
       - key: BANANA_RESOLUTION
         value: 2K
+      # ---- Firecrawl (content research) ----
+      - key: FIRECRAWL_API_KEY
+        sync: false
+      # ---- SMTP (daily + monthly reports) ----
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: SMTP_TO
+        sync: false
+      # ---- Knowledge Graph ----
+      - key: SUPERMEMORY_API_KEY
+        sync: false
+      # ---- Next.js Email Agent (Render service URL) ----
       - key: OUTBOUND_EMAIL_AGENT_URL
+        fromService:
+          name: outbound-email-agent
+          type: web
+          property: host
+          envVarKey: RENDER_EXTERNAL_URL
+      # ---- OpenSEO Cloud Run ----
+      - key: OPEN_SEO_URL
         sync: false
 
+  # ===========================================================================
+  # Next.js Web App — outbound-email-agent (email-agent/)
+  # Handles: outreach campaign management UI, SMTP send queue,
+  #          IMAP reply scanning, SuperMemory log sync
+  # ===========================================================================
   - type: web
     name: outbound-email-agent
     runtime: node
     region: oregon
     plan: starter
+    rootDir: email-agent
     buildCommand: pnpm install && pnpm db:push && pnpm build
     startCommand: pnpm start
     envVars:
@@ -60,13 +120,18 @@ services:
         fromDatabase:
           name: outbound-email-agent-db
           property: connectionString
+      # ---- AI Provider ----
       - key: ANTHROPIC_API_KEY
         sync: false
+      # ---- Research ----
       - key: EXA_API_KEY
         sync: false
+      # ---- SMTP Outbound ----
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
         sync: false
       - key: SMTP_USERNAME
         sync: false
@@ -74,6 +139,7 @@ services:
         sync: false
       - key: SMTP_FROM
         sync: false
+      # ---- IMAP Inbox Monitoring ----
       - key: IMAP_HOST
         sync: false
       - key: IMAP_PORT
@@ -82,7 +148,16 @@ services:
         sync: false
       - key: IMAP_PASSWORD
         sync: false
+      # ---- Knowledge Graph ----
+      - key: SUPERMEMORY_API_KEY
+        sync: false
+      # ---- Production mode: real emails, no test redirect ----
+      - key: OUTBOUND_TEST_MODE
+        value: "false"
 
+# ===========================================================================
+# PostgreSQL Database for outbound-email-agent
+# ===========================================================================
 databases:
   - name: outbound-email-agent-db
     databaseName: email_agent

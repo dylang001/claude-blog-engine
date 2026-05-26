@@ -4,6 +4,7 @@ import { contacts, campaigns, outreachLogs } from '@/db/schema';
 import { eq, and, lte, or, inArray } from 'drizzle-orm';
 import { sendEmail } from '@/lib/email/smtp';
 import { checkInboxReplies } from '@/lib/email/imap';
+import { pushOutreachLog } from '@/lib/supermemory';
 
 export const dynamic = 'force-dynamic';
 
@@ -96,6 +97,12 @@ async function handleCron() {
             body: reply.body,
             timestamp: reply.date,
           });
+
+          try {
+            await pushOutreachLog(reply.fromEmail, reply.subject, reply.body, 'inbound', newStatus);
+          } catch (smErr) {
+            console.error('[Cron Outreach] Failed to push inbound reply to SuperMemory:', smErr);
+          }
 
           repliesCount++;
         }
@@ -268,6 +275,12 @@ async function handleCron() {
           body: mailText,
           timestamp: now,
         });
+
+        try {
+          await pushOutreachLog(contact.email, subject, body, 'outbound', nextStatus);
+        } catch (smErr) {
+          console.error(`[Cron Outreach] Failed to push outbound email to SuperMemory for ${contact.email}:`, smErr);
+        }
 
         sentCount++;
       } catch (sendErr) {

@@ -11,12 +11,14 @@ from .config import Settings
 from .data_sources import OpportunityCollector
 from .images import BananaImageGenerator
 from .indexnow import IndexNowClient
+from .indexing import GoogleIndexingClient
 from .models import PipelineResult, PublishDecision
 from .research import ResearchEngine
 from .scoring import choose_opportunity
 from .seo_audit import SEOAuditEngine
 from .state import StateStore
 from .wordpress import WordPressClient
+from .supermemory import SuperMemoryClient
 
 
 class ContentMachine:
@@ -30,6 +32,8 @@ class ContentMachine:
         self.auditor = SEOAuditEngine(settings)
         self.wordpress = WordPressClient(settings)
         self.indexnow = IndexNowClient(settings)
+        self.google_indexing = GoogleIndexingClient(settings)
+        self.supermemory = SuperMemoryClient(settings)
 
     async def run_once(self, dry_run: bool | None = None) -> PipelineResult:
         started_at = datetime.now(timezone.utc).isoformat()
@@ -41,6 +45,18 @@ class ContentMachine:
             opportunity = choose_opportunity(candidates, self.store.seen_keywords())
             research = await self.researcher.brief(opportunity)
             research = await self._enrich_research_with_internal_links(research)
+            
+            try:
+                import logging
+                pipeline_logger = logging.getLogger("content_machine.pipeline")
+                pipeline_logger.info("Searching SuperMemory for query: %s", opportunity.keyword)
+                sm_results = await self.supermemory.search_memory(opportunity.keyword, limit=5)
+                research["supermemory_context"] = sm_results
+            except Exception as sm_exc:
+                import logging
+                pipeline_logger = logging.getLogger("content_machine.pipeline")
+                pipeline_logger.error("Failed to query SuperMemory during research: %s", sm_exc)
+
             content = await self.writer.generate(opportunity, research)
             content = optimize_content(content, opportunity)
             content = await validate_and_sanitize_content_images(content, self.settings)
@@ -84,7 +100,33 @@ class ContentMachine:
                 if not wordpress_url and isinstance(wp_response.get("guid"), dict):
                     wordpress_url = wp_response["guid"].get("rendered")
                 if wordpress_status == "publish" and wordpress_url:
-                    await self.indexnow.submit([wordpress_url])
+                    import logging as _log
+                    _pl = _log.getLogger("content_machine.pipeline")
+
+                    # --- IndexNow: notify Bing, Yandex, Seznam, IndexNow network ---
+                    indexnow_results = await self.indexnow.submit([wordpress_url])
+                    for r in indexnow_results:
+                        if r.success:
+                            _pl.info("IndexNow: %s submitted to %s (%d)", wordpress_url, r.engine, r.status)
+                        else:
+                            _pl.warning("IndexNow: %s failed for %s — %s", r.engine, wordpress_url, r.message)
+
+                    # --- Google Indexing API: notify Google directly ---
+                    try:
+                        google_result = await self.google_indexing.notify(wordpress_url, action="URL_UPDATED")
+                        if google_result["success"]:
+                            _pl.info("Google Indexing API: URL_UPDATED submitted for %s", wordpress_url)
+                        else:
+                            _pl.warning("Google Indexing API: %s — %s", wordpress_url, google_result.get("error"))
+                    except Exception as gi_exc:
+                        _pl.error("Google Indexing API exception for %s: %s", wordpress_url, gi_exc)
+
+                    # --- SuperMemory: ingest full article for knowledge graph ---
+                    try:
+                        await self.supermemory.push_post(content.slug, content.title, wordpress_url, content.body)
+                        _pl.info("SuperMemory: article '%s' ingested.", content.slug)
+                    except Exception as sm_exc:
+                        _pl.error("SuperMemory: push failed for %s — %s", content.slug, sm_exc)
                 self.store.mark_published(
                     key=f"{opportunity.kind.value}:{content.slug}",
                     kind=opportunity.kind.value,
