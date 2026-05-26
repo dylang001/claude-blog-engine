@@ -1,7 +1,7 @@
 ---
 description: Keyword research, clustering, opportunity scoring, and Week 1 topic selection (10 topics)
 argument-hint: [us|uk|in|au|ca|de|sg]
-allowed-tools: Bash WebFetch Read Write
+allowed-tools: Bash WebFetch Read Write keyword-research keyword-clustering competitive-landscape competitor-analysis link-prospecting seo-coach onboarding-checklist
 ---
 
 You are running the Blog Engine keyword research and topic clustering flow. This produces the full keyword universe your business should target, organized into content clusters with opportunity scores, and selects 10 topics for the user to write this week.

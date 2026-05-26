@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "competitive-landscape": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/competitive-landscape/SKILL.md",
+      "computedHash": "044aba83ebb31b0415ca17d1d1595c6fff7263f07ffb8dc7b7e2862144b8cf97"
+    },
+    "competitor-analysis": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/competitor-analysis/SKILL.md",
+      "computedHash": "caa1b9bec627870ccf7953a54b80c9f2cc5c70ddd52b2e95f6fff25344d1ff59"
+    },
+    "keyword-clustering": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/keyword-clustering/SKILL.md",
+      "computedHash": "149347f716071b654cb3302aebbe5ab134ec2a1ae33f3327731e3c5fd89812ee"
+    },
+    "keyword-research": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/keyword-research/SKILL.md",
+      "computedHash": "a6e888ed505c43b2a1be42ba8e1422c83259c29ce2db0877def81422d68c4c63"
+    },
+    "link-prospecting": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/link-prospecting/SKILL.md",
+      "computedHash": "58d7da90ac51d0e7886cd5d2e3fac9331dfc53a2fc8070dac28fd17b09007eea"
+    },
+    "onboarding-checklist": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/onboarding-checklist/SKILL.md",
+      "computedHash": "e7429c397eaa04b5eab646f6533bf10eeea360609f09c9ca97f8d04f972f486a"
+    },
+    "seo-coach": {
+      "source": "every-app/open-seo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/seo-coach/SKILL.md",
+      "computedHash": "426bd19d9e1c977bda132d6b289ba53b1672d402bb617416c3be33162f8d5197"
+    }
+  }
+}

@@ -24,10 +24,10 @@ def test_banana_prompt_uses_lyra_house_style(tmp_path):
         image_alt_text="AI marketing agent workflow",
     )
 
-    prompt = BananaImageGenerator(_settings(tmp_path))._banana_prompt(content)
+    prompt = BananaImageGenerator(_settings(tmp_path))._build_banana_prompt(content.title, content.image_prompt)
 
-    assert "Pixar-meets-reality cinematic 3D realism" in prompt
-    assert "Lyra AI operator" in prompt
+    assert "Premium editorial photography" in prompt
     assert "no readable text" in prompt.lower()
     assert "no logos" in prompt.lower()
-    assert "copied characters" in prompt.lower()
+    assert "completely text-free" in prompt.lower()
+    assert "no illustration" in prompt.lower()

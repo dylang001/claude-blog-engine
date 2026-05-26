@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from datetime import datetime, timezone
 
 from .anthropic_writer import ContentWriter
-from .content_optimizer import optimize_content
+from .content_optimizer import optimize_content, validate_and_sanitize_content_images
 from .config import Settings
 from .data_sources import OpportunityCollector
 from .images import BananaImageGenerator
@@ -36,78 +36,110 @@ class ContentMachine:
         run_id = str(uuid.uuid4())
         is_dry_run = self.settings.dry_run_default if dry_run is None else dry_run
 
-        candidates = await self.collector.collect()
-        opportunity = choose_opportunity(candidates, self.store.seen_keywords())
-        research = await self.researcher.brief(opportunity)
-        research = await self._enrich_research_with_internal_links(research)
-        content = await self.writer.generate(opportunity, research)
-        content = optimize_content(content, opportunity)
-        content = await self.images.maybe_generate(content, run_id)
-        audit = self.auditor.audit(content, opportunity, research)
-        best_content = content
-        best_audit = audit
-        repair_attempts = 0
-        while audit.decision != PublishDecision.PUBLISH and audit.details.get("repairable", True) and repair_attempts < 2:
-            repair_attempts += 1
-            candidate_content = await self.writer.repair(content, opportunity, research, audit)
-            candidate_content = optimize_content(candidate_content, opportunity)
-            candidate_content = await self.images.maybe_generate(candidate_content, run_id)
-            candidate_audit = self.auditor.audit(candidate_content, opportunity, research)
-            content = candidate_content
-            audit = candidate_audit
-            if _is_better_audit(candidate_audit, best_audit):
-                best_content = candidate_content
-                best_audit = candidate_audit
+        try:
+            candidates = await self.collector.collect()
+            opportunity = choose_opportunity(candidates, self.store.seen_keywords())
+            research = await self.researcher.brief(opportunity)
+            research = await self._enrich_research_with_internal_links(research)
+            content = await self.writer.generate(opportunity, research)
+            content = optimize_content(content, opportunity)
+            content = await validate_and_sanitize_content_images(content, self.settings)
+            content = await self.images.maybe_generate(content, run_id)
+            audit = self.auditor.audit(content, opportunity, research)
+            best_content = content
+            best_audit = audit
+            repair_attempts = 0
+            while audit.decision != PublishDecision.PUBLISH and audit.details.get("repairable", True) and repair_attempts < 2:
+                repair_attempts += 1
+                candidate_content = await self.writer.repair(content, opportunity, research, audit)
+                candidate_content = optimize_content(candidate_content, opportunity)
+                candidate_content = await validate_and_sanitize_content_images(candidate_content, self.settings)
+                candidate_content = await self.images.maybe_generate(candidate_content, run_id)
+                candidate_audit = self.auditor.audit(candidate_content, opportunity, research)
+                content = candidate_content
+                audit = candidate_audit
+                if _is_better_audit(candidate_audit, best_audit):
+                    best_content = candidate_content
+                    best_audit = candidate_audit
 
-        content = best_content
-        audit = best_audit
+            content = best_content
+            audit = best_audit
 
-        wordpress_status = "dry_run"
-        wordpress_id = None
-        wordpress_url = None
-        if not is_dry_run and audit.decision != PublishDecision.BLOCK:
-            existing_post_id = opportunity.post_id if opportunity.kind.value == "refresh" else None
-            existing_post = None
-            if existing_post_id is None:
-                existing_post = await self.wordpress.find_post_by_slug(content.slug)
-                existing_post_id = existing_post.get("id") if existing_post else None
-            if audit.decision == PublishDecision.DRAFT and existing_post and existing_post.get("status") == "publish":
-                existing_post_id = None
-                content = replace(content, slug=f"{content.slug}-draft-{run_id[:8]}")
-            wp_response = await self.wordpress.upsert_post(content, audit.decision, existing_post_id)
-            wordpress_status = wp_response.get("status", audit.decision.value)
-            wordpress_id = wp_response.get("id")
-            wordpress_url = wp_response.get("link")
-            if not wordpress_url and isinstance(wp_response.get("guid"), dict):
-                wordpress_url = wp_response["guid"].get("rendered")
-            if wordpress_status == "publish" and wordpress_url:
-                await self.indexnow.submit([wordpress_url])
-            self.store.mark_published(
-                key=f"{opportunity.kind.value}:{content.slug}",
-                kind=opportunity.kind.value,
-                keyword=opportunity.keyword,
+            wordpress_status = "dry_run"
+            wordpress_id = None
+            wordpress_url = None
+            if not is_dry_run and audit.decision != PublishDecision.BLOCK:
+                existing_post_id = opportunity.post_id if opportunity.kind.value == "refresh" else None
+                existing_post = None
+                if existing_post_id is None:
+                    existing_post = await self.wordpress.find_post_by_slug(content.slug)
+                    existing_post_id = existing_post.get("id") if existing_post else None
+                if audit.decision == PublishDecision.DRAFT and existing_post and existing_post.get("status") == "publish":
+                    existing_post_id = None
+                    content = replace(content, slug=f"{content.slug}-draft-{run_id[:8]}")
+                wp_response = await self.wordpress.upsert_post(content, audit.decision, existing_post_id)
+                wordpress_status = wp_response.get("status", audit.decision.value)
+                wordpress_id = wp_response.get("id")
+                wordpress_url = wp_response.get("link")
+                if not wordpress_url and isinstance(wp_response.get("guid"), dict):
+                    wordpress_url = wp_response["guid"].get("rendered")
+                if wordpress_status == "publish" and wordpress_url:
+                    await self.indexnow.submit([wordpress_url])
+                self.store.mark_published(
+                    key=f"{opportunity.kind.value}:{content.slug}",
+                    kind=opportunity.kind.value,
+                    keyword=opportunity.keyword,
+                    run_id=run_id,
+                    updated_at=datetime.now(timezone.utc).isoformat(),
+                    wordpress_id=wordpress_id,
+                    wordpress_url=wordpress_url,
+                )
+                # Auto-trigger outreach campaign for the new article
+                try:
+                    import logging
+                    from .outreach_agent import OutreachAgent
+                    pipeline_logger = logging.getLogger("content_machine.pipeline")
+                    pipeline_logger.info("Auto-triggering cold email outreach campaign for slug %s...", content.slug)
+                    outreach = OutreachAgent(self.settings)
+                    await outreach.generate_campaign_for_post(content.slug)
+                except Exception as outreach_exc:
+                    import logging
+                    pipeline_logger = logging.getLogger("content_machine.pipeline")
+                    pipeline_logger.error("Failed to auto-trigger outreach campaign for post %s: %s", content.slug, outreach_exc)
+            elif audit.decision == PublishDecision.BLOCK:
+                wordpress_status = "blocked"
+
+            result = PipelineResult(
                 run_id=run_id,
-                updated_at=datetime.now(timezone.utc).isoformat(),
+                dry_run=is_dry_run,
+                opportunity=opportunity,
+                audit=audit,
+                content=content,
+                wordpress_status=wordpress_status,
                 wordpress_id=wordpress_id,
                 wordpress_url=wordpress_url,
             )
-        elif audit.decision == PublishDecision.BLOCK:
-            wordpress_status = "blocked"
-
-        result = PipelineResult(
-            run_id=run_id,
-            dry_run=is_dry_run,
-            opportunity=opportunity,
-            audit=audit,
-            content=content,
-            wordpress_status=wordpress_status,
-            wordpress_id=wordpress_id,
-            wordpress_url=wordpress_url,
-        )
-        payload = json.loads(json.dumps(asdict(result), default=str))
-        payload["finished_at"] = datetime.now(timezone.utc).isoformat()
-        self.store.save_run(run_id, started_at, payload)
-        return result
+            payload = json.loads(json.dumps(asdict(result), default=str))
+            payload["finished_at"] = datetime.now(timezone.utc).isoformat()
+            self.store.save_run(run_id, started_at, payload)
+            return result
+        except Exception as exc:
+            payload = {
+                "run_id": run_id,
+                "dry_run": is_dry_run,
+                "wordpress_status": "failed",
+                "error": str(exc),
+                "finished_at": datetime.now(timezone.utc).isoformat(),
+            }
+            try:
+                if "opportunity" in locals():
+                    payload["opportunity"] = asdict(opportunity)
+                if "audit" in locals():
+                    payload["audit"] = asdict(audit)
+            except Exception:
+                pass
+            self.store.save_run(run_id, started_at, payload)
+            raise exc
 
     async def _enrich_research_with_internal_links(self, research: dict) -> dict:
         enriched = dict(research or {})

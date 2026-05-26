@@ -102,27 +102,39 @@ title, slug, markdown, meta_title, meta_description, focus_keyphrase,
 excerpt, tags array, categories array, schema_json object, image_prompt,
 image_alt_text, rich_blocks array.
 
-Rules:
-- Write publish-ready long-form Markdown.
-- Do NOT include a Markdown H1 in markdown. The WordPress title is the only H1.
-- Write 1,800-2,200 words.
-- Include at least 5 H2s, concise paragraphs, and internal links where useful.
+Rules for Copywriting Quality & Style:
+- Write publish-ready long-form Markdown in a natural, highly engaging human-like editorial voice. Emulate the tone and style of leading professional tech publications like WIRED or Fast Company.
+- Use active voice, clear structures, and short, punchy paragraphs. First-person plural ("we") or second-person ("you") should be used naturally.
+- CRITICAL: Strictly forbid common AI jargon and transition clichés. Do NOT use words like "delve", "tapestry", "revolutionize", "moreover", "furthermore", "in conclusion", "it is important to remember", "testament", "beacon", or phrases like "in today's fast-paced digital world".
+- Write 1,800-2,200 words. Do NOT include a Markdown H1 in markdown. The WordPress title is the only H1.
+- Include at least 5 H2s. Keep headings focused on user-intent.
 - Follow Yoast-style SEO copywriting: plan around audience, mission fit, search intent, a unique angle, and a clear article structure.
-- Use an inverted-pyramid opening: answer the main query in the first paragraph before expanding.
-- Start most paragraphs with a clear topic sentence and keep paragraphs short enough to scan.
-- Use 3-5 contextual internal links from Research JSON when available. Link to `blog.meetlyra.app` for other blog posts, guides, comparisons, and articles. Link to `meetlyra.app` for the app, product pages, features, use cases, industries, pricing, signup, or platform pages. Never use `meetlyra.com`. Do not use the exact focus keyphrase as internal-link anchor text.
-- Keep most sentences under 20 words and use transition words in at least 30% of sentences.
-- Avoid generic AI-style filler, summary padding, and formulaic endings. Every paragraph should add a concrete point, example, proof source, or decision rule.
-- Use a 2-4 word Yoast focus keyphrase.
+- Use an inverted-pyramid opening: answer the main query in the first paragraph before expanding. Start most paragraphs with a clear topic sentence.
+- Cite your sources: Include at least 3-4 natural outbound links to authoritative websites (e.g. Wikipedia, primary research papers, major news publications, official documentation) in the text to verify facts/data.
+- Use 3-5 contextual internal links from Research JSON when available. Link to `blog.meetlyra.app` for other blog posts and `meetlyra.app` for product/app pages. Never use `meetlyra.com`.
+- Tool Reference Linking: You MUST link the first mention of any software, app, tool, platform, or service (e.g. n8n, Claude, HubSpot, Google Analytics, Ahrefs, WordPress, Yoast, GA4, GSC, etc.) to its official homepage or documentation website (e.g. [n8n](https://n8n.io/), [Claude](https://www.anthropic.com/), [Ahrefs](https://ahrefs.com/)).
+- Keep sentences short and punchy: keep most sentences under 15 words. Use simple, clear vocabulary to achieve a grade-level reading ease of 60+ (Flesch Reading Ease score).
+- Use modern, clean transition words/phrases in at least 30% of sentences (e.g., "also", "because", "but", "finally", "first", "for example", "however", "instead", "meanwhile", "next", "therefore", "this means", "while"). Do NOT use "moreover" or "furthermore".
+- Use a 2-4 word Yoast focus keyphrase. Include it in the first paragraph, at least one H2/H3, and 5+ times in the body.
 - Meta title must be 45-60 characters and start with the focus keyphrase.
 - Meta description must be 130-155 characters and include the focus keyphrase.
-- Include the focus keyphrase in the first paragraph, at least one H2/H3, and 5+ times in the body.
-- Include at least one relevant outbound authority link and at least two internal MeetLyra links. Blog/article links should use `blog.meetlyra.app`; product, feature, use-case, industry, pricing, signup, and app links should use `meetlyra.app`.
-- Include Gutenberg-compatible HTML blocks for reading time, table of contents, pull quote, proof/source callout, key takeaways, comparison table, simple chart/workflow, related articles, and FAQ.
-- Use Gutenberg-compatible image/link markup when a source screenshot or analytics image URL exists in Research JSON. Image alt text must be descriptive and contain the focus keyphrase.
-- Image prompts must follow the MeetLyra house style: Pixar-meets-reality cinematic 3D realism, warm expressive original characters, a subtle Lyra AI operator/software presence, real SaaS workspace lighting, no readable text inside the image, no logos, and no copied characters from existing films.
-- No invented statistics, fake case studies, anonymous customer examples, or unsupported performance claims. Attribute specific claims from research or remove them.
-- Optimize for Google search and AI answer engines.
+- Excerpt: Generate a high-quality plain-text summary of exactly 130-155 characters that captures the reader's attention and includes the focus keyphrase. Do NOT include markdown styling, link formatting, or images in the excerpt string.
+
+Rules for Inline Images and Featured Metaphors:
+- **Featured Image Metaphor (`image_prompt`):** Describe a detailed, highly creative, and realistic visual concept/metaphor directly related to the article's specific headline and sub-headline. Specify subject, action, setting, natural light, shallow depth of field, premium magazine look (e.g. shot on Sony A7R IV, 85mm lens). Avoid all generic tech clichés like "laptop on desk" or "abstract data brain". MUST be text-free, no logos, no illustration, no 3D animation.
+- **Inline Image Placeholders:** You MUST insert exactly 5 inline image placeholders in the markdown, distributed naturally across different body sections. Use the exact markdown format:
+  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-1)`
+  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-2)`
+  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-3)`
+  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-4)`
+  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-5)`
+  The concept prompts inside these placeholders must describe realistic physical scenes or actions representing the section's topic (e.g., a startup team mapping a strategy on a whiteboard, a designer wireframing on an iPad with a stylus, a close-up of a high-contrast screen showing dashboard analytics graphs).
+  FORBIDDEN IMAGE METAPHORS: Never use clunky physical/mechanical metaphors like clocks, watchmakers, gears, cogs, mechanical engines, compasses, scales, magnifying glasses, or old-world craftsmen. All images must depict modern, high-tech, digital-first B2B/SaaS work environments, collaborative whiteboarding sessions, high-contrast digital analytics dashboards on clean screens, modern design workspaces, or professional marketing presentations.
+
+CRITICAL JSON COMPLIANCE RULES:
+1. The entire response must be a single valid JSON object.
+2. Escape all double quotes inside string values as \\\" (e.g., HTML class=\\\"wp-block-pullquote\\\"). Alternatively and preferably, use single quotes for HTML attributes (e.g., class='wp-block-pullquote') to avoid escaping issues entirely.
+3. Escape all newlines inside string values as \\n.
 """
 
     def _repair_prompt(self, content: GeneratedContent, opportunity: Opportunity, research: dict[str, Any], audit: AuditReport) -> str:
@@ -139,23 +151,33 @@ Required fixes:
 Hard requirements:
 - markdown must not start with # or contain any H1.
 - Make the opening paragraph a direct inverted-pyramid answer that contains the focus keyphrase.
-- Improve article structure, headings, short paragraphs, and topic sentences according to Yoast SEO copywriting guidance.
+- Write in a natural, highly engaging human-like editorial voice (WIRED or Fast Company style). Active voice, punchy paragraphs.
+- CRITICAL: Remove all AI jargon/clichés like "delve", "tapestry", "revolutionize", "moreover", "furthermore", "in conclusion", "it is important to remember".
+- Include at least 3-4 natural outbound links to authoritative websites (e.g. Wikipedia, research papers, major news, official documentation) in the text.
+- Link mentioned tools (e.g. n8n, Claude, HubSpot, GA4) to their official homepages/docs using markdown links.
+- Ensure exactly 5 inline image placeholders are placed in the markdown using the format:
+  `![Alt Text](placeholder:inline-image-1)`
+  `![Alt Text](placeholder:inline-image-2)`
+  `![Alt Text](placeholder:inline-image-3)`
+  `![Alt Text](placeholder:inline-image-4)`
+  `![Alt Text](placeholder:inline-image-5)`
+  with specific, realistic physical metaphor descriptions.
+  FORBIDDEN IMAGE METAPHORS: Never use cogs, gears, watchmakers, clock towers, magnifying glasses, engines, compasses, or physical tools. All concepts must be modern B2B SaaS digital layouts, collaborative meetings, whiteboards, or digital-first dashboards.
 - focus_keyphrase must be 2-4 content words.
 - meta_title must be 45-60 characters and start with focus_keyphrase.
 - meta_description must be 130-155 characters and include focus_keyphrase.
+- excerpt must be exactly 130-155 characters plain text, including focus_keyphrase. No markdown or links.
 - focus_keyphrase must appear in first paragraph, one H2/H3, image_alt_text, slug, and at least 5 body mentions.
-- Add at least one outbound authority link and at least two internal MeetLyra links. Use `blog.meetlyra.app` for blog/articles and `meetlyra.app` for app, product, feature, use-case, industry, pricing, signup, and platform links. Avoid exact-match focus-keyphrase internal anchors.
-- Preserve or improve image_prompt so it follows the MeetLyra house style: Pixar-meets-reality cinematic 3D realism, warm expressive original characters, a subtle Lyra AI operator/software presence, real SaaS workspace lighting, no readable text inside the image, no logos, and no copied characters from existing films.
-- Improve sentence clarity and add transition words naturally.
-- Remove generic AI-style filler, formulaic summaries, fake case studies, anonymous performance examples, unsupported quantified claims, and any sentence that only explains that the article is easy to scan.
-- Preserve factual accuracy and do not invent statistics.
-- Expand the article to at least 1,800 words if it is too short.
-- Rewrite difficult sentences into shorter, clearer sentences.
-- Target a grade 8-10 reading level: shorter words, fewer clauses, active voice, and no long chained sentences.
-- Keep most sentences under 16 words during readability repair.
-- Replace jargon with plain language when the meaning stays accurate.
-- Add transition words naturally to at least 30% of sentences.
-- Add or preserve Gutenberg-compatible reading time, table of contents, related articles, proof/source callout, FAQ, quote, table, and chart/workflow blocks.
+- Add at least one outbound authority link and at least two internal MeetLyra links. Use `blog.meetlyra.app` for blog/articles and `meetlyra.app` for app/product pages.
+- Preserve or improve image_prompt metaphor so it describes a detailed, highly creative, and realistic visual scene (Sony A7R IV, 85mm, natural lighting, no text, no illustration).
+- Target a grade 8-10 reading level: shorter words, fewer clauses, active voice.
+- Keep sentences short and punchy: keep most sentences under 14 words. Use simple, clear vocabulary to achieve a grade-level reading ease of 60+ (Flesch Reading Ease score).
+- Use modern, clean transition words/phrases in at least 35% of sentences (e.g., "also", "because", "but", "finally", "first", "for example", "however", "instead", "meanwhile", "next", "therefore", "this means", "while"). Do NOT use "moreover" or "furthermore".
+
+CRITICAL JSON COMPLIANCE RULES:
+1. The entire response must be a single valid JSON object.
+2. Escape all double quotes inside string values as \\\" (e.g., HTML class=\\\"wp-block-pullquote\\\"). Alternatively and preferably, use single quotes for HTML attributes (e.g., class='wp-block-pullquote') to avoid escaping issues entirely.
+3. Escape all newlines inside string values as \\n.
 
 Opportunity: {json.dumps(opportunity.__dict__, default=str)}
 Research JSON: {json.dumps(research, default=str)[:5000]}
@@ -167,7 +189,17 @@ Current content JSON: {json.dumps(content.__dict__, default=str)[:12000]}
         end = text.rfind("}")
         if start == -1 or end == -1:
             raise ValueError("No JSON object found")
-        return json.loads(text[start : end + 1])
+        json_str = text[start : end + 1]
+        try:
+            return json.loads(json_str, strict=False)
+        except json.JSONDecodeError as exc:
+            try:
+                debug_path = self.settings.data_dir / "failed_json_raw.txt"
+                self.settings.data_dir.mkdir(parents=True, exist_ok=True)
+                debug_path.write_text(text, encoding="utf-8")
+            except Exception:
+                pass
+            raise exc
 
     def _from_payload(self, opportunity: Opportunity, payload: dict[str, Any]) -> GeneratedContent:
         markdown = payload.get("markdown", "")

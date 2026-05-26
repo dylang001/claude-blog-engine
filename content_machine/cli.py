@@ -20,6 +20,7 @@ from .competitor_pages import CompetitorPagesGenerator
 from .hreflang import HreflangAuditor
 from .programmatic_seo import ProgrammaticSEOPlanner
 from .indexing import GoogleIndexingClient
+from .daily_report import compile_daily_report, send_daily_email_report
 
 
 def main() -> None:
@@ -93,6 +94,15 @@ def main() -> None:
     
     fc_map = firecrawl_sub.add_parser("map", help="Discover URLs map for a website")
     fc_map.add_argument("url", help="Website domain/URL to map")
+
+    daily_report = sub.add_parser("daily-report", help="Generate and send daily execution & GA4 performance summary report")
+    daily_report.add_argument("--send-email", action="store_true", help="Force email sending even if SMTP config is incomplete (will raise error if it fails)")
+
+    outreach = sub.add_parser("outreach", help="Manage cold outreach link building campaigns")
+    outreach_sub = outreach.add_subparsers(dest="outreach_action", required=True)
+    outreach_create = outreach_sub.add_parser("create", help="Create outreach campaign for a blog post")
+    outreach_create.add_argument("--slug", required=True, help="WordPress post slug")
+    outreach_sub.add_parser("process", help="Trigger Next.js to process sequence emails and monitor replies")
 
     args = parser.parse_args()
 
@@ -223,6 +233,25 @@ def main() -> None:
             print(json.dumps(res, indent=2, default=str))
         elif args.firecrawl_action == "crawl":
             res = asyncio.run(fc.crawl(args.url, limit=args.limit))
+            print(json.dumps(res, indent=2, default=str))
+        return
+
+    if args.command == "daily-report":
+        report = asyncio.run(compile_daily_report(settings))
+        print(json.dumps(report, indent=2, default=str))
+        email_sent = send_daily_email_report(settings, report)
+        if args.send_email and not email_sent:
+            raise SystemExit("Failed to send daily report email. Check SMTP settings and logs.")
+        return
+
+    if args.command == "outreach":
+        from .outreach_agent import OutreachAgent
+        agent = OutreachAgent(settings)
+        if args.outreach_action == "create":
+            res = asyncio.run(agent.generate_campaign_for_post(args.slug))
+            print(json.dumps(res, indent=2, default=str))
+        elif args.outreach_action == "process":
+            res = asyncio.run(agent.trigger_cron_job())
             print(json.dumps(res, indent=2, default=str))
         return
 

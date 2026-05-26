@@ -63,32 +63,66 @@ class WordPressClient:
             return posts[0]
         return None
 
-    async def upload_media(self, image_path: str, alt_text: str = "") -> int | None:
+    async def upload_media(self, image_path: str, alt_text: str = "") -> dict[str, Any] | None:
         path = Path(image_path)
         if not path.exists():
             return None
         headers = {"Content-Disposition": f'attachment; filename="{path.name}"'}
         async with httpx.AsyncClient(timeout=120) as client:
-            resp = await client.post(f"{self.api_base}/media", auth=self._auth(), headers=headers, files={"file": (path.name, path.read_bytes())})
+            resp = await client.request("POST", f"{self.api_base}/media", auth=self._auth(), headers=headers, files={"file": (path.name, path.read_bytes())})
             if not _is_json(resp):
-                resp = await client.post(_rest_route_url(self.base_url, "/media"), auth=self._auth(), headers=headers, files={"file": (path.name, path.read_bytes())})
+                resp = await client.request("POST", _rest_route_url(self.base_url, "/media"), auth=self._auth(), headers=headers, files={"file": (path.name, path.read_bytes())})
             resp.raise_for_status()
             media = resp.json()
             media_id = int(media["id"])
+            source_url = media.get("source_url") or media.get("guid", {}).get("rendered", "")
             if alt_text:
                 update = {"alt_text": alt_text[:500], "title": path.stem.replace("-", " ")[:200]}
-                update_resp = await client.post(f"{self.api_base}/media/{media_id}", auth=self._auth(), json=update)
+                update_resp = await client.request("POST", f"{self.api_base}/media/{media_id}", auth=self._auth(), json=update)
                 if not _is_json(update_resp):
-                    update_resp = await client.post(_rest_route_url(self.base_url, f"/media/{media_id}"), auth=self._auth(), json=update)
+                    update_resp = await client.request("POST", _rest_route_url(self.base_url, f"/media/{media_id}"), auth=self._auth(), json=update)
                 update_resp.raise_for_status()
-            return media_id
+            return {"id": media_id, "url": source_url}
 
     async def upsert_post(self, content: GeneratedContent, decision: PublishDecision, existing_post_id: int | None = None) -> dict[str, Any]:
         status = "publish" if decision == PublishDecision.PUBLISH else "draft"
         html = _strip_h1_html(content.html)
+        
+        # Scan and upload inline images
+        img_tags = list(re.finditer(r'<img\b[^>]*?>', html))
+        for match in img_tags:
+            img_tag = match.group(0)
+            src_match = re.search(r'src=["\']([^"\']+)["\']', img_tag)
+            if not src_match:
+                continue
+            src_path = src_match.group(1)
+            # Check if it's a local file path
+            path_obj = Path(src_path)
+            if path_obj.exists():
+                alt_match = re.search(r'alt=["\']([^"\']*)["\']', img_tag)
+                alt_text = alt_match.group(1) if alt_match else ""
+                
+                media_info = await self.upload_media(str(path_obj), alt_text=alt_text)
+                if media_info:
+                    media_id = media_info["id"]
+                    media_url = media_info["url"]
+                    # Format as Gutenberg Image Block
+                    gutenberg_img = (
+                        f'<!-- wp:image {{"id":{media_id},"sizeSlug":"large","linkDestination":"none"}} -->\n'
+                        f'<figure class="wp-block-image size-large"><img src="{media_url}" alt="{alt_text}" class="wp-image-{media_id}"/></figure>\n'
+                        f'<!-- /wp:image -->'
+                    )
+                    # Check if the img tag is enclosed in a paragraph <p>...</p>
+                    pattern = rf'<p>\s*{re.escape(img_tag)}\s*</p>'
+                    if re.search(pattern, html):
+                        html = re.sub(pattern, gutenberg_img, html, count=1)
+                    else:
+                        html = html.replace(img_tag, gutenberg_img, 1)
+
         if content.schema_json:
             schema = json.dumps(content.schema_json, ensure_ascii=False)
             html = f'{html}\n\n<script type="application/ld+json">{schema}</script>'
+            
         payload: dict[str, Any] = {
             "title": content.title,
             "slug": content.slug,
@@ -101,9 +135,10 @@ class WordPressClient:
                 "meta_description": content.meta_description,
             },
         }
-        media_id = await self.upload_media(content.featured_image_path, alt_text=content.image_alt_text or content.image_prompt or content.title) if content.featured_image_path else None
-        if media_id:
-            payload["featured_media"] = media_id
+        
+        featured_media_info = await self.upload_media(content.featured_image_path, alt_text=content.image_alt_text or content.image_prompt or content.title) if content.featured_image_path else None
+        if featured_media_info:
+            payload["featured_media"] = featured_media_info["id"]
 
         category_ids = await self._resolve_terms("categories", content.categories)
         tag_ids = await self._resolve_terms("tags", content.tags)

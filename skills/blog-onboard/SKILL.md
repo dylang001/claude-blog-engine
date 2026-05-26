@@ -1,7 +1,7 @@
 ---
 description: One-time business onboarding — scrapes your website, builds business profile, finds 3 competitors via SERP
 argument-hint: [your-website-url]
-allowed-tools: Bash WebFetch Read Write
+allowed-tools: Bash WebFetch Read Write keyword-research keyword-clustering competitive-landscape competitor-analysis link-prospecting seo-coach onboarding-checklist
 ---
 
 You are running the Blog Engine onboarding flow. Your job is to build a complete business profile by analyzing the user's website and finding their direct competitors. Follow these steps exactly and in order.

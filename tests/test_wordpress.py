@@ -121,3 +121,68 @@ def test_wordpress_client_finds_existing_slug(monkeypatch, tmp_path):
 
     assert result["id"] == 11
     assert captured["params"]["slug"] == "seo-automation"
+
+
+def test_upsert_post_uploads_inline_images(monkeypatch, tmp_path):
+    settings = Settings(
+        root_dir=tmp_path,
+        data_dir=tmp_path,
+        state_db=tmp_path / "db.sqlite",
+        site=SiteConfig(),
+        wp_base_url="https://example.com",
+        wp_username="user",
+        wp_app_password="pass",
+    )
+    client = WordPressClient(settings)
+    
+    dummy_img = tmp_path / "inline-1.png"
+    dummy_img.write_bytes(b"dummy image content")
+    
+    captured = {}
+    uploads = []
+
+    class FakeResponse:
+        headers = {"content-type": "application/json"}
+        def raise_for_status(self):
+            return None
+        def json(self):
+            if "/media" in captured.get("url", ""):
+                return {"id": 42, "source_url": "https://example.com/wp-content/uploads/inline-1.png"}
+            return {"id": 7}
+
+    class FakeAsyncClient:
+        def __init__(self, *args, **kwargs):
+            pass
+        async def __aenter__(self):
+            return self
+        async def __aexit__(self, *args):
+            return None
+        async def request(self, method, url, auth=None, json=None, **kwargs):
+            captured["url"] = url
+            captured["json"] = json
+            if "/media" in url and method == "POST":
+                uploads.append(url)
+            return FakeResponse()
+
+    monkeypatch.setattr("content_machine.wordpress.httpx.AsyncClient", FakeAsyncClient)
+
+    content = GeneratedContent(
+        title="SEO Guide",
+        slug="seo-guide",
+        markdown="Text.",
+        html=f"<p>Check out this chart:</p><p><img src=\"{dummy_img}\" alt=\"My inline chart\" /></p>",
+        meta_title="SEO Guide Title",
+        meta_description="SEO Guide description",
+        focus_keyphrase="seo guide",
+        excerpt="Excerpt",
+        tags=[],
+        categories=[],
+        schema_json=None,
+    )
+
+    import asyncio
+    result = asyncio.run(client.upsert_post(content, PublishDecision.DRAFT))
+
+    assert len(uploads) > 0
+    assert "https://example.com/wp-content/uploads/inline-1.png" in captured["json"]["content"]
+    assert "alt=\"My inline chart\"" in captured["json"]["content"]

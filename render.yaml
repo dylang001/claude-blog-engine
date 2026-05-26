@@ -45,3 +45,46 @@ services:
         value: "16:9"
       - key: BANANA_RESOLUTION
         value: 2K
+      - key: OUTBOUND_EMAIL_AGENT_URL
+        sync: false
+
+  - type: web
+    name: outbound-email-agent
+    runtime: node
+    region: oregon
+    plan: starter
+    buildCommand: pnpm install && pnpm db:push && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: outbound-email-agent-db
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: EXA_API_KEY
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: IMAP_HOST
+        sync: false
+      - key: IMAP_PORT
+        sync: false
+      - key: IMAP_USERNAME
+        sync: false
+      - key: IMAP_PASSWORD
+        sync: false
+
+databases:
+  - name: outbound-email-agent-db
+    databaseName: email_agent
+    user: email_agent_user
+    plan: free

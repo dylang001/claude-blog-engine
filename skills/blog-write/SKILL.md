@@ -1,7 +1,7 @@
 ---
 description: Write a full SEO article with research, images, schema markup, and publishing checklist
 argument-hint: ["topic keyword" or blank for next in pipeline]
-allowed-tools: Bash WebFetch WebSearch Read Write
+allowed-tools: Bash WebFetch WebSearch Read Write keyword-research keyword-clustering competitive-landscape competitor-analysis link-prospecting seo-coach onboarding-checklist
 ---
 
 You are running the Blog Engine content generation pipeline. Your job is to produce one complete, publish-ready blog article from a keyword in the pipeline. Follow every step exactly and in order.

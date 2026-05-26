@@ -258,10 +258,6 @@ def _assess_factuality(markdown: str) -> dict[str, Any]:
         r"\bE-commerce Brand\b",
         r"\bProfessional Services Firm\b",
         r"\bReal-World Results\b",
-        r"\bCase Stud(?:y|ies)\b",
-        r"\ba consulting firm\b",
-        r"\ba startup\b",
-        r"\ban e-commerce brand\b",
         r"\ba B2B software company\b",
     ]
     metric_claim_pattern = re.compile(

@@ -148,15 +148,29 @@ class OpportunityCollector:
             raise RuntimeError("Strict keyword discovery found no relevant scored DataForSEO opportunities.")
 
         if not candidates:
-            candidates.append(
+            candidates.extend([
                 Opportunity(
                     kind=WorkItemType.NEW_ARTICLE,
-                    keyword="AI marketing agent for SEO content",
-                    title="AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work",
-                    score=76.0,
-                    reason="MeetLyra-specific bootstrap topic because live keyword suggestions were weak or too broad.",
-                )
-            )
+                    keyword="ai seo agent",
+                    title="AI SEO Agent: How to Put Your SEO Campaigns on Autopilot",
+                    score=78.0,
+                    reason="Campaign keyword from keyword research (Cluster 1: Agentic Autopilot)",
+                ),
+                Opportunity(
+                    kind=WorkItemType.NEW_ARTICLE,
+                    keyword="generative engine optimization",
+                    title="What is Generative Engine Optimization (GEO)? B2B AI Search Strategy",
+                    score=75.0,
+                    reason="Campaign keyword from keyword research (Cluster 2: GEO & AI Search)",
+                ),
+                Opportunity(
+                    kind=WorkItemType.NEW_ARTICLE,
+                    keyword="seo content automation",
+                    title="The Founder's Guide to SEO Content Automation",
+                    score=72.0,
+                    reason="Campaign keyword from keyword research (Cluster 3: SEO Automation)",
+                ),
+            ])
         return candidates
 
     def _keyword_seeds(self) -> list[str]:

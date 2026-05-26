@@ -280,12 +280,6 @@ async def _run_ga4_report(settings: Settings, days: int) -> dict[str, Any]:
         dimensions=[Dimension(name="landingPage")],
         metrics=[Metric(name="sessions"), Metric(name="totalUsers"), Metric(name="screenPageViews"), Metric(name="engagementRate")],
         date_ranges=[DateRange(start_date=start, end_date=end)],
-        dimension_filter=FilterExpression(
-            filter=Filter(
-                field_name="sessionDefaultChannelGroup",
-                string_filter=Filter.StringFilter(match_type=Filter.StringFilter.MatchType.EXACT, value="Organic Search"),
-            )
-        ),
         order_bys=[OrderBy(metric=OrderBy.MetricOrderBy(metric_name="sessions"), desc=True)],
         limit=50,
     )

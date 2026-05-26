@@ -62,15 +62,24 @@ class Settings:
     banana_aspect_ratio: str = "16:9"
     banana_resolution: str = "2K"
     banana_style_prompt: str = (
-        "Pixar-meets-reality cinematic 3D realism: warm expressive original characters, "
-        "real SaaS workspace lighting, tactile product interfaces, and a subtle Lyra AI "
-        "operator presence that represents the software without using logos or readable text."
+        "Premium editorial photography: clean realistic scenes, natural lighting, shot on Sony A7R IV with an 85mm f/1.4 lens, shallow depth of field, and a modern professional magazine aesthetic (like WIRED or Fast Company). Relatable real-world references, clear visual story, no illustration, no 3D renders, no Pixar styles."
     )
     indexnow_key: str = ""
     indexnow_key_location: str = ""
     indexnow_engines: list[str] = field(default_factory=lambda: ["bing", "yandex", "seznam", "indexnow"])
     dry_run_default: bool = True
     firecrawl_api_key: str = ""
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_username: str = ""
+    smtp_password: str = ""
+    smtp_to: str = ""
+    smtp_from: str = ""
+    imap_host: str = ""
+    imap_port: int = 993
+    imap_username: str = ""
+    imap_password: str = ""
+    outbound_email_agent_url: str = "http://localhost:3000"
 
     def missing_required(self) -> list[str]:
         required = {
@@ -149,13 +158,22 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         banana_resolution=os.getenv("BANANA_RESOLUTION", "2K"),
         banana_style_prompt=os.getenv(
             "BANANA_STYLE_PROMPT",
-            "Pixar-meets-reality cinematic 3D realism: warm expressive original characters, "
-            "real SaaS workspace lighting, tactile product interfaces, and a subtle Lyra AI "
-            "operator presence that represents the software without using logos or readable text.",
+            "Premium editorial photography: clean realistic scenes, natural lighting, shot on Sony A7R IV with an 85mm f/1.4 lens, shallow depth of field, and a modern professional magazine aesthetic (like WIRED or Fast Company). Relatable real-world references, clear visual story, no illustration, no 3D renders, no Pixar styles.",
         ),
         indexnow_key=os.getenv("INDEXNOW_KEY", ""),
         indexnow_key_location=os.getenv("INDEXNOW_KEY_LOCATION", ""),
         indexnow_engines=[part.strip() for part in os.getenv("INDEXNOW_ENGINES", "bing,yandex,seznam,indexnow").split(",") if part.strip()],
         dry_run_default=os.getenv("CONTENT_MACHINE_DRY_RUN", "true").lower() != "false",
         firecrawl_api_key=os.getenv("FIRECRAWL_API_KEY", ""),
+        smtp_host=os.getenv("SMTP_HOST", ""),
+        smtp_port=int(os.getenv("SMTP_PORT", "587")) if os.getenv("SMTP_PORT") else 587,
+        smtp_username=os.getenv("SMTP_USERNAME", os.getenv("SMTP_USER", "")),
+        smtp_password=os.getenv("SMTP_PASSWORD", ""),
+        smtp_to=os.getenv("SMTP_TO", ""),
+        smtp_from=os.getenv("SMTP_FROM", ""),
+        imap_host=os.getenv("IMAP_HOST", os.getenv("SMTP_HOST", "")),
+        imap_port=int(os.getenv("IMAP_PORT", "993")) if os.getenv("IMAP_PORT") else 993,
+        imap_username=os.getenv("IMAP_USERNAME", os.getenv("IMAP_USER", os.getenv("SMTP_USERNAME", os.getenv("SMTP_USER", "")))),
+        imap_password=os.getenv("IMAP_PASSWORD", os.getenv("SMTP_PASSWORD", "")),
+        outbound_email_agent_url=os.getenv("OUTBOUND_EMAIL_AGENT_URL", "http://localhost:3000"),
     )

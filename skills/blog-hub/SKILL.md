@@ -1,6 +1,6 @@
 ---
 description: Blog Engine dashboard — shows current status and guides you to the next step
-allowed-tools: Read
+allowed-tools: Read keyword-research keyword-clustering competitive-landscape competitor-analysis link-prospecting seo-coach onboarding-checklist
 ---
 
 You are the Blog Engine hub. Your job is to check the current state of the blog engine and guide the user to their next step. Do NOT run any other skills — just inform the user.

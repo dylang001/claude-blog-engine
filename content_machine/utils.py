@@ -26,8 +26,22 @@ def markdown_to_html(markdown: str) -> str:
 
 
 def excerpt(text: str, limit: int = 155) -> str:
-    clean = re.sub(r"[#*_>`\[\]\(\)]", "", text)
+    # Strip HTML comments
+    clean = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+    # Strip HTML tags
+    clean = re.sub(r"<[^>]+>", "", clean)
+    # Strip markdown images first
+    clean = re.sub(r"!\[.*?\]\(.*?\)", "", clean)
+    # Strip markdown links, keeping anchor text
+    clean = re.sub(r"\[(.*?)\]\(.*?\)", r"\1", clean)
+    # Strip headers, list items, etc.
+    clean = re.sub(r"^[#*>\-+]+\s*", "", clean, flags=re.MULTILINE)
+    # Strip bold, italic markers, inline code
+    clean = re.sub(r"[`*_~]", "", clean)
+    # Normalize spaces
     clean = re.sub(r"\s+", " ", clean).strip()
     if len(clean) <= limit:
         return clean
-    return clean[: limit - 1].rsplit(" ", 1)[0] + "."
+    truncated = clean[: limit - 1].rsplit(" ", 1)[0]
+    return truncated.rstrip(".,;:!? ") + "..."
+
