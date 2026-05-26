@@ -58,6 +58,7 @@ class Settings:
     ga4_property_id: str = ""
     gsc_site_url: str = ""
     gemini_api_key: str = ""
+    gemini_writing_model: str = "gemini-2.5-pro-preview-05-06"  # fallback writer if Anthropic has no credits
     banana_model: str = "gemini-3.1-flash-image-preview"
     banana_aspect_ratio: str = "16:9"
     banana_resolution: str = "2K"
@@ -155,6 +156,7 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         ga4_property_id=os.getenv("GA4_PROPERTY_ID", ""),
         gsc_site_url=os.getenv("GSC_SITE_URL", ""),
         gemini_api_key=os.getenv("GEMINI_API_KEY", os.getenv("GOOGLE_AI_API_KEY", os.getenv("GOOGLE_API_KEY", ""))),
+        gemini_writing_model=os.getenv("GEMINI_WRITING_MODEL", "gemini-2.5-pro-preview-05-06"),
         banana_model=os.getenv("BANANA_MODEL", "gemini-3.1-flash-image-preview"),
         banana_aspect_ratio=os.getenv("BANANA_ASPECT_RATIO", "16:9"),
         banana_resolution=os.getenv("BANANA_RESOLUTION", "2K"),

@@ -6,6 +6,7 @@ from dataclasses import asdict, replace
 from datetime import datetime, timezone
 
 from .anthropic_writer import ContentWriter
+from .gemini_writer import GeminiWriter
 from .content_optimizer import optimize_content, validate_and_sanitize_content_images
 from .config import Settings
 from .data_sources import OpportunityCollector
@@ -28,6 +29,7 @@ class ContentMachine:
         self.collector = OpportunityCollector(settings)
         self.researcher = ResearchEngine(self.collector.dataforseo)
         self.writer = ContentWriter(settings)
+        self.gemini_writer = GeminiWriter(settings)
         self.images = BananaImageGenerator(settings)
         self.auditor = SEOAuditEngine(settings)
         self.wordpress = WordPressClient(settings)
@@ -57,7 +59,7 @@ class ContentMachine:
                 pipeline_logger = logging.getLogger("content_machine.pipeline")
                 pipeline_logger.error("Failed to query SuperMemory during research: %s", sm_exc)
 
-            content = await self.writer.generate(opportunity, research)
+            content = await self._generate_with_fallback(opportunity, research)
             content = optimize_content(content, opportunity)
             content = await validate_and_sanitize_content_images(content, self.settings)
             content = await self.images.maybe_generate(content, run_id)
@@ -67,7 +69,7 @@ class ContentMachine:
             repair_attempts = 0
             while audit.decision != PublishDecision.PUBLISH and audit.details.get("repairable", True) and repair_attempts < 2:
                 repair_attempts += 1
-                candidate_content = await self.writer.repair(content, opportunity, research, audit)
+                candidate_content = await self._repair_with_fallback(content, opportunity, research, audit)
                 candidate_content = optimize_content(candidate_content, opportunity)
                 candidate_content = await validate_and_sanitize_content_images(candidate_content, self.settings)
                 candidate_content = await self.images.maybe_generate(candidate_content, run_id)
@@ -195,6 +197,40 @@ class ContentMachine:
             enriched["internal_links"] = links
         return enriched
 
+    async def _generate_with_fallback(self, opportunity, research):
+        """Try Anthropic first; fall back to Gemini on credit/quota errors."""
+        import logging as _log
+        _pl = _log.getLogger("content_machine.pipeline")
+        try:
+            return await self.writer.generate(opportunity, research)
+        except RuntimeError as exc:
+            if _is_credit_error(str(exc)):
+                if self.gemini_writer.is_configured():
+                    _pl.warning(
+                        "Anthropic credit/quota error — switching to Gemini (%s): %s",
+                        self.settings.gemini_writing_model, exc,
+                    )
+                    return await self.gemini_writer.generate(opportunity, research)
+                _pl.error("Anthropic credit error and GEMINI_API_KEY not set — cannot fall back.")
+            raise
+
+    async def _repair_with_fallback(self, content, opportunity, research, audit):
+        """Try Anthropic repair first; fall back to Gemini on credit/quota errors."""
+        import logging as _log
+        _pl = _log.getLogger("content_machine.pipeline")
+        try:
+            return await self.writer.repair(content, opportunity, research, audit)
+        except RuntimeError as exc:
+            if _is_credit_error(str(exc)):
+                if self.gemini_writer.is_configured():
+                    _pl.warning(
+                        "Anthropic credit/quota error during repair — switching to Gemini (%s): %s",
+                        self.settings.gemini_writing_model, exc,
+                    )
+                    return await self.gemini_writer.repair(content, opportunity, research, audit)
+                _pl.error("Anthropic credit error during repair and GEMINI_API_KEY not set.")
+            raise
+
 
 def _is_better_audit(candidate, current) -> bool:
     if candidate.decision == PublishDecision.PUBLISH and current.decision != PublishDecision.PUBLISH:
@@ -204,3 +240,20 @@ def _is_better_audit(candidate, current) -> bool:
     if len(candidate.issues) != len(current.issues):
         return len(candidate.issues) < len(current.issues)
     return len(candidate.warnings) < len(current.warnings)
+
+
+def _is_credit_error(message: str) -> bool:
+    """Detect Anthropic billing / quota errors that warrant a Gemini fallback."""
+    credit_signals = [
+        "credit_balance_too_low",
+        "insufficient_credits",
+        "billing",
+        "payment",
+        "quota",
+        "rate_limit",
+        "529",            # Anthropic overloaded HTTP status
+        "overloaded",
+        "capacity",
+    ]
+    msg_lower = message.lower()
+    return any(signal in msg_lower for signal in credit_signals)
