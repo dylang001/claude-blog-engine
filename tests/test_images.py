@@ -26,7 +26,7 @@ def test_banana_prompt_uses_lyra_house_style(tmp_path):
 
     prompt = BananaImageGenerator(_settings(tmp_path))._build_banana_prompt(content.title, content.image_prompt)
 
-    assert "Premium editorial photography" in prompt
+    assert "premium editorial" in prompt.lower()
     assert "no readable text" in prompt.lower()
     assert "no logos" in prompt.lower()
     assert "completely text-free" in prompt.lower()

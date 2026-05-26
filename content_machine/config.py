@@ -63,7 +63,11 @@ class Settings:
     banana_aspect_ratio: str = "16:9"
     banana_resolution: str = "2K"
     banana_style_prompt: str = (
-        "Premium editorial photography: clean realistic scenes, natural lighting, shot on Sony A7R IV with an 85mm f/1.4 lens, shallow depth of field, and a modern professional magazine aesthetic (like WIRED or Fast Company). Relatable real-world references, clear visual story, no illustration, no 3D renders, no Pixar styles."
+        "High-contrast premium editorial design in the style of adweek.com and therundown.ai. "
+        "Features professional close-up portraits of tech executives, clean collaborative office settings, or "
+        "high-end digital mockups of analytics dashboards on sleek devices with dramatic lighting, sharp shadows, and "
+        "rich color grading. Minimalist compositions, realistic photography, zero illustrations, zero 3D renders, "
+        "completely text-free."
     )
     indexnow_key: str = ""
     indexnow_key_location: str = ""

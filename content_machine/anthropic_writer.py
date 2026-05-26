@@ -120,16 +120,13 @@ Rules for Copywriting Quality & Style:
 - Meta description must be 130-155 characters and include the focus keyphrase.
 - Excerpt: Generate a high-quality plain-text summary of exactly 130-155 characters that captures the reader's attention and includes the focus keyphrase. Do NOT include markdown styling, link formatting, or images in the excerpt string.
 
-Rules for Inline Images and Featured Metaphors:
+Rules for Inline Images, Screenshots and Previews:
 - **Featured Image Metaphor (`image_prompt`):** Describe a detailed, highly creative, and realistic visual concept/metaphor directly related to the article's specific headline and sub-headline. Specify subject, action, setting, natural light, shallow depth of field, premium magazine look (e.g. shot on Sony A7R IV, 85mm lens). Avoid all generic tech clichés like "laptop on desk" or "abstract data brain". MUST be text-free, no logos, no illustration, no 3D animation.
-- **Inline Image Placeholders:** You MUST insert exactly 5 inline image placeholders in the markdown, distributed naturally across different body sections. Use the exact markdown format:
-  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-1)`
-  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-2)`
-  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-3)`
-  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-4)`
-  `![Alt text describing a specific visual metaphor for this section](placeholder:inline-image-5)`
-  The concept prompts inside these placeholders must describe realistic physical scenes or actions representing the section's topic (e.g., a startup team mapping a strategy on a whiteboard, a designer wireframing on an iPad with a stylus, a close-up of a high-contrast screen showing dashboard analytics graphs).
-  FORBIDDEN IMAGE METAPHORS: Never use clunky physical/mechanical metaphors like clocks, watchmakers, gears, cogs, mechanical engines, compasses, scales, magnifying glasses, or old-world craftsmen. All images must depict modern, high-tech, digital-first B2B/SaaS work environments, collaborative whiteboarding sessions, high-contrast digital analytics dashboards on clean screens, modern design workspaces, or professional marketing presentations.
+- **Inline Placeholders:** You MUST insert exactly 5 placeholders in the markdown, distributed naturally across different body sections. A mix of:
+  1. AI-generated editorial photos: `![Alt text describing a specific visual metaphor](placeholder:inline-image-1)` (up to placeholder:inline-image-5)
+  2. Screenshots of verified dashboards or stats: `![GSC Performance Dashboard](placeholder:source-screenshot:https://search.google.com/search-console)` or `![Analytics Stats Dashboard](placeholder:source-screenshot:https://analytics.google.com/)`
+  3. Structured link previews for referenced tools or articles: `![Ahrefs Keyword Tool](placeholder:link-preview:https://ahrefs.com/)` or `![Outbound Reference Source](placeholder:link-preview:https://developers.google.com/search/docs)`
+  Ensure the concepts prompts inside these placeholders are realistic (no cogs, gears, watchmakers, clock towers, magnifying glasses, engines, compasses, or physical tools). All concepts must be modern B2B SaaS digital layouts, collaborative meetings, whiteboards, or digital-first dashboards.
 
 CRITICAL JSON COMPLIANCE RULES:
 1. The entire response must be a single valid JSON object.
@@ -155,13 +152,11 @@ Hard requirements:
 - CRITICAL: Remove all AI jargon/clichés like "delve", "tapestry", "revolutionize", "moreover", "furthermore", "in conclusion", "it is important to remember".
 - Include at least 3-4 natural outbound links to authoritative websites (e.g. Wikipedia, research papers, major news, official documentation) in the text.
 - Link mentioned tools (e.g. n8n, Claude, HubSpot, GA4) to their official homepages/docs using markdown links.
-- Ensure exactly 5 inline image placeholders are placed in the markdown using the format:
-  `![Alt Text](placeholder:inline-image-1)`
-  `![Alt Text](placeholder:inline-image-2)`
-  `![Alt Text](placeholder:inline-image-3)`
-  `![Alt Text](placeholder:inline-image-4)`
-  `![Alt Text](placeholder:inline-image-5)`
-  with specific, realistic physical metaphor descriptions.
+- Ensure exactly 5 inline placeholders are placed in the markdown using a mix of:
+  - `![Alt Text](placeholder:inline-image-1)` (through 5)
+  - `![Alt Text](placeholder:source-screenshot:URL)`
+  - `![Alt Text](placeholder:link-preview:URL)`
+  representing visual metaphors, analytics dashboard proof points, or documentation previews.
   FORBIDDEN IMAGE METAPHORS: Never use cogs, gears, watchmakers, clock towers, magnifying glasses, engines, compasses, or physical tools. All concepts must be modern B2B SaaS digital layouts, collaborative meetings, whiteboards, or digital-first dashboards.
 - focus_keyphrase must be 2-4 content words.
 - meta_title must be 45-60 characters and start with focus_keyphrase.

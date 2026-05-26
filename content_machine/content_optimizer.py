@@ -190,12 +190,12 @@ def build_rich_blocks(focus_keyphrase: str, markdown: str = "") -> list[str]:
     word_count = len(re.findall(r"\b\w+\b", _plain_text(markdown)))
     reading_minutes = max(1, round(word_count / 220)) if word_count else 8
     toc_items = _toc_items(markdown)
-    toc_links = "".join(f'<li><a href="#{slugify(item)}">{item}</a></li>' for item in toc_items[:8])
+    toc_links = "".join(f'<li><a href="#{slugify(item)}" style="color:#406ae4;text-decoration:none;font-weight:600;">{item}</a></li>' for item in toc_items[:8])
     if not toc_links:
         toc_links = (
-            '<li><a href="#quick-answer">Quick answer</a></li>'
-            '<li><a href="#workflow">Workflow</a></li>'
-            '<li><a href="#faq">FAQ</a></li>'
+            '<li><a href="#quick-answer" style="color:#406ae4;text-decoration:none;font-weight:600;">Quick answer</a></li>'
+            '<li><a href="#workflow" style="color:#406ae4;text-decoration:none;font-weight:600;">Workflow</a></li>'
+            '<li><a href="#faq" style="color:#406ae4;text-decoration:none;font-weight:600;">FAQ</a></li>'
         )
         
     # Construct Yoast FAQ Questions JSON Schema
@@ -220,52 +220,74 @@ def build_rich_blocks(focus_keyphrase: str, markdown: str = "") -> list[str]:
 <div class="seo-machine-reading-time" style="font-size:14px;color:#475569;margin-bottom:16px;font-weight:500;"><strong>Reading time:</strong> {reading_minutes} minutes</div>
 <!-- /wp:html -->""",
         f"""<!-- wp:html -->
-<div class="seo-machine-toc" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin-bottom:24px;"><nav aria-label="Table of contents"><h3 style="margin-top:0;margin-bottom:12px;font-size:18px;color:#0f172a;">Table of Contents</h3><ol style="margin:0;padding-left:20px;line-height:1.6;">{toc_links}</ol></nav></div>
+<div class="seo-machine-toc" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,0.02);"><nav aria-label="Table of contents"><h3 style="margin-top:0;margin-bottom:12px;font-size:18px;color:#0f172a;font-weight:700;">Table of Contents</h3><ol style="margin:0;padding-left:20px;line-height:1.6;">{toc_links}</ol></nav></div>
 <!-- /wp:html -->""",
         f"""<!-- wp:html -->
-<div class="wp-block-group seo-machine-proof" style="background:#eff6ff;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;padding:24px;margin-bottom:24px;font-family:sans-serif;"><section aria-label="Proof point"><h4 style="margin-top:0;margin-bottom:8px;font-size:16px;color:#1e3a8a;font-weight:700;">Proof Point</h4><p style="color:#1e40af;line-height:1.6;margin-bottom:12px;font-size:14px;">This workflow follows Google Search Central guidance: useful, original, people-first content matters more than whether AI helped create the first draft.</p><p style="margin:0;font-size:14px;"><a href="https://developers.google.com/search/blog/2023/02/google-search-and-ai-content" style="color:#2563eb;text-decoration:underline;font-weight:600;">Review Google's official AI content guidance</a>.</p></section></div>
+<div class="wp-block-group seo-machine-proof" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-left:4px solid rgb(17, 17, 17);border-radius:0 12px 12px 0;padding:24px;margin-bottom:24px;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.02);"><section aria-label="Proof point"><h4 style="margin-top:0;margin-bottom:8px;font-size:16px;color:#0f172a;font-weight:700;">Proof Point</h4><p style="color:#475569;line-height:1.6;margin-bottom:12px;font-size:14px;">This workflow follows Google Search Central guidance: useful, original, people-first content matters more than whether AI helped create the first draft.</p><p style="margin:0;font-size:14px;"><a href="https://developers.google.com/search/blog/2023/02/google-search-and-ai-content" style="color:#406ae4;text-decoration:underline;font-weight:600;">Review Google's official AI content guidance</a>.</p></section></div>
 <!-- /wp:html -->""",
         f"""<!-- wp:html -->
-<div class="seo-machine-pullquote" style="border-left:4px solid #6366f1;background:#faf5ff;padding:24px;margin:32px 0;border-radius:0 8px 8px 0;font-style:italic;color:#4b5563;font-family:sans-serif;box-shadow:0 2px 4px rgba(99,102,241,0.05);"><p style="font-size:16px;line-height:1.6;margin:0 0 12px 0;color:#3730a3;font-weight:500;">"{focus_keyphrase} works best when it turns strategy into a repeatable publishing system, not just another drafting shortcut."</p><cite style="font-size:11px;color:#8b5cf6;font-style:normal;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">SEO Machine Quality Gate</cite></div>
+<div class="seo-machine-pullquote" style="border:1px solid #e2e8f0;border-left:4px solid #406ae4;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);padding:24px;margin:32px 0;border-radius:0 12px 12px 0;font-style:italic;color:#475569;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.02);"><p style="font-size:16px;line-height:1.6;margin:0 0 12px 0;color:#0f172a;font-weight:600;">"{focus_keyphrase} works best when it turns strategy into a repeatable publishing system, not just another drafting shortcut."</p><cite style="font-size:11px;color:#64748b;font-style:normal;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">SEO Machine Quality Gate</cite></div>
 <!-- /wp:html -->""",
         f"""<!-- wp:html -->
-<div class="wp-block-group seo-machine-takeaways" style="background:#f0fdf4;border-left:4px solid #10b981;border-radius:0 8px 8px 0;padding:24px;margin-bottom:24px;font-family:sans-serif;"><section aria-label="Key takeaways"><h4 style="margin-top:0;margin-bottom:12px;font-size:16px;color:#065f46;font-weight:700;">Key Takeaways</h4><ul style="margin:0;padding-left:20px;line-height:1.6;color:#065f46;font-size:14px;"><li>Use {focus_keyphrase} to connect research, drafting, optimization, and publishing.</li><li>Keep human review focused on strategy, evidence, and brand judgment.</li><li>Measure success through publish consistency, rankings, and conversion quality.</li></ul></section></div>
+<div class="wp-block-group seo-machine-takeaways" style="background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-left:4px solid rgb(17, 17, 17);border-radius:0 12px 12px 0;padding:24px;margin-bottom:24px;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.02);"><section aria-label="Key takeaways"><h4 style="margin-top:0;margin-bottom:12px;font-size:16px;color:#0f172a;font-weight:700;">Key Takeaways</h4><ul style="margin:0;padding-left:20px;line-height:1.6;color:#475569;font-size:14px;"><li>Use {focus_keyphrase} to connect research, drafting, optimization, and publishing.</li><li>Keep human review focused on strategy, evidence, and brand judgment.</li><li>Measure success through publish consistency, rankings, and conversion quality.</li></ul></section></div>
 <!-- /wp:html -->""",
         f"""<!-- wp:html -->
-<figure class="wp-block-table seo-machine-table" style="margin:32px 0;font-family:sans-serif;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);border-radius:8px;overflow:hidden;"><table style="width:100%;border-collapse:collapse;border:none;font-size:14px;"><thead style="background:#0f172a;color:#ffffff;"><tr><th style="padding:16px;text-align:left;font-weight:600;letter-spacing:0.05em;">WORKFLOW</th><th style="padding:16px;text-align:left;font-weight:600;letter-spacing:0.05em;">MANUAL SEO</th><th style="padding:16px;text-align:left;font-weight:600;letter-spacing:0.05em;">AGENTIC SEO</th></tr></thead><tbody><tr style="border-bottom:1px solid #f1f5f9;background:#ffffff;"><td style="padding:16px;color:#0f172a;font-weight:600;">Research</td><td style="padding:16px;color:#475569;">Spreadsheet-led and slow</td><td style="padding:16px;color:#2563eb;font-weight:500;">Scored opportunities</td></tr><tr style="border-bottom:1px solid #f1f5f9;background:#f8fafc;"><td style="padding:16px;color:#0f172a;font-weight:600;">Drafting</td><td style="padding:16px;color:#475569;">One-off briefs</td><td style="padding:16px;color:#2563eb;font-weight:500;">Context-aware generation</td></tr><tr style="background:#ffffff;"><td style="padding:16px;color:#0f172a;font-weight:600;">Optimization</td><td style="padding:16px;color:#475569;">Manual plugin checks</td><td style="padding:16px;color:#2563eb;font-weight:500;">Pre-publish quality gate</td></tr></tbody></table></figure>
+<figure class="wp-block-table seo-machine-table" style="margin:32px 0;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.02);border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;"><table style="width:100%;border-collapse:collapse;border:none;font-size:14px;"><thead style="background:rgb(17, 17, 17);color:#ffffff;"><tr><th style="padding:16px;text-align:left;font-weight:600;letter-spacing:0.05em;">WORKFLOW</th><th style="padding:16px;text-align:left;font-weight:600;letter-spacing:0.05em;">MANUAL SEO</th><th style="padding:16px;text-align:left;font-weight:600;letter-spacing:0.05em;">AGENTIC SEO</th></tr></thead><tbody><tr style="border-bottom:1px solid #e2e8f0;background:#ffffff;"><td style="padding:16px;color:#0f172a;font-weight:600;">Research</td><td style="padding:16px;color:#475569;">Spreadsheet-led and slow</td><td style="padding:16px;color:#406ae4;font-weight:600;">Scored opportunities</td></tr><tr style="border-bottom:1px solid #e2e8f0;background:rgba(248, 250, 252, 0.5);"><td style="padding:16px;color:#0f172a;font-weight:600;">Drafting</td><td style="padding:16px;color:#475569;">One-off briefs</td><td style="padding:16px;color:#406ae4;font-weight:600;">Context-aware generation</td></tr><tr style="background:#ffffff;"><td style="padding:16px;color:#0f172a;font-weight:600;">Optimization</td><td style="padding:16px;color:#475569;">Manual plugin checks</td><td style="padding:16px;color:#406ae4;font-weight:600;">Pre-publish quality gate</td></tr></tbody></table></figure>
 <!-- /wp:html -->""",
         f"""<!-- wp:html -->
-<div class="seo-machine-chart" style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);border:1px solid #334155;border-radius:12px;padding:32px 24px;margin:32px 0;font-family:'Outfit','Inter',system-ui,-apple-system,sans-serif;box-shadow:0 10px 25px -5px rgba(0,0,0,0.3),0 8px 10px -6px rgba(0,0,0,0.3);">
-  <h4 style="margin:0 0 24px 0;color:#f8fafc;font-size:20px;font-weight:700;text-align:center;letter-spacing:-0.025em;">Autonomous SEO Content Workflow</h4>
-  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
-    <div style="text-align:center;flex:1;min-width:90px;background:rgba(30,41,59,0.5);border:1px solid #475569;border-radius:10px;padding:16px 8px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
-      <div style="background:linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;box-shadow:0 0 12px rgba(59,130,246,0.5);">1</div>
-      <span style="font-size:13px;color:#f1f5f9;font-weight:600;display:block;margin-bottom:2px;">Discover</span>
-      <span style="font-size:11px;color:#94a3b8;display:block;">Keywords & Gaps</span>
+<div class="seo-machine-chart" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(12px);border:1px solid #e2e8f0;border-radius:16px;padding:32px 24px;margin:32px 0;font-family:'Outfit','Inter',system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+  <h4 style="margin:0 0 24px 0;color:#0f172a;font-size:20px;font-weight:700;text-align:center;letter-spacing:-0.02em;">Autonomous SEO Content Workflow</h4>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+    <div class="workflow-step-card-item" onclick="document.querySelectorAll('.workflow-details-pane').forEach(p=>p.style.display='none'); document.getElementById('step-details-1').style.display='block'; document.querySelectorAll('.workflow-step-card-item').forEach(c=>c.style.borderColor='#e2e8f0'); this.style.borderColor='#406ae4';" style="text-align:center;flex:1;min-width:90px;background:#ffffff;border:2px solid #406ae4;border-radius:12px;padding:16px 8px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.01);">
+      <div style="background:rgb(17, 17, 17);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;">1</div>
+      <span style="font-size:13px;color:#0f172a;font-weight:600;display:block;margin-bottom:2px;">Discover</span>
+      <span style="font-size:11px;color:#64748b;display:block;">Keywords & Gaps</span>
     </div>
-    <div style="color:#64748b;font-size:20px;font-weight:800;user-select:none;">→</div>
-    <div style="text-align:center;flex:1;min-width:90px;background:rgba(30,41,59,0.5);border:1px solid #475569;border-radius:10px;padding:16px 8px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
-      <div style="background:linear-gradient(135deg,#10b981 0%,#047857 100%);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;box-shadow:0 0 12px rgba(16, 185, 129, 0.5);">2</div>
-      <span style="font-size:13px;color:#f1f5f9;font-weight:600;display:block;margin-bottom:2px;">Research</span>
-      <span style="font-size:11px;color:#94a3b8;display:block;">SERP & Intent</span>
+    <div style="color:#94a3b8;font-size:20px;font-weight:800;user-select:none;">→</div>
+    <div class="workflow-step-card-item" onclick="document.querySelectorAll('.workflow-details-pane').forEach(p=>p.style.display='none'); document.getElementById('step-details-2').style.display='block'; document.querySelectorAll('.workflow-step-card-item').forEach(c=>c.style.borderColor='#e2e8f0'); this.style.borderColor='#406ae4';" style="text-align:center;flex:1;min-width:90px;background:#ffffff;border:2px solid #e2e8f0;border-radius:12px;padding:16px 8px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.01);">
+      <div style="background:rgb(17, 17, 17);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;">2</div>
+      <span style="font-size:13px;color:#0f172a;font-weight:600;display:block;margin-bottom:2px;">Research</span>
+      <span style="font-size:11px;color:#64748b;display:block;">SERP & Intent</span>
     </div>
-    <div style="color:#64748b;font-size:20px;font-weight:800;user-select:none;">→</div>
-    <div style="text-align:center;flex:1;min-width:90px;background:rgba(30,41,59,0.5);border:1px solid #475569;border-radius:10px;padding:16px 8px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
-      <div style="background:linear-gradient(135deg,#f59e0b 0%,#b45309 100%);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;box-shadow:0 0 12px rgba(245, 158, 11, 0.5);">3</div>
-      <span style="font-size:13px;color:#f1f5f9;font-weight:600;display:block;margin-bottom:2px;">Create</span>
-      <span style="font-size:11px;color:#94a3b8;display:block;">AI First Draft</span>
+    <div style="color:#94a3b8;font-size:20px;font-weight:800;user-select:none;">→</div>
+    <div class="workflow-step-card-item" onclick="document.querySelectorAll('.workflow-details-pane').forEach(p=>p.style.display='none'); document.getElementById('step-details-3').style.display='block'; document.querySelectorAll('.workflow-step-card-item').forEach(c=>c.style.borderColor='#e2e8f0'); this.style.borderColor='#406ae4';" style="text-align:center;flex:1;min-width:90px;background:#ffffff;border:2px solid #e2e8f0;border-radius:12px;padding:16px 8px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.01);">
+      <div style="background:rgb(17, 17, 17);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;">3</div>
+      <span style="font-size:13px;color:#0f172a;font-weight:600;display:block;margin-bottom:2px;">Create</span>
+      <span style="font-size:11px;color:#64748b;display:block;">AI First Draft</span>
     </div>
-    <div style="color:#64748b;font-size:20px;font-weight:800;user-select:none;">→</div>
-    <div style="text-align:center;flex:1;min-width:90px;background:rgba(30,41,59,0.5);border:1px solid #475569;border-radius:10px;padding:16px 8px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
-      <div style="background:linear-gradient(135deg,#8b5cf6 0%,#6d28d9 100%);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;box-shadow:0 0 12px rgba(139, 92, 246, 0.5);">4</div>
-      <span style="font-size:13px;color:#f1f5f9;font-weight:600;display:block;margin-bottom:2px;">Optimize</span>
-      <span style="font-size:11px;color:#94a3b8;display:block;">SEO & Quality Audit</span>
+    <div style="color:#94a3b8;font-size:20px;font-weight:800;user-select:none;">→</div>
+    <div class="workflow-step-card-item" onclick="document.querySelectorAll('.workflow-details-pane').forEach(p=>p.style.display='none'); document.getElementById('step-details-4').style.display='block'; document.querySelectorAll('.workflow-step-card-item').forEach(c=>c.style.borderColor='#e2e8f0'); this.style.borderColor='#406ae4';" style="text-align:center;flex:1;min-width:90px;background:#ffffff;border:2px solid #e2e8f0;border-radius:12px;padding:16px 8px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.01);">
+      <div style="background:rgb(17, 17, 17);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;">4</div>
+      <span style="font-size:13px;color:#0f172a;font-weight:600;display:block;margin-bottom:2px;">Optimize</span>
+      <span style="font-size:11px;color:#64748b;display:block;">SEO & Quality</span>
     </div>
-    <div style="color:#64748b;font-size:20px;font-weight:800;user-select:none;">→</div>
-    <div style="text-align:center;flex:1;min-width:90px;background:rgba(30,41,59,0.5);border:1px solid #475569;border-radius:10px;padding:16px 8px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
-      <div style="background:linear-gradient(135deg,#ec4899 0%,#be185d 100%);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;box-shadow:0 0 12px rgba(236, 72, 153, 0.5);">5</div>
-      <span style="font-size:13px;color:#f1f5f9;font-weight:600;display:block;margin-bottom:2px;">Publish</span>
-      <span style="font-size:11px;color:#94a3b8;display:block;">WordPress & Index</span>
+    <div style="color:#94a3b8;font-size:20px;font-weight:800;user-select:none;">→</div>
+    <div class="workflow-step-card-item" onclick="document.querySelectorAll('.workflow-details-pane').forEach(p=>p.style.display='none'); document.getElementById('step-details-5').style.display='block'; document.querySelectorAll('.workflow-step-card-item').forEach(c=>c.style.borderColor='#e2e8f0'); this.style.borderColor='#406ae4';" style="text-align:center;flex:1;min-width:90px;background:#ffffff;border:2px solid #e2e8f0;border-radius:12px;padding:16px 8px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.01);">
+      <div style="background:rgb(17, 17, 17);color:#ffffff;width:36px;height:36px;border-radius:50%;line-height:36px;margin:0 auto 12px auto;font-weight:800;font-size:15px;">5</div>
+      <span style="font-size:13px;color:#0f172a;font-weight:600;display:block;margin-bottom:2px;">Publish</span>
+      <span style="font-size:11px;color:#64748b;display:block;">WP & Indexing</span>
+    </div>
+  </div>
+  <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;min-height:80px;box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+    <div id="step-details-1" class="workflow-details-pane" style="display:block;">
+      <h5 style="margin:0 0 6px 0;color:#0f172a;font-size:14px;font-weight:700;">1. Discover Keywords & Gaps</h5>
+      <p style="margin:0;color:#475569;font-size:13px;line-height:1.5;">Pulls keyword opportunities and gaps directly from Google Search Console and DataForSEO, prioritizing low-difficulty keywords with high search intent.</p>
+    </div>
+    <div id="step-details-2" class="workflow-details-pane" style="display:none;">
+      <h5 style="margin:0 0 6px 0;color:#0f172a;font-size:14px;font-weight:700;">2. Research SERP & Intent</h5>
+      <p style="margin:0;color:#475569;font-size:13px;line-height:1.5;">Analyzes competitor content structure, outbound sources, and search intent clusters to generate an SEO-optimized topic brief.</p>
+    </div>
+    <div id="step-details-3" class="workflow-details-pane" style="display:none;">
+      <h5 style="margin:0 0 6px 0;color:#0f172a;font-size:14px;font-weight:700;">3. Create AI First Draft</h5>
+      <p style="margin:0;color:#475569;font-size:13px;line-height:1.5;">Generates publish-ready, authoritative long-form markdown. If Anthropic quota is exceeded, the pipeline auto-switches to Gemini fallback.</p>
+    </div>
+    <div id="step-details-4" class="workflow-details-pane" style="display:none;">
+      <h5 style="margin:0 0 6px 0;color:#0f172a;font-size:14px;font-weight:700;">4. Optimize SEO & Quality Audit</h5>
+      <p style="margin:0;color:#475569;font-size:13px;line-height:1.5;">Audits the draft for transition words, readability ease, keyphrase density, outbound links, and and ensures it passes the automated Yoast copywriting checklist.</p>
+    </div>
+    <div id="step-details-5" class="workflow-details-pane" style="display:none;">
+      <h5 style="margin:0 0 6px 0;color:#0f172a;font-size:14px;font-weight:700;">5. Publish & Index</h5>
+      <p style="margin:0;color:#475569;font-size:13px;line-height:1.5;">Uploads the verified draft directly to WordPress and automatically pings Google and Bing via IndexNow to trigger instant crawl/indexing.</p>
     </div>
   </div>
 </div>
@@ -281,7 +303,7 @@ def build_rich_blocks(focus_keyphrase: str, markdown: str = "") -> list[str]:
 </div>
 <!-- /wp:yoast/faq-block -->""",
         f"""<!-- wp:html -->
-<div class="seo-machine-related" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin-top:24px;"><aside aria-label="Related articles"><h3 style="margin-top:0;margin-bottom:12px;font-size:18px;color:#0f172a;">Related Articles</h3><ul style="margin:0;padding-left:20px;line-height:1.6;"><li><a href="https://blog.meetlyra.app/" style="color:#3b82f6;text-decoration:none;font-weight:500;">MeetLyra Blog</a></li><li><a href="https://waitlist.meetlyra.app/" style="color:#3b82f6;text-decoration:none;font-weight:500;">MeetLyra Marketing Workflow</a></li></ul></aside></div>
+<div class="seo-machine-related" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:24px;box-shadow:0 4px 20px rgba(0,0,0,0.02);"><aside aria-label="Related articles"><h3 style="margin-top:0;margin-bottom:12px;font-size:18px;color:#0f172a;font-weight:700;">Related Articles</h3><ul style="margin:0;padding-left:20px;line-height:1.6;"><li><a href="https://blog.meetlyra.app/" style="color:#406ae4;text-decoration:none;font-weight:600;">MeetLyra Blog</a></li><li><a href="https://waitlist.meetlyra.app/" style="color:#406ae4;text-decoration:none;font-weight:600;">MeetLyra Marketing Workflow</a></li></ul></aside></div>
 <!-- /wp:html -->""",
     ]
 
@@ -291,53 +313,53 @@ def build_cta_blocks(focus_keyphrase: str) -> list[str]:
         # CTA 1: Simple button block
         f"""<!-- wp:html -->
 <div class="seo-machine-cta-btn-wrapper-1" style="display:flex;justify-content:center;margin:32px 0;">
-  <a class="seo-machine-cta-btn-1" href="https://waitlist.meetlyra.app/" style="background:#4f46e5;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-family:sans-serif;box-shadow:0 4px 6px -1px rgba(79,70,229,0.1),0 2px 4px -2px rgba(79,70,229,0.1);transition:all 0.2s;">Start Automating with MeetLyra</a>
+  <a class="seo-machine-cta-btn-1" href="https://waitlist.meetlyra.app/" style="background:rgb(17, 17, 17);color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-family:sans-serif;box-shadow:0 4px 10px rgba(0,0,0,0.05);transition:all 0.2s;" onmouseover="this.style.background='#406ae4'" onmouseout="this.style.background='rgb(17, 17, 17)'">Start Automating with MeetLyra</a>
 </div>
 <!-- /wp:html -->""",
 
         # CTA 2: Styled box/group with Heading, Paragraph, and Button
         f"""<!-- wp:html -->
-<div class="seo-machine-cta-group-2" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:32px;margin:32px 0;font-family:sans-serif;box-shadow:0 1px 3px 0 rgba(0,0,0,0.05);">
+<div class="seo-machine-cta-group-2" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-radius:12px;padding:32px;margin:32px 0;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.02);">
   <h3 style="margin-top:0;margin-bottom:12px;font-size:22px;color:#0f172a;font-weight:700;">Ready to scale your {focus_keyphrase} workflow?</h3>
   <p style="color:#475569;font-size:15px;line-height:1.6;margin-bottom:24px;">MeetLyra acts as your autonomous marketing team, planning and executing search strategies from end to end.</p>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
-    <a href="https://waitlist.meetlyra.app/" style="background:#4f46e5;color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 1px 2px 0 rgba(0,0,0,0.05);display:inline-block;">Analyze My Website For Free</a>
+    <a href="https://waitlist.meetlyra.app/" style="background:rgb(17, 17, 17);color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 1px 2px 0 rgba(0,0,0,0.05);display:inline-block;transition:all 0.2s;" onmouseover="this.style.background='#406ae4'" onmouseout="this.style.background='rgb(17, 17, 17)'">Analyze My Website For Free</a>
   </div>
 </div>
 <!-- /wp:html -->""",
 
         # CTA 3: Callout quote style link
         f"""<!-- wp:html -->
-<div class="seo-machine-cta-quote-3" style="border-left:4px solid #4f46e5;background:#f8fafc;padding:16px 24px;margin:32px 0;font-family:sans-serif;">
-  <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;"><strong>Take Action:</strong> Use MeetLyra's autonomous agent to run competitor content analyses and publish search-intent matched articles on autopilot. <a href="https://waitlist.meetlyra.app/" style="color:#4f46e5;text-decoration:underline;font-weight:600;">Learn more here</a>.</p>
+<div class="seo-machine-cta-quote-3" style="border:1px solid #e2e8f0;border-left:4px solid #406ae4;background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);padding:16px 24px;margin:32px 0;font-family:sans-serif;border-radius:0 12px 12px 0;box-shadow:0 4px 20px rgba(0,0,0,0.02);">
+  <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;"><strong>Take Action:</strong> Use MeetLyra's autonomous agent to run competitor content analyses and publish search-intent matched articles on autopilot. <a href="https://waitlist.meetlyra.app/" style="color:#406ae4;text-decoration:underline;font-weight:600;">Learn more here</a>.</p>
 </div>
 <!-- /wp:html -->""",
 
         # CTA 4: Modern button block centered
         f"""<!-- wp:html -->
 <div class="seo-machine-cta-btn-wrapper-4" style="display:flex;justify-content:center;margin:32px 0;">
-  <a class="seo-machine-cta-btn-4" href="https://waitlist.meetlyra.app/" style="border:2px solid #e2e8f0;color:#0f172a;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-family:sans-serif;transition:all 0.2s;display:inline-block;">See MeetLyra in Action</a>
+  <a class="seo-machine-cta-btn-4" href="https://waitlist.meetlyra.app/" style="border:2px solid rgb(17, 17, 17);color:rgb(17, 17, 17);background:none;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-family:sans-serif;transition:all 0.2s;display:inline-block;" onmouseover="this.style.background='rgb(17, 17, 17)'; this.style.color='#ffffff';" onmouseout="this.style.background='none'; this.style.color='rgb(17, 17, 17)';">See MeetLyra in Action</a>
 </div>
 <!-- /wp:html -->""",
 
         # CTA 5: Product highlights group box
         f"""<!-- wp:html -->
-<div class="seo-machine-cta-group-5" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:32px;margin:32px 0;font-family:sans-serif;">
+<div class="seo-machine-cta-group-5" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-radius:12px;padding:32px;margin:32px 0;font-family:sans-serif;box-shadow:0 4px 20px rgba(0,0,0,0.02);">
   <h3 style="margin-top:0;margin-bottom:12px;font-size:22px;color:#0f172a;font-weight:700;">Why run {focus_keyphrase} manually?</h3>
   <p style="color:#475569;font-size:15px;line-height:1.6;margin-bottom:24px;">MeetLyra automates SEO keyword grouping, outlines optimal content structure, drafts complete articles, and publishes them with strict quality controls.</p>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
-    <a href="https://waitlist.meetlyra.app/" style="background:#4f46e5;color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 1px 2px 0 rgba(0,0,0,0.05);display:inline-block;">Get Started Free</a>
+    <a href="https://waitlist.meetlyra.app/" style="background:rgb(17, 17, 17);color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 1px 2px 0 rgba(0,0,0,0.05);display:inline-block;transition:all 0.2s;" onmouseover="this.style.background='#406ae4'" onmouseout="this.style.background='rgb(17, 17, 17)'">Get Started Free</a>
   </div>
 </div>
 <!-- /wp:html -->""",
 
         # CTA 6: Bottom Concluding CTA Button
         f"""<!-- wp:html -->
-<div class="seo-machine-cta-group-6" style="background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);border:1px solid #e2e8f0;border-radius:16px;padding:40px;margin:40px 0;font-family:sans-serif;text-align:center;">
+<div class="seo-machine-cta-group-6" style="background:rgba(255, 255, 255, 0.85);backdrop-filter:blur(10px);border:1px solid #e2e8f0;border-radius:16px;padding:40px;margin:40px 0;font-family:sans-serif;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.02);">
   <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;color:#0f172a;font-weight:800;">Try the Autonomous AI SEO Engine</h3>
   <p style="color:#475569;font-size:16px;line-height:1.6;margin-bottom:24px;max-width:540px;margin-left:auto;margin-right:auto;">Enter your website URL today and let MeetLyra build and execute your custom search strategy.</p>
   <div style="display:flex;justify-content:center;">
-    <a href="https://waitlist.meetlyra.app/" style="background:#4f46e5;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;box-shadow:0 4px 6px -1px rgba(79,70,229,0.15);display:inline-block;">Scan My Site Now</a>
+    <a href="https://waitlist.meetlyra.app/" style="background:rgb(17, 17, 17);color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;box-shadow:0 4px 10px rgba(0,0,0,0.05);display:inline-block;transition:all 0.2s;" onmouseover="this.style.background='#406ae4'" onmouseout="this.style.background='rgb(17, 17, 17)'">Scan My Site Now</a>
   </div>
 </div>
 <!-- /wp:html -->"""
