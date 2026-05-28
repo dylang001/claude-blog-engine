@@ -1,0 +1,642 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R /MediaBox [0 0 595 842] >>
+endobj
+6 0 obj
+<< /Length 5920 >>
+stream
+BT
+/F2 8 Tf
+9.6 TL
+50 810 Td
+(Report: MeetLyra SEO Strategy Report) Tj
+ET
+0.5 w 50 802 m 545 802 l S
+BT
+/F2 18 Tf
+21.599999999999998 TL
+50 770 Td
+(MeetLyra SEO Strategy & GEO Report) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 742 Td
+(Generated At: 2026-05-19T15:42:19.692253+00:00) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 722 Td
+(This report presents a strict, evidence-backed strategy audit combining page) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 708 Td
+(intelligence, technical checks, competitor content gap research, and generative) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 694 Td
+(engine optimization \(GEO\) scoring.) Tj
+ET
+BT
+/F2 14 Tf
+16.8 TL
+50 659 Td
+(1. Generative Engine Optimization \(GEO\) Overview) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 639 Td
+(GEO readiness determines how frequently your site content is retrieved and cited by) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 625 Td
+(AI engines like ChatGPT, Bing Copilot, Perplexity, and Google AI Overviews.) Tj
+ET
+BT
+/F2 9 Tf
+10.799999999999999 TL
+54 598 Td
+(Capability) Tj
+ET
+BT
+/F2 9 Tf
+10.799999999999999 TL
+164 598 Td
+(Status) Tj
+ET
+BT
+/F2 9 Tf
+10.799999999999999 TL
+244 598 Td
+(Deployment Detail) Tj
+ET
+1 w 50 595 m 545 595 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 579 Td
+(technical_seo) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 579 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 579 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 577 m 545 577 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 563 Td
+(page_intelligence) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 563 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 563 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 561 m 545 561 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 547 Td
+(content_quality) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 547 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 547 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 545 m 545 545 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 531 Td
+(schema_engine) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 531 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 531 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 529 m 545 529 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 515 Td
+(geo_aeo) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 515 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 515 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 513 m 545 513 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 499 Td
+(semantic_clustering) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 499 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 499 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 497 m 545 497 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 483 Td
+(competitor_gap_engine) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 483 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 483 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 481 m 545 481 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 467 Td
+(drift_monitoring) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 467 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 467 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 465 m 545 465 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 451 Td
+(google_api_reporting) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 451 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 451 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 449 m 545 449 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 435 Td
+(pdf_report_generation) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 435 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 435 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 433 m 545 433 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 419 Td
+(firecrawl_crawling) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 419 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 419 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 417 m 545 417 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 403 Td
+(backlink_profile_analy) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 403 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 403 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 401 m 545 401 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 387 Td
+(local_maps_intelligenc) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 387 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 387 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 385 m 545 385 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 371 Td
+(international_hreflang) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 371 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 371 Td
+(Implemented directly in content_machine) Tj
+ET
+0.5 w 50 369 m 545 369 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 355 Td
+(gsc) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 355 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 355 Td
+(Google Search Console OAuth query) Tj
+ET
+0.5 w 50 353 m 545 353 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 339 Td
+(ga4) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 339 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 339 Td
+(GA4 organic landing-page report) Tj
+ET
+0.5 w 50 337 m 545 337 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 323 Td
+(pagespeed_crux) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 323 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 323 Td
+(PageSpeed/CWV report) Tj
+ET
+0.5 w 50 321 m 545 321 l S
+BT
+/F1 8 Tf
+9.6 TL
+54 307 Td
+(indexnow) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+164 307 Td
+(full) Tj
+ET
+BT
+/F1 8 Tf
+9.6 TL
+244 307 Td
+(IndexNow key verification) Tj
+ET
+0.5 w 50 305 m 545 305 l S
+BT
+/F2 14 Tf
+16.8 TL
+50 264 Td
+(2. Prioritized Roadmap & Next Actions) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 244 Td
+(- [HIGH] Build cluster: AI Marketing Agent - Impact: Topical authority and) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 230 Td
+(internal-link depth) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 212 Td
+(- [HIGH] Build cluster: SEO Content Engine - Impact: Topical authority and) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 198 Td
+(internal-link depth) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 180 Td
+(- [MEDIUM] Create a complete guide for `ai marketing agent`. - Impact: Close) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 166 Td
+(visible SERP format/topic gap) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 148 Td
+(- [MEDIUM] Add a tools/software angle for `ai marketing agent` if intent is) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 134 Td
+(commercial. - Impact: Close visible SERP format/topic gap) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 116 Td
+(- [MEDIUM] Add a workflow walkthrough for `ai marketing agent`. - Impact: Close) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 102 Td
+(visible SERP format/topic gap) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 84 Td
+(- [MEDIUM] Consider a fair comparison/supporting article for `ai marketing agent`.) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 70 Td
+(- Impact: Close visible SERP format/topic gap) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R /MediaBox [0 0 595 842] >>
+endobj
+8 0 obj
+<< /Length 1325 >>
+stream
+BT
+/F2 8 Tf
+9.6 TL
+50 810 Td
+(Report: MeetLyra SEO Strategy Report) Tj
+ET
+0.5 w 50 802 m 545 802 l S
+BT
+/F1 10 Tf
+12.0 TL
+60 780 Td
+(- [MEDIUM] Create a complete guide for `seo content engine`. - Impact: Close) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+70 766 Td
+(visible SERP format/topic gap) Tj
+ET
+BT
+/F2 14 Tf
+16.8 TL
+50 733 Td
+(3. Competitor Gap Analysis) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 713 Td
+(- Create a complete guide for `ai marketing agent`.) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 695 Td
+(- Add a tools/software angle for `ai marketing agent` if intent is commercial.) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 677 Td
+(- Add a workflow walkthrough for `ai marketing agent`.) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 659 Td
+(- Consider a fair comparison/supporting article for `ai marketing agent`.) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 641 Td
+(- Create a complete guide for `seo content engine`.) Tj
+ET
+BT
+/F2 14 Tf
+16.8 TL
+50 608 Td
+(4. Schema Graph Requirements) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+50 588 Td
+(Strategy target: yoast_schema_api) Tj
+ET
+BT
+/F2 11 Tf
+13.2 TL
+50 558 Td
+(Required Schema Graph Pieces:) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 542 Td
+(- Organization) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 524 Td
+(- WebSite) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 506 Td
+(- WebPage) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 488 Td
+(- Article) Tj
+ET
+BT
+/F1 10 Tf
+12.0 TL
+60 470 Td
+(- BreadcrumbList) Tj
+ET
+endstream
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000218 00000 n 
+0000000320 00000 n 
+0000000456 00000 n 
+0000006428 00000 n 
+0000006564 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+7941
+%%EOF

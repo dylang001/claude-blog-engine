@@ -44,13 +44,16 @@ def test_optimizer_adds_rich_gutenberg_blocks():
     optimized = optimize_content(_content("Opening paragraph.\n\n## First Section\n\nBody.\n\n## Second Section\n\nBody.", focus_keyphrase="seo automation"), opportunity)
 
     assert "wp:quote" in optimized.markdown
-    assert "seo-machine-reading-time" in optimized.markdown
+    # seo-machine-reading-time block is intentionally removed (writer prompt bans it)
+    assert "seo-machine-reading-time" not in optimized.markdown
+    assert "seo-machine-quick-answer" in optimized.markdown
     assert "seo-machine-toc" in optimized.markdown
     assert "seo-machine-proof" in optimized.markdown
     assert "seo-machine-chart" in optimized.markdown
     assert "seo-machine-faq" in optimized.markdown
     assert "seo-machine-related" in optimized.markdown
-    assert optimized.markdown.index("seo-machine-reading-time") < optimized.markdown.index("## First Section")
+    # seo-machine-quick-answer is now the first structural block (before First Section)
+    assert optimized.markdown.index("seo-machine-quick-answer") < optimized.markdown.index("## First Section")
     assert optimized.markdown.index("seo-machine-proof") < optimized.markdown.index("## Second Section")
 
 
@@ -59,3 +62,40 @@ def test_optimizer_does_not_append_transition_padding_snippet():
     optimized = optimize_content(_content("Opening paragraph.", focus_keyphrase="seo automation"), opportunity)
 
     assert "this workflow should stay easy to scan" not in optimized.markdown.lower()
+
+
+def test_optimizer_handles_gutenberg_html():
+    opportunity = Opportunity(WorkItemType.NEW_ARTICLE, "seo automation", "Title", 90)
+    gutenberg_html = (
+        "<!-- wp:paragraph -->\n"
+        "<p>This is the opening paragraph containing some information about seo automation.</p>\n"
+        "<!-- /wp:paragraph -->\n\n"
+        "<!-- wp:heading {\"level\":2} -->\n"
+        "<h2>First Section</h2>\n"
+        "<!-- /wp:heading -->\n\n"
+        "<!-- wp:paragraph -->\n"
+        "<p>This is the first body paragraph about seo automation optimization.</p>\n"
+        "<!-- /wp:paragraph -->\n\n"
+        "<!-- wp:heading {\"level\":2} -->\n"
+        "<h2>Second Section</h2>\n"
+        "<!-- /wp:heading -->\n\n"
+        "<!-- wp:paragraph -->\n"
+        "<p>This is the second body paragraph about seo automation tools.</p>\n"
+        "<!-- /wp:paragraph -->"
+    )
+    optimized = optimize_content(_content(gutenberg_html, focus_keyphrase="seo automation"), opportunity)
+
+    # Verify that the Gutenberg HTML is preserved and rich blocks are inserted correctly
+    assert "wp:paragraph" in optimized.markdown
+    # seo-machine-reading-time block is intentionally removed (writer prompt bans it)
+    assert "seo-machine-reading-time" not in optimized.markdown
+    assert "seo-machine-quick-answer" in optimized.markdown
+    assert "seo-machine-toc" in optimized.markdown
+    assert "seo-machine-proof" in optimized.markdown
+    assert "seo-machine-chart" in optimized.markdown
+    assert "seo-machine-faq" in optimized.markdown
+    assert "seo-machine-related" in optimized.markdown
+    assert "wp:heading" in optimized.markdown
+    assert "<h2>First Section</h2>" in optimized.markdown
+    assert "<h2>Second Section</h2>" in optimized.markdown
+    assert "is the opening paragraph" in optimized.markdown  # transition word may lowercase the first letter

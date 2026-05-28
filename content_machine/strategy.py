@@ -105,8 +105,14 @@ class StrictStrategyReporter:
         target_url = self.settings.site.site_url or "https://meetlyra.com"
         
         firecrawl_links = await firecrawl_client.map(target_url)
-        backlink_summary = await backlink_client.get_summary(target_domain)
-        local_maps_summary = await local_maps_client.get_gmb_reviews(self.settings.site.brand_name.lower().replace(" ", "-"))
+        
+        backlink_summary = None
+        if self.settings.site.enable_backlinks_api:
+            backlink_summary = await backlink_client.get_summary(target_domain)
+            
+        local_maps_summary = None
+        if self.settings.site.enable_gmb_api:
+            local_maps_summary = await local_maps_client.get_gmb_reviews(self.settings.site.brand_name.lower().replace(" ", "-"))
 
         report = {
             "generated_at": started_at.isoformat(),
@@ -147,7 +153,9 @@ class StrictStrategyReporter:
         report["saved_report"] = str(saved)
 
         # Generate the PDF report
-        pdf_path = self.settings.data_dir / "reports" / f"strict-strategy-{started_at.strftime('%Y%m%d-%H%M%S')}.pdf"
+        reports_dir = self.settings.root_dir / "seo-reports"
+        reports_dir.mkdir(parents=True, exist_ok=True)
+        pdf_path = reports_dir / f"strict-strategy-{started_at.strftime('%Y%m%d-%H%M%S')}.pdf"
         try:
             generate_pdf_strategy_report(report, pdf_path)
             report["pdf_report_path"] = str(pdf_path)
@@ -158,7 +166,7 @@ class StrictStrategyReporter:
         return report
 
     def save_report(self, report: dict[str, Any]) -> Path:
-        reports_dir = self.settings.data_dir / "reports"
+        reports_dir = self.settings.root_dir / "seo-reports"
         reports_dir.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         path = reports_dir / f"strict-strategy-{stamp}.json"

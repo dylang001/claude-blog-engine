@@ -156,3 +156,46 @@ def test_audit_blocks_unsupported_case_study_claims(tmp_path):
     assert any("quantified performance" in issue for issue in audit.issues)
     assert audit.details["factuality"]["unsupported_metric_claim_count"] >= 1
     assert audit.decision.value == "block"
+
+
+def test_audit_handles_gutenberg_html(tmp_path):
+    opportunity = Opportunity(WorkItemType.NEW_ARTICLE, "seo automation", "SEO Automation", 90)
+    
+    # Fully Gutenberg formatted content (HTML blocks + Gutenberg comments)
+    gutenberg_html = (
+        "<!-- wp:paragraph -->\n"
+        "<p>SEO automation is the process of using software to automate repetitive SEO tasks. This allows marketing teams to scale up operations.</p>\n"
+        "<!-- /wp:paragraph -->\n\n"
+        "<!-- wp:heading {\"level\":2} -->\n"
+        "<h2>Why SEO Automation Matters</h2>\n"
+        "<!-- /wp:heading -->\n\n"
+        "<!-- wp:paragraph -->\n"
+        "<p>Implementing SEO automation can save hours of manual keyword tracking. Also, it ensures pages are updated consistently. Finally, it helps monitor outcomes.</p>\n"
+        "<!-- /wp:paragraph -->\n\n"
+        "<!-- wp:paragraph -->\n"
+        "<p>Read the MeetLyra workflow at <a href=\"https://blog.meetlyra.app/workflow\">MeetLyra blog</a>. For baseline documentation, check out <a href=\"https://developers.google.com/search/docs\">Google Search Central</a>.</p>\n"
+        "<!-- /wp:paragraph -->\n\n"
+        # We need sufficient word count to avoid word count penalty, or we can mock/extend it.
+        # Let's add many paragraphs to reach the 1,500 word limit.
+        + "\n\n".join(
+            [
+                "<!-- wp:paragraph -->\n<p>Also, SEO automation is helpful for various teams. Therefore, they can focus on creativity while automation handles technical details. We should consider how this impacts page speed and user retention.</p>\n<!-- /wp:paragraph -->"
+            ] * 20
+        )
+    )
+    
+    content = _content(
+        gutenberg_html,
+        meta_title="SEO Automation Guide: Scale Content Systematically",
+        meta_description="Learn how SEO automation helps marketing teams scale up content workflows, analyze search data, and publish articles consistently.",
+        focus_keyphrase="seo automation"
+    )
+    # We optimize content to append rich blocks
+    optimized = optimize_content(content, opportunity)
+    
+    audit = SEOAuditEngine(_settings(tmp_path)).audit(optimized, opportunity, {})
+    
+    # We verify no keyphrase in intro or subheading issues were generated
+    assert not any("first paragraph" in issue for issue in audit.issues)
+    assert not any("subheading" in issue for issue in audit.issues)
+

@@ -1,0 +1,742 @@
+{
+  "seeds": [
+    "ai marketing agent",
+    "ai seo agent",
+    "ai content automation",
+    "seo content automation",
+    "ai marketing automation",
+    "ai blog generator",
+    "wordpress ai blog",
+    "ai social media agent",
+    "ai campaign planner",
+    "generative engine optimization",
+    "answer engine optimization",
+    "ai marketing tools",
+    "marketing automation for startups",
+    "content marketing automation"
+  ],
+  "count": 80,
+  "errors": [],
+  "keywords": [
+    {
+      "keyword": "vector marketing",
+      "volume": 74000,
+      "kd": 24,
+      "cpc": 4.09,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 89.4
+    },
+    {
+      "keyword": "performance marketing agency",
+      "volume": 2900,
+      "kd": 0,
+      "cpc": 40.22,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 87.7
+    },
+    {
+      "keyword": "social media marketing jobs",
+      "volume": 6600,
+      "kd": 0,
+      "cpc": 2.37,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 87.6
+    },
+    {
+      "keyword": "cardenas marketing network",
+      "volume": 60500,
+      "kd": 20,
+      "cpc": 4.55,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 87.3
+    },
+    {
+      "keyword": "pinterest affiliate marketing",
+      "volume": 18100,
+      "kd": 18,
+      "cpc": 3.47,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 86.9
+    },
+    {
+      "keyword": "plannet marketing",
+      "volume": 9900,
+      "kd": 14,
+      "cpc": 6.03,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 86.4
+    },
+    {
+      "keyword": "social media marketing services",
+      "volume": 14800,
+      "kd": 20,
+      "cpc": 19.46,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 85.4
+    },
+    {
+      "keyword": "content machines",
+      "volume": 4400,
+      "kd": 3,
+      "cpc": null,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 84.9
+    },
+    {
+      "keyword": "seo agency",
+      "volume": 33100,
+      "kd": 31,
+      "cpc": 55.19,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 83.8
+    },
+    {
+      "keyword": "digital marketing platforms",
+      "volume": 6600,
+      "kd": 18,
+      "cpc": 24.58,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 83.4
+    },
+    {
+      "keyword": "social media marketing tools",
+      "volume": 8100,
+      "kd": 20,
+      "cpc": 21.29,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 83.3
+    },
+    {
+      "keyword": "lyfe marketing",
+      "volume": 3600,
+      "kd": 14,
+      "cpc": 10.16,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 82.9
+    },
+    {
+      "keyword": "marketing mix",
+      "volume": 14800,
+      "kd": 19,
+      "cpc": 9.8,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 82.8
+    },
+    {
+      "keyword": "b2b marketing agency",
+      "volume": 5400,
+      "kd": 18,
+      "cpc": 82.2,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 82.7
+    },
+    {
+      "keyword": "ai marketing tools",
+      "volume": 5400,
+      "kd": 19,
+      "cpc": 23.99,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 82.3
+    },
+    {
+      "keyword": "power digital marketing",
+      "volume": 4400,
+      "kd": 17,
+      "cpc": 9.54,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 82.3
+    },
+    {
+      "keyword": "ai automation agency",
+      "volume": 2900,
+      "kd": 6,
+      "cpc": 14.46,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 82.3
+    },
+    {
+      "keyword": "best social media management tools",
+      "volume": 1600,
+      "kd": 10,
+      "cpc": 25.55,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 81.6
+    },
+    {
+      "keyword": "guerilla marketing",
+      "volume": 14800,
+      "kd": 30,
+      "cpc": 11.14,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 81.4
+    },
+    {
+      "keyword": "ai tool for seo",
+      "volume": 1000,
+      "kd": 8,
+      "cpc": 24.88,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 80.8
+    },
+    {
+      "keyword": "online marketing platforms",
+      "volume": 12100,
+      "kd": 30,
+      "cpc": 47.54,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 80.7
+    },
+    {
+      "keyword": "marketing firms",
+      "volume": 5400,
+      "kd": 24,
+      "cpc": 17.98,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 80.3
+    },
+    {
+      "keyword": "social media influencers",
+      "volume": 12100,
+      "kd": 24,
+      "cpc": 9.57,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 80.1
+    },
+    {
+      "keyword": "social media campaign",
+      "volume": 3600,
+      "kd": 14,
+      "cpc": 27.04,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 79.9
+    },
+    {
+      "keyword": "digital marketing jobs",
+      "volume": 22200,
+      "kd": 30,
+      "cpc": 7.86,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 79.8
+    },
+    {
+      "keyword": "small business social media marketing",
+      "volume": 4400,
+      "kd": 16,
+      "cpc": 19.26,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 79.7
+    },
+    {
+      "keyword": "social media marketing small business",
+      "volume": 4400,
+      "kd": 24,
+      "cpc": 19.26,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 79.5
+    },
+    {
+      "keyword": "digital marketing platform for small businesses",
+      "volume": 33100,
+      "kd": 42,
+      "cpc": 9.78,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 79.4
+    },
+    {
+      "keyword": "social media agency",
+      "volume": 8100,
+      "kd": 31,
+      "cpc": 16.69,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 78.9
+    },
+    {
+      "keyword": "sms marketing platforms",
+      "volume": 4400,
+      "kd": 26,
+      "cpc": 70.23,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 78.7
+    },
+    {
+      "keyword": "seo ai agent",
+      "volume": 320,
+      "kd": 4,
+      "cpc": 28.44,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 78.4
+    },
+    {
+      "keyword": "marketing campaign examples",
+      "volume": 1600,
+      "kd": 11,
+      "cpc": 8.56,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 78.2
+    },
+    {
+      "keyword": "best ai tools for seo",
+      "volume": 480,
+      "kd": 8,
+      "cpc": 53.11,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 78.2
+    },
+    {
+      "keyword": "marketing funnel",
+      "volume": 12100,
+      "kd": 38,
+      "cpc": 15.8,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 77.5
+    },
+    {
+      "keyword": "social media campaign examples",
+      "volume": 1600,
+      "kd": 13,
+      "cpc": 30.82,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 77.4
+    },
+    {
+      "keyword": "zoho marketing automation",
+      "volume": 720,
+      "kd": 14,
+      "cpc": 11.85,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 77.3
+    },
+    {
+      "keyword": "best rated answer engine optimization tools",
+      "volume": 260,
+      "kd": 5,
+      "cpc": null,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 77.3
+    },
+    {
+      "keyword": "free social media management tools",
+      "volume": 1000,
+      "kd": 17,
+      "cpc": 9.82,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 77.2
+    },
+    {
+      "keyword": "social media producer",
+      "volume": 140,
+      "kd": 0,
+      "cpc": 12.69,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 77.2
+    },
+    {
+      "keyword": "seo marketing agency",
+      "volume": 5400,
+      "kd": 32,
+      "cpc": 62.15,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 77.1
+    },
+    {
+      "keyword": "digital marketing course",
+      "volume": 14800,
+      "kd": 42,
+      "cpc": 18.37,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 76.6
+    },
+    {
+      "keyword": "4 ps of marketing",
+      "volume": 12100,
+      "kd": 33,
+      "cpc": 0.9,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 76.5
+    },
+    {
+      "keyword": "email marketing agency",
+      "volume": 3600,
+      "kd": 31,
+      "cpc": 28.45,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 76.1
+    },
+    {
+      "keyword": "marketing cloud",
+      "volume": 2900,
+      "kd": 29,
+      "cpc": 13.61,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 76.1
+    },
+    {
+      "keyword": "what is marketing",
+      "volume": 18100,
+      "kd": 38,
+      "cpc": 7.56,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 75.9
+    },
+    {
+      "keyword": "top social media platforms",
+      "volume": 3600,
+      "kd": 32,
+      "cpc": 11.27,
+      "intent": "informational",
+      "funnel": "BOFU",
+      "score": 75.7
+    },
+    {
+      "keyword": "social media marketing agency",
+      "volume": 12100,
+      "kd": 43,
+      "cpc": 22.25,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 75.5
+    },
+    {
+      "keyword": "b2b content marketing",
+      "volume": 2900,
+      "kd": 31,
+      "cpc": 8.48,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 75.3
+    },
+    {
+      "keyword": "small business marketing",
+      "volume": 1600,
+      "kd": 26,
+      "cpc": 23.99,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 75.2
+    },
+    {
+      "keyword": "growthscribe marketing agency",
+      "volume": 22200,
+      "kd": null,
+      "cpc": 8.59,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 74.8
+    },
+    {
+      "keyword": "ai tools for seo",
+      "volume": 1000,
+      "kd": 23,
+      "cpc": 24.88,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 74.8
+    },
+    {
+      "keyword": "social media in entertainment",
+      "volume": 170,
+      "kd": 0,
+      "cpc": null,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 74.8
+    },
+    {
+      "keyword": "marketing automation tools",
+      "volume": 1300,
+      "kd": 26,
+      "cpc": 66.05,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 74.5
+    },
+    {
+      "keyword": "sap ai agents",
+      "volume": 170,
+      "kd": 1,
+      "cpc": 15.8,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 74.4
+    },
+    {
+      "keyword": "digital marketing services",
+      "volume": 14800,
+      "kd": 48,
+      "cpc": 20.72,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 74.2
+    },
+    {
+      "keyword": "social media platforms",
+      "volume": 18100,
+      "kd": 50,
+      "cpc": 12.08,
+      "intent": "informational",
+      "funnel": "BOFU",
+      "score": 74.1
+    },
+    {
+      "keyword": "social media content creator",
+      "volume": 2400,
+      "kd": 25,
+      "cpc": 11.53,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 74.0
+    },
+    {
+      "keyword": "affiliate marketing",
+      "volume": 60500,
+      "kd": 61,
+      "cpc": 7.32,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 73.9
+    },
+    {
+      "keyword": "langgraph multi agent",
+      "volume": 320,
+      "kd": 8,
+      "cpc": 8.53,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 73.8
+    },
+    {
+      "keyword": "seo copywriting software",
+      "volume": 70,
+      "kd": 3,
+      "cpc": null,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 73.6
+    },
+    {
+      "keyword": "manus ai agent",
+      "volume": 2900,
+      "kd": 28,
+      "cpc": 3.3,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 73.5
+    },
+    {
+      "keyword": "marketing automation software",
+      "volume": 2400,
+      "kd": 34,
+      "cpc": 59.64,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 73.4
+    },
+    {
+      "keyword": "social media ceos",
+      "volume": 110,
+      "kd": 0,
+      "cpc": null,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 73.3
+    },
+    {
+      "keyword": "highest-paid social media influencers",
+      "volume": 110,
+      "kd": 8,
+      "cpc": null,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 73.1
+    },
+    {
+      "keyword": "influencer marketing platforms",
+      "volume": 8100,
+      "kd": 46,
+      "cpc": 25.75,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.9
+    },
+    {
+      "keyword": "ai tools for affiliate marketing",
+      "volume": 260,
+      "kd": 16,
+      "cpc": null,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.9
+    },
+    {
+      "keyword": "ai automation",
+      "volume": 9900,
+      "kd": 41,
+      "cpc": 22.05,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 72.6
+    },
+    {
+      "keyword": "g1 blog wordpress",
+      "volume": 90,
+      "kd": 0,
+      "cpc": null,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 72.6
+    },
+    {
+      "keyword": "celebrity social media management",
+      "volume": 90,
+      "kd": 0,
+      "cpc": 20.63,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 72.6
+    },
+    {
+      "keyword": "social media manager for celebrities",
+      "volume": 90,
+      "kd": 0,
+      "cpc": 6.37,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 72.6
+    },
+    {
+      "keyword": "social media management for celebrities",
+      "volume": 90,
+      "kd": 0,
+      "cpc": 6.37,
+      "intent": "informational",
+      "funnel": "MOFU",
+      "score": 72.6
+    },
+    {
+      "keyword": "free ai tools for marketing",
+      "volume": 260,
+      "kd": 17,
+      "cpc": 21.03,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.5
+    },
+    {
+      "keyword": "ai content generator",
+      "volume": 1600,
+      "kd": 33,
+      "cpc": 10.95,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.4
+    },
+    {
+      "keyword": "kai cenat agent",
+      "volume": 210,
+      "kd": 8,
+      "cpc": null,
+      "intent": "navigational",
+      "funnel": "MOFU",
+      "score": 72.4
+    },
+    {
+      "keyword": "ai agents",
+      "volume": 60500,
+      "kd": 65,
+      "cpc": 24.34,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.3
+    },
+    {
+      "keyword": "marketing automation platforms",
+      "volume": 1300,
+      "kd": 32,
+      "cpc": 44.37,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.1
+    },
+    {
+      "keyword": "using ai for affiliate marketing",
+      "volume": 40,
+      "kd": 2,
+      "cpc": 10.9,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 72.0
+    },
+    {
+      "keyword": "best ai marketing tools",
+      "volume": 480,
+      "kd": 24,
+      "cpc": 35.03,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 71.8
+    },
+    {
+      "keyword": "free ai marketing tools",
+      "volume": 170,
+      "kd": 15,
+      "cpc": 18.74,
+      "intent": "commercial",
+      "funnel": "BOFU",
+      "score": 71.8
+    },
+    {
+      "keyword": "riona ai agent social media",
+      "volume": 30,
+      "kd": 0,
+      "cpc": null,
+      "intent": "transactional",
+      "funnel": "BOFU",
+      "score": 71.8
+    }
+  ]
+}

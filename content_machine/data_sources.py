@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -9,6 +10,9 @@ from .config import Settings
 from .dataforseo_auth import dataforseo_headers
 from .models import Opportunity, WorkItemType
 from .scoring import opportunity_score
+from .state import StateStore
+
+logger = logging.getLogger(__name__)
 
 
 class DataForSEOClient:
@@ -23,6 +27,20 @@ class DataForSEOClient:
         payload = [{"keywords": seeds[:20], "location_code": self.location_code, "language_code": "en", "limit": limit}]
         async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
             resp = await client.post(f"{self.base_url}/v3/dataforseo_labs/google/keyword_ideas/live", json=payload)
+            resp.raise_for_status()
+            data = resp.json()
+        items = []
+        for task in data.get("tasks", []):
+            for result in task.get("result") or []:
+                items.extend(result.get("items") or [])
+        return items
+
+    async def competitor_keywords(self, domain: str, limit: int = 50) -> list[dict[str, Any]]:
+        if not domain:
+            return []
+        payload = [{"target": domain, "location_code": self.location_code, "language_code": "en", "limit": limit}]
+        async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
+            resp = await client.post(f"{self.base_url}/v3/dataforseo_labs/google/competitor_keywords/live", json=payload)
             resp.raise_for_status()
             data = resp.json()
         items = []
@@ -90,8 +108,49 @@ class OpportunityCollector:
         self.settings = settings
         self.dataforseo = DataForSEOClient(settings)
         self.google = GoogleSignals(settings)
+        self.store = StateStore(settings.state_db, settings=settings)
 
     async def collect(self, strict: bool = False) -> list[Opportunity]:
+        # 1. Check refresh queue
+        refresh_item = self.store.get_next_refresh_candidate()
+        if refresh_item:
+            logger.info(f"Consuming candidate from refresh queue: {refresh_item['keyword']}")
+            return [
+                Opportunity(
+                    kind=WorkItemType.REFRESH,
+                    keyword=refresh_item["keyword"],
+                    title=f"Refresh: {refresh_item['keyword']}",
+                    score=refresh_item["score"],
+                    url=refresh_item["url"],
+                    reason=refresh_item["reason"],
+                )
+            ]
+
+        # 2. Check content plan queue
+        planned_item = self.store.get_next_planned_post()
+        if planned_item:
+            logger.info(f"Consuming planned post from topic cluster plan: {planned_item['keyword']} (Role: {planned_item['role']})")
+            metadata = {
+                "volume": planned_item.get("volume") or 0,
+                "kd": planned_item.get("kd") or 0,
+                "intent": planned_item.get("intent", ""),
+                "cluster_name": planned_item.get("cluster_name", ""),
+                "role": planned_item.get("role", ""),
+                "parent_pillar": planned_item.get("parent_pillar"),
+                "anchor_text": planned_item.get("anchor_text"),
+            }
+            return [
+                Opportunity(
+                    kind=WorkItemType.NEW_ARTICLE,
+                    keyword=planned_item["keyword"],
+                    title=planned_item["title"],
+                    score=planned_item["score"],
+                    reason=f"Topic Cluster Plan ({planned_item['role']})",
+                    metadata=metadata
+                )
+            ]
+
+        # 3. Fall back to dynamic keyword discovery
         candidates: list[Opportunity] = []
         candidates.extend(await self.google.refresh_candidates())
 

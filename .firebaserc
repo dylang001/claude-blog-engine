@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "aeo-seo-agents-team"
+  },
+  "targets": {
+    "aeo-seo-agents-team": {
+      "storage": {
+        "mybucket": [
+          "aeo-seo-agents-team.appspot.com"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

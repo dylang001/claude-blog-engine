@@ -27,11 +27,11 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
     
     # Existing commands
-    run = sub.add_parser("run", help="Run one content machine slot")
-    run.add_argument("--dry-run", action="store_true", help="Generate and audit without publishing")
-    run.add_argument("--publish", action="store_true", help="Allow WordPress publish/draft writes")
+    run_now = sub.add_parser("run-now", help="Force the pipeline to run immediately once without waiting for the schedule")
+    run_now.add_argument("--dry-run", action="store_true", help="Run logic without publishing")
+    run_now.add_argument("--publish", action="store_true", help="Allow WordPress publish/draft writes")
     
-    sub.add_parser("worker", help="Start the cloud worker scheduler")
+    worker = sub.add_parser("worker", help="Start the cloud worker scheduler")
     
     doctor = sub.add_parser("doctor", help="Check configuration")
     doctor.add_argument("--live", action="store_true", help="Also test provider authentication/connectivity")
@@ -93,6 +93,23 @@ def main() -> None:
     
     fc_map = firecrawl_sub.add_parser("map", help="Discover URLs map for a website")
     fc_map.add_argument("url", help="Website domain/URL to map")
+    
+    # Keyword research subcommand
+    kw_research = sub.add_parser("keyword-research", help="Perform keyword expansion, clustering, scoring, and content brief generation")
+    kw_research.add_argument("--seeds", nargs="+", help="Seed keywords to expand")
+    kw_research.add_argument("--location", default="United States", help="Target location")
+    kw_research.add_argument("--language", default="English", help="Target language")
+    kw_research.add_argument("--brief-limit", type=int, default=3, help="Generate content briefs for the top N keywords")
+    kw_research.add_argument("--output", default="data/seo/keyword_research/google_ads_raw.csv", help="Output path for raw metrics CSV")
+
+    # Yoast topic cluster planner subcommands
+    gen_plan = sub.add_parser("generate-plan", help="Generate a structured Yoast topic cluster map and queue it")
+    gen_plan.add_argument("--seed", default="AI marketing agent", help="Primary seed keyword for the topic cluster")
+    gen_plan.add_argument("--competitor-domain", help="Competitor domain to fetch keywords from")
+
+    view_plan = sub.add_parser("view-plan", help="View the queued topic cluster content plan")
+
+    weekly_review = sub.add_parser("weekly-review", help="Run the weekly performance and content drift review")
 
     args = parser.parse_args()
 
@@ -102,6 +119,15 @@ def main() -> None:
 
     settings = load_settings()
     
+    if args.command == "run-now":
+        print("Starting immediate pipeline run...")
+        result = asyncio.run(ContentMachine(settings).run_once(dry_run=args.dry_run))
+        print(f"\nFinished! Opportunity: {result.opportunity.keyword}")
+        print(f"Status: {result.wordpress_status}")
+        print(f"URL: {result.wordpress_url}")
+        print(f"Audit Decision: {result.audit.decision.value}")
+        return
+
     if args.command == "doctor":
         missing = settings.missing_required()
         payload = {"ok": not missing, "missing": missing, "state_db": str(settings.state_db)}
@@ -124,7 +150,11 @@ def main() -> None:
         return
 
     if args.command == "google-auth":
-        token_path = run_installed_app_oauth(settings, [GSC_SCOPE, GA4_SCOPE])
+        from .indexing import INDEXING_SCOPE
+        token_path = run_installed_app_oauth(
+            settings,
+            [GSC_SCOPE, GA4_SCOPE, INDEXING_SCOPE, "https://www.googleapis.com/auth/blogger"]
+        )
         print(json.dumps({"ok": True, "token_path": str(token_path)}, indent=2))
         return
 
@@ -224,6 +254,117 @@ def main() -> None:
         elif args.firecrawl_action == "crawl":
             res = asyncio.run(fc.crawl(args.url, limit=args.limit))
             print(json.dumps(res, indent=2, default=str))
+        return
+
+    if args.command == "keyword-research":
+        from .keyword_research_google_ads_api import (
+            fetch_keywords_raw,
+            process_and_score_keywords,
+            generate_content_brief,
+            save_raw_keywords_to_csv
+        )
+        seeds = args.seeds or [
+            "AI marketing agent",
+            "autonomous marketing agent",
+            "AI agent for marketing",
+            "AI marketing automation",
+            "AI campaign generator",
+            "AI content automation",
+            "AI marketing strategy generator",
+            "AI marketing assistant",
+            "AI tools for startups",
+            "marketing automation for startups",
+            "Jasper alternative",
+            "Copy.ai alternative",
+            "ChatGPT for marketing",
+            "AI content planner",
+            "AI go to market strategy"
+        ]
+        
+        print(f"Starting keyword research for seeds: {seeds}")
+        
+        # 1. Fetch Raw
+        raw_kws = asyncio.run(fetch_keywords_raw(
+            settings=settings,
+            seeds=seeds,
+            location=args.location,
+            language=args.language
+        ))
+        
+        print(f"Retrieved {len(raw_kws)} raw keywords. Exporting raw metrics to {args.output}...")
+        save_raw_keywords_to_csv(Path(args.output), raw_kws)
+        
+        # 2. Process, Cluster, Score
+        print("Clustering, classifying, and scoring keywords via Gemini...")
+        scored_kws = asyncio.run(process_and_score_keywords(settings, raw_kws))
+        
+        # Save scored keywords to a JSON report in reports/ directory
+        reports_dir = settings.data_dir / "keyword_reports"
+        reports_dir.mkdir(parents=True, exist_ok=True)
+        report_path = reports_dir / "keyword_analysis_report.json"
+        
+        # 3. Generate Briefs for top keywords
+        brief_limit = min(args.brief_limit, len(scored_kws))
+        print(f"\nGenerating Content Briefs for Top {brief_limit} Keywords...")
+        briefs = []
+        for i, item in enumerate(scored_kws[:brief_limit]):
+            print(f"Creating brief for: '{item['keyword']}' (Priority Score: {item['priority_score']})")
+            brief = asyncio.run(generate_content_brief(settings, item))
+            briefs.append(brief)
+            
+        full_report = {
+            "parameters": {
+                "seeds": seeds,
+                "location": args.location,
+                "language": args.language
+            },
+            "keywords": scored_kws,
+            "briefs": briefs
+        }
+        
+        report_path.write_text(json.dumps(full_report, indent=2, default=str), encoding="utf-8")
+        print(f"\nSaved analysis and briefs to: {report_path}")
+        
+        print("\nTop 10 Scored Keywords:")
+        for idx, kw in enumerate(scored_kws[:10]):
+            print(
+                f"{idx+1}. {kw['keyword']} (Priority Score: {kw['priority_score']}) | Cluster: {kw['cluster']} | "
+                f"Page Type: {kw['recommended_page_type']} | Searches: {kw['avg_monthly_searches']}"
+            )
+        return
+
+    if args.command == "generate-plan":
+        from .planner import ClusterPlanner
+        print(f"Starting Yoast Topic Cluster generation for seed keyword: '{args.seed}'" + (f" with competitor domain '{args.competitor_domain}'" if args.competitor_domain else ""))
+        planner = ClusterPlanner(settings)
+        plan = asyncio.run(planner.generate_plan([args.seed], competitor_domain=args.competitor_domain))
+        print(f"\nSuccessfully generated and queued {len(plan)} plan items!")
+        print("To view the full plan, run: python -m content_machine.cli view-plan")
+        return
+
+    if args.command == "view-plan":
+        from .state import StateStore
+        store = StateStore(settings.state_db, settings=settings)
+        plan = store.get_content_plan()
+        if not plan:
+            print("No planned posts found in the topic cluster plan queue.")
+            print("To generate a plan, run: python -m content_machine.cli generate-plan --seed <keyword>")
+            return
+            
+        print("\n--- Current Topic Cluster Content Plan Queue ---")
+        print(f"{'Keyword':<35} | {'Role':<6} | {'Status':<10} | {'Score':<5} | {'Parent Pillar':<25} | {'WP URL'}")
+        print("-" * 120)
+        for item in plan:
+            parent = item.get("parent_pillar") or "None"
+            wp_url = item.get("wordpress_url") or "None"
+            print(f"{item['keyword']:<35} | {item['role']:<6} | {item['status']:<10} | {item['score']:<5.2f} | {parent:<25} | {wp_url}")
+        return
+
+    if args.command == "weekly-review":
+        from .performance_analyst import PerformanceAnalyst
+        print("Starting weekly performance and content drift review...")
+        result = asyncio.run(PerformanceAnalyst(settings).run_weekly_review())
+        print(json.dumps(result, indent=2, default=str))
         return
 
     dry_run = True

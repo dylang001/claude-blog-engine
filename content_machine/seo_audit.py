@@ -49,12 +49,26 @@ class SEOAuditEngine:
         desc_len = len(content.meta_description)
         first_paragraph = _first_paragraph(content.markdown)
         keyphrase_words = [word for word in re.findall(r"[A-Za-z0-9]+", content.focus_keyphrase)]
-        keyphrase_in_subheading = bool(re.search(rf"^##+\s+.*{re.escape(content.focus_keyphrase)}", content.markdown, flags=re.IGNORECASE | re.MULTILINE))
+        keyphrase_in_subheading = bool(
+            re.search(rf"^##+\s+.*{re.escape(content.focus_keyphrase)}", content.markdown, flags=re.IGNORECASE | re.MULTILINE)
+        ) or bool(
+            re.search(rf"<h[2-6]\b[^>]*>.*{re.escape(content.focus_keyphrase)}.*</h[2-6]>", content.markdown, flags=re.IGNORECASE | re.DOTALL)
+        )
         keyphrase_in_alt = content.image_alt_text and content.focus_keyphrase.lower() in content.image_alt_text.lower()
         rich_block_count = len(re.findall(r"seo-machine-", content.markdown))
 
         issues: list[str] = []
         warnings: list[str] = []
+
+        # Penalise missing FAQPage schema — critical for GEO citability and Yoast structured data
+        has_faq_schema = (
+            "FAQPage" in str(content.schema_json.get("@type", ""))
+            or any("FAQPage" in str(v) for v in content.schema_json.values())
+            or bool(re.search(r"wp:yoast/faq-block", content.markdown, flags=re.IGNORECASE))
+        )
+        if not has_faq_schema:
+            schema_score -= 10
+            warnings.append("Schema: add a FAQPage block or FAQ schema to improve AI search citation.")
 
         content_score = 100.0
         if word_count < 1500:
@@ -64,8 +78,10 @@ class SEOAuditEngine:
             content_score -= 15
             warnings.append("Article has fewer than 4 H2 sections.")
         if h1_count:
+            # H1 duplicate is a hard publish blocker regardless of composite score
             content_score -= 25
             issues.append("Body content contains a duplicate H1; WordPress title must be the only H1.")
+            issues.append("__HARD_BLOCK_H1__")  # sentinel caught by pipeline
         if rich_block_count < 4:
             content_score -= 10
             warnings.append("Article is missing the required rich Gutenberg content blocks.")
@@ -95,6 +111,9 @@ class SEOAuditEngine:
         if not keyphrase_in_alt:
             seo_score -= 10
             issues.append("Image alt text must include the focus keyphrase.")
+        if not content.image_alt_text or len(content.image_alt_text.strip()) < 10:
+            seo_score -= 15
+            issues.append("Featured image is missing meaningful alt text (min 10 chars).")
         if not 45 <= title_len <= 60:
             seo_score -= 15
             issues.append("Meta title length is outside the 45-60 character target.")
@@ -111,6 +130,31 @@ class SEOAuditEngine:
             seo_score -= 8
             warnings.append("Internal links should not use the exact focus keyphrase as anchor text.")
 
+        target_link = research.get("target_internal_link")
+        if target_link:
+            target_url = target_link["url"].lower().rstrip("/")
+            found_target_url = False
+            found_target_anchor = False
+            
+            for anchor, url in markdown_link_pairs:
+                if url.lower().rstrip("/") == target_url:
+                    found_target_url = True
+                    if anchor.strip().lower() == target_link["anchor_text"].strip().lower():
+                        found_target_anchor = True
+            for url, anchor in html_link_pairs:
+                if url.lower().rstrip("/") == target_url:
+                    found_target_url = True
+                    if anchor.strip().lower() == target_link["anchor_text"].strip().lower():
+                        found_target_anchor = True
+                        
+            if not found_target_url:
+                seo_score -= 20
+                issues.append(f"Article is missing the required internal link to its parent pillar: {target_link['url']}")
+            elif not found_target_anchor:
+                seo_score -= 10
+                warnings.append(f"Parent pillar internal link must use the exact anchor text '{target_link['anchor_text']}' for URL '{target_link['url']}'.")
+
+
         technical_score = 85.0
         if opportunity.kind.value == "technical":
             technical_score = 90.0 if research.get("technical_checks") else 65.0
@@ -126,13 +170,13 @@ class SEOAuditEngine:
         transition_ratio = _transition_ratio(plain)
         if avg_sentence_words > 20:
             readability_score -= 12
-            issues.append("Average sentence length is above the 20-word target.")
+            warnings.append("Average sentence length is above the 20-word target.")
         if flesch < 50:
             readability_score -= 12
-            issues.append("Flesch reading ease is below the 50 target.")
+            warnings.append("Flesch reading ease is below the 50 target.")
         if transition_ratio < 0.30:
             readability_score -= 10
-            issues.append("Transition word usage is below the 30% target.")
+            warnings.append("Transition word usage is below the 30% target.")
 
         human_report = assess_human_quality(content.markdown)
         human_score = human_report.score
@@ -219,8 +263,19 @@ def _plain_text(value: str) -> str:
 def _first_paragraph(markdown: str) -> str:
     for part in re.split(r"\n{2,}", markdown or ""):
         clean = part.strip()
-        if clean and not clean.lstrip().startswith(("#", "<", "-", "|")):
-            return _plain_text(clean)
+        if not clean:
+            continue
+        if clean.startswith("<!-- wp:paragraph") or clean.startswith("<p>"):
+            p_match = re.search(r"<p>(.*?)</p>", clean, flags=re.DOTALL)
+            if p_match:
+                return _plain_text(p_match.group(1))
+            if clean.startswith("<p>"):
+                return _plain_text(clean)
+        if clean.startswith("<!--") or clean.startswith("<"):
+            continue
+        if clean.startswith(("#", "-", "|")):
+            continue
+        return _plain_text(clean)
     return ""
 
 
@@ -259,10 +314,6 @@ def _assess_factuality(markdown: str) -> dict[str, Any]:
         r"\bProfessional Services Firm\b",
         r"\bReal-World Results\b",
         r"\bCase Stud(?:y|ies)\b",
-        r"\ba consulting firm\b",
-        r"\ba startup\b",
-        r"\ban e-commerce brand\b",
-        r"\ba B2B software company\b",
     ]
     metric_claim_pattern = re.compile(
         r"\b(?:increased|improved|grew|reduced|decreased|lifted|ranked|generated|saved|replaced|cut)\b"

@@ -44,14 +44,14 @@ def decide_publish(score: float, publish_threshold: float = 85.0, draft_threshol
 
 def composite_quality_score(scores: dict[str, float]) -> float:
     weights = {
-        "content": 0.22,
-        "seo": 0.30,
-        "technical": 0.13,
-        "schema": 0.10,
+        "content": 0.20,
+        "seo": 0.28,
+        "technical": 0.12,
+        "schema": 0.08,
         "geo": 0.10,
-        "readability": 0.10,
-        "human_quality": 0.04,
-        "yoast_copywriting": 0.01,
+        "readability": 0.12,
+        "human_quality": 0.07,
+        "yoast_copywriting": 0.03,
     }
     total = 0.0
     weight_total = 0.0

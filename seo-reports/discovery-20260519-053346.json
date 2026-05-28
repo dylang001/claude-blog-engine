@@ -1,0 +1,255 @@
+{
+  "generated_at": "2026-05-19T05:33:00.415646+00:00",
+  "site": {
+    "brand": "MeetLyra",
+    "site_url": "https://blog.meetlyra.app",
+    "wordpress_base_url": "https://blog.meetlyra.app"
+  },
+  "selected_opportunity": {
+    "kind": "new_article",
+    "keyword": "AI marketing agent for SEO content",
+    "title": "AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work",
+    "score": 76.0,
+    "url": null,
+    "post_id": null,
+    "reason": "MeetLyra-specific bootstrap topic because live keyword suggestions were weak or too broad.",
+    "metadata": {}
+  },
+  "opportunities": [
+    {
+      "kind": "new_article",
+      "keyword": "AI marketing agent for SEO content",
+      "title": "AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work",
+      "score": 76.0,
+      "url": null,
+      "post_id": null,
+      "reason": "MeetLyra-specific bootstrap topic because live keyword suggestions were weak or too broad.",
+      "metadata": {}
+    }
+  ],
+  "research_briefs": [
+    {
+      "opportunity": {
+        "kind": "new_article",
+        "keyword": "AI marketing agent for SEO content",
+        "title": "AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work",
+        "score": 76.0,
+        "url": null,
+        "post_id": null,
+        "reason": "MeetLyra-specific bootstrap topic because live keyword suggestions were weak or too broad.",
+        "metadata": {}
+      },
+      "serp_summary": {
+        "ok": true,
+        "organic_count": 8,
+        "top_results": [
+          {
+            "rank": 1,
+            "title": "SEO AI Agent \u2014 Nightowl - Nightwatch.io",
+            "url": "https://nightwatch.io/seo-ai-agent/",
+            "domain": "nightwatch.io"
+          },
+          {
+            "rank": 2,
+            "title": "AI Agents for SEO: The Complete Guide to Agentic Content ...",
+            "url": "https://www.frase.io/blog/ai-agents-for-seo",
+            "domain": "www.frase.io"
+          },
+          {
+            "rank": 3,
+            "title": "Do AI SEO Agents actually work? Looking for real results",
+            "url": "https://www.reddit.com/r/n8n/comments/1l3i75y/do_ai_seo_agents_actually_work_looking_for_real/",
+            "domain": "www.reddit.com"
+          },
+          {
+            "rank": 4,
+            "title": "7 ways I use SEO AI agents to help grow my client sites",
+            "url": "https://www.marketermilk.com/blog/seo-ai-agent",
+            "domain": "www.marketermilk.com"
+          },
+          {
+            "rank": 5,
+            "title": "AI agents in SEO: A practical workflow walkthrough",
+            "url": "https://searchengineland.com/ai-agents-seo-practical-workflow-walkthrough-469607",
+            "domain": "searchengineland.com"
+          },
+          {
+            "rank": 6,
+            "title": "Agent - AI-Powered SEO",
+            "url": "https://wordlift.io/agent/",
+            "domain": "wordlift.io"
+          },
+          {
+            "rank": 7,
+            "title": "AI Tools: About the AI Marketing Agent | Help Center",
+            "url": "https://support.wix.com/en/article/ai-tools-about-the-ai-marketing-agent",
+            "domain": "support.wix.com"
+          },
+          {
+            "rank": 8,
+            "title": "AI Marketing Agent | Ads, SEO",
+            "url": "https://apps.shopify.com/ai-marketing-agent",
+            "domain": "apps.shopify.com"
+          }
+        ]
+      },
+      "requirements": [
+        "Use exact SERP evidence when available.",
+        "Fill competitor content gaps.",
+        "Add Yoast title, description, focus keyphrase.",
+        "Optimize for Google and AI answer engines.",
+        "Define the audience, mission fit, and unique angle before drafting.",
+        "Classify search intent as informational, navigational, commercial, or transactional.",
+        "Match the article format and CTA to the dominant search intent.",
+        "Use an inverted-pyramid opening: answer the main question immediately, then expand.",
+        "Plan a clear heading structure before drafting and check it again during repair.",
+        "Keep paragraphs short, scannable, and led by clear topic sentences.",
+        "Add internal links so visitors can navigate related posts and pages.",
+        "Add Article schema and relevant FAQ/Breadcrumb/Organization schema opportunities where appropriate.",
+        "Use AI as a drafting and structuring aid, then run human-quality and factual repair before publishing."
+      ]
+    }
+  ],
+  "internal_links": [
+    {
+      "title": "AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work",
+      "url": "https://blog.meetlyra.app/ai-marketing-agent-seo-content/",
+      "slug": "ai-marketing-agent-seo-content"
+    },
+    {
+      "title": "AI Marketing Agent for SEO Content: How Autonomous Systems Replace Your Content Team",
+      "url": "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+      "slug": "ai-marketing-agent-for-seo-content"
+    },
+    {
+      "title": "Sample Page",
+      "url": "https://blog.meetlyra.app/sample-page/",
+      "slug": "sample-page"
+    }
+  ],
+  "claude_seo": {
+    "source": "dylang001/claude-seo",
+    "source_files": [
+      "dylang001/claude-seo:README.md",
+      "vendor/claude-seo/gsc_query.py",
+      "vendor/claude-seo/ga4_report.py",
+      "vendor/claude-seo/pagespeed_check.py",
+      "vendor/claude-seo/schema-templates.json"
+    ],
+    "technical": {
+      "ok": true,
+      "checks": {
+        "home": {
+          "url": "https://blog.meetlyra.app",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "ok": true
+        },
+        "robots": {
+          "url": "https://blog.meetlyra.app/robots.txt",
+          "status": 200,
+          "content_type": "text/plain",
+          "ok": true
+        },
+        "sitemap": {
+          "url": "https://blog.meetlyra.app/sitemap_index.xml",
+          "status": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "ok": true
+        }
+      }
+    },
+    "pagespeed": {
+      "ok": true,
+      "status": 200,
+      "auth_mode": "api_key",
+      "analysis_timestamp": "2026-05-19T05:33:28.925Z",
+      "scores": {
+        "performance": 73,
+        "accessibility": 87,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "core_web_vitals": {
+        "largest-contentful-paint": {
+          "label": "LCP",
+          "display": "5.0\u00a0s",
+          "score": 0.28,
+          "numeric_value": 4952.872193825092
+        },
+        "interactive": {
+          "label": "TTI",
+          "display": "5.0\u00a0s",
+          "score": 0.77,
+          "numeric_value": 4952.872193825093
+        },
+        "total-blocking-time": {
+          "label": "TBT",
+          "display": "110\u00a0ms",
+          "score": 0.97,
+          "numeric_value": 111
+        },
+        "cumulative-layout-shift": {
+          "label": "CLS",
+          "display": "0.002",
+          "score": 1,
+          "numeric_value": 0.002351
+        },
+        "first-contentful-paint": {
+          "label": "FCP",
+          "display": "3.5\u00a0s",
+          "score": 0.35,
+          "numeric_value": 3496.752131300869
+        },
+        "speed-index": {
+          "label": "Speed Index",
+          "display": "4.1\u00a0s",
+          "score": 0.8,
+          "numeric_value": 4062.4001191686693
+        }
+      },
+      "source_script": "vendor/claude-seo/pagespeed_check.py"
+    },
+    "gsc": {
+      "ok": false,
+      "error": "<HttpError 403 when requesting https://searchconsole.googleapis.com/webmasters/v3/sites/sc-domain%3Ablog.meetlyra.app/searchAnalytics/query?alt=json returned \"User does not have sufficient permission for site 'sc-domain:blog.meetlyra.app'. See also: https://support.google.com/webmasters/answer/2451999.\". Details: \"[{'message': \"User does not have sufficient permission for site 'sc-domain:blog.meetlyra.app'. See also: https://support.google.com/webmasters/answer/2451999.\", 'domain': 'global', 'reason': 'forbidden'}]\">",
+      "source_script": "vendor/claude-seo/gsc_query.py"
+    },
+    "ga4": {
+      "ok": false,
+      "error": "403 User does not have sufficient permissions for this property. To learn more about Property ID, see https://developers.google.com/analytics/devguides/reporting/data/v1/property-id.",
+      "source_script": "vendor/claude-seo/ga4_report.py"
+    },
+    "schema_templates_available": true
+  },
+  "schema_improvements": {
+    "strategy": "yoast_schema_api",
+    "yoast_hooks": [
+      "wpseo_schema_graph_pieces",
+      "wpseo_schema_graph",
+      "wpseo_schema_article",
+      "wpseo_schema_webpage",
+      "wpseo_schema_block_<block-type>",
+      "wpseo_pre-schema_block-type_<block-type>"
+    ],
+    "post_count": 3,
+    "dominant_topic_terms": [
+      "autonomous",
+      "systems",
+      "replace",
+      "sample"
+    ],
+    "recommendations": [
+      "Keep Yoast's native schema graph enabled; extend it through Yoast filters rather than adding duplicate standalone JSON-LD when possible.",
+      "Use Article schema for every generated post and reference Organization/WebSite graph pieces already emitted by Yoast.",
+      "Use Breadcrumb schema on posts so the graph connects blog posts back to the blog and site root.",
+      "Only use FAQ schema when the article contains a genuine FAQ block with visible questions and answers.",
+      "Publish more real posts before relying on cluster-level schema recommendations."
+    ]
+  },
+  "next_actions": [
+    "Prioritize `AI marketing agent for SEO content` as the next content opportunity unless GSC quick wins outrank it.",
+    "Resolve GA4 access so discovery can rank content by organic traffic impact.",
+    "Use the internal link candidates in the next writer run to strengthen topical authority."
+  ]
+}

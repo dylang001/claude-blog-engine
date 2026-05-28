@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "source": ".",
+    "codebase": "default",
+    "runtime": "python313",
+    "ignore": [
+      "venv",
+      ".venv",
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      ".content-machine",
+      "tests",
+      ".pytest_cache",
+      "seo-reports"
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

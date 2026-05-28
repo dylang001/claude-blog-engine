@@ -31,15 +31,21 @@ async def run_slot(dry_run: bool | None = None) -> None:
 def start_worker() -> None:
     logging.basicConfig(level=logging.INFO)
     settings = load_settings()
-    scheduler = AsyncIOScheduler(timezone=settings.site.timezone)
-    for slot in settings.site.publishing_slots:
-        hour, minute = slot.split(":", 1)
-        scheduler.add_job(
-            lambda: asyncio.create_task(run_slot(dry_run=False)),
-            CronTrigger(hour=int(hour), minute=int(minute), timezone=settings.site.timezone),
-            id=f"publish-{slot}",
-            replace_existing=True,
-        )
-    scheduler.start()
-    logger.info("Content Machine worker started with slots: %s", ", ".join(settings.site.publishing_slots))
-    asyncio.get_event_loop().run_forever()
+    
+    async def _run():
+        scheduler = AsyncIOScheduler(timezone=settings.site.timezone)
+        for slot in settings.site.publishing_slots:
+            hour, minute = slot.split(":", 1)
+            scheduler.add_job(
+                lambda: asyncio.create_task(run_slot(dry_run=False)),
+                CronTrigger(hour=int(hour), minute=int(minute), timezone=settings.site.timezone),
+                id=f"publish-{slot}",
+                replace_existing=True,
+            )
+        scheduler.start()
+        logger.info("Content Machine worker started with slots: %s", ", ".join(settings.site.publishing_slots))
+        
+        # Keep the event loop running
+        await asyncio.Event().wait()
+
+    asyncio.run(_run())

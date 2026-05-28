@@ -33,8 +33,9 @@ forbidden_topics:
   - "Fake case studies, fake customer results, or unsupported statistics"
   - "Overhyped AI claims such as guaranteed growth, instant rankings, or fully passive income"
   - "Competitor attack pieces that are unfair, misleading, or legally risky"
+  - "Calls to action or guides/tutorials on how to try, sign up, or use MeetLyra directly (the product is in private beta and not yet publicly available; only waitlist/newsletter subscription calls are allowed)"
 
-cta: "Try MeetLyra by entering your website URL and see how an autonomous AI marketing agent can turn it into a strategy, content plan, and execution system."
+cta: "Join the private beta waitlist at waitlist.meetlyra.app to receive early access and learn how autonomous AI marketing agents can automate your strategy, content planning, and execution."
 
 timezone: "Africa/Johannesburg"
 

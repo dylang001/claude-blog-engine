@@ -73,6 +73,10 @@ class DiscoveryReporter:
         }
         saved = self.save_report(report)
         report["saved_report"] = str(saved)
+
+        # Auto-populate the refresh queue from GSC quick wins
+        self._auto_queue_gsc_quick_wins(claude_seo)
+
         return report
 
     def save_report(self, report: dict[str, Any]) -> Path:
@@ -90,6 +94,44 @@ class DiscoveryReporter:
             if strict:
                 raise RuntimeError(f"WordPress internal-link collection failed: {exc}") from exc
             return [{"error": str(exc)}]
+
+    def _auto_queue_gsc_quick_wins(self, claude_seo: dict[str, Any]) -> None:
+        """Automatically enqueue GSC position 4-10 pages as refresh candidates in StateStore."""
+        try:
+            from .state import StateStore
+            quick_wins = claude_seo.get("gsc", {}).get("quick_wins") or []
+            if not quick_wins:
+                return
+            store = StateStore(self.settings.state_db, settings=self.settings)
+            queued = 0
+            for win in quick_wins:
+                query = win.get("query", "")
+                page = win.get("page", "")
+                position = win.get("position", 0)
+                impressions = win.get("impressions", 0)
+                if not query or not page:
+                    continue
+                try:
+                    store.add_refresh_candidate(
+                        keyword=query,
+                        url=page,
+                        position=float(position),
+                        impressions=int(impressions),
+                        source="gsc_quick_win",
+                    )
+                    queued += 1
+                except Exception:
+                    pass  # add_refresh_candidate may not exist yet — silently skip
+            if queued:
+                import logging
+                logging.getLogger(__name__).info(
+                    f"Auto-queued {queued} GSC quick-win refresh candidates from discovery."
+                )
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).debug(f"GSC quick-win auto-queue skipped: {exc}")
+
+
 
     async def _claude_seo_signals(self, days: int) -> dict[str, Any]:
         site_url = self.settings.site.site_url or self.settings.wp_base_url
@@ -350,6 +392,7 @@ def _extract_pagespeed_cwv(data: dict[str, Any]) -> dict[str, Any]:
         "cumulative-layout-shift": "CLS",
         "first-contentful-paint": "FCP",
         "speed-index": "Speed Index",
+        "experimental-interaction-to-next-paint": "INP",
     }
     metrics = {}
     for audit_id, label in metric_ids.items():

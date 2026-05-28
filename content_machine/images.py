@@ -18,7 +18,7 @@ class BananaImageGenerator:
         self.settings = settings
 
     async def maybe_generate(self, content: GeneratedContent, run_id: str) -> GeneratedContent:
-        if not self.settings.gemini_api_key or not content.image_prompt:
+        if not self.settings.gemini_api_key or not content.image_prompt or content.featured_image_path:
             return content
 
         out_dir = self.settings.data_dir / "images"
@@ -74,18 +74,17 @@ class BananaImageGenerator:
             return content
 
     def _banana_prompt(self, content: GeneratedContent) -> str:
-        return f"""Create a blog header image for the article "{content.title}".
+        subject_theme = content.focus_keyphrase or content.title
+        return f"""Create a premium, realistic header image for a technology blog post titled "{content.title}".
 
-Subject: an autonomous AI marketing command center represented by clean interface panels, content workflows, SEO graphs, and publishing signals.
-Action: a friendly original Lyra AI operator character is actively coordinating keyword research, article drafting, optimization, and WordPress publishing as connected workflow nodes.
-Location/Context: inside a bright modern SaaS workspace with a polished editorial dashboard on glass-like monitors, suitable for a founder-led marketing product.
-Composition: wide 16:9 editorial hero image, clear focal point in the center-left, generous negative space on the right for possible overlay text, no visible brand logos.
+Subject: A modern workspace or desk setup showing realistic elements related to: {subject_theme}.
+Composition: Wide 16:9 editorial header image, crisp focus on a MacBook or modern display showing clean SaaS dashboards, graphs, or code. Elegant workspace details (e.g. coffee mug, notebook, plants), premium studio lighting with soft shadows.
 House style: {self.settings.banana_style_prompt}
-Visual language: realism blended with polished animated-feature character warmth, expressive but not childish, premium software editorial, crisp 3D interface elements, soft daylight, subtle violet and blue accents on a clean white and graphite palette.
+Visual language: Real photography look, millennial pop-culture tech aesthetic, warm natural lighting, high-end professional editorial design. Subtle violet, blue, or graphite accents. No cartoonish/childish characters, and no fake or distorted elements.
 
 Additional direction from the content brief: {content.image_prompt}
 
-NEVER include readable text. Requirements: no readable text, no labels, no watermarks, no distorted hands, no fake UI words, no logos, no competitor marks, and no copied characters from existing films.
+NEVER include readable text. Requirements: no readable text, no labels, no watermarks, no distorted hands, no logos, and no competitor marks.
 """
 
     def _extract_image(self, data: dict) -> str | None:

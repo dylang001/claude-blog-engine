@@ -35,6 +35,8 @@ class SiteConfig:
     min_publish_score: float = 85.0
     min_draft_score: float = 70.0
     seo_plugin: str = "yoast"
+    enable_backlinks_api: bool = True
+    enable_gmb_api: bool = False
 
 
 @dataclass(frozen=True)
@@ -45,6 +47,8 @@ class Settings:
     site: SiteConfig
     anthropic_api_key: str = ""
     anthropic_model: str = "claude-sonnet-4-5"
+    writer_provider: str = "gemini"
+    gemini_model: str = "gemini-2.5-pro"
     dataforseo_login: str = ""
     dataforseo_password: str = ""
     dataforseo_auth_base64: str = ""
@@ -54,6 +58,11 @@ class Settings:
     google_service_account_json: str = ""
     google_oauth_client_secrets_json: str = ""
     google_oauth_token_json: str = ""
+    google_ads_developer_token: str = ""
+    google_ads_customer_id: str = ""
+    google_ads_client_id: str = ""
+    google_ads_client_secret: str = ""
+    google_ads_refresh_token: str = ""
     pagespeed_api_key: str = ""
     ga4_property_id: str = ""
     gsc_site_url: str = ""
@@ -62,19 +71,30 @@ class Settings:
     banana_aspect_ratio: str = "16:9"
     banana_resolution: str = "2K"
     banana_style_prompt: str = (
-        "Pixar-meets-reality cinematic 3D realism: warm expressive original characters, "
-        "real SaaS workspace lighting, tactile product interfaces, and a subtle Lyra AI "
-        "operator presence that represents the software without using logos or readable text."
+        "Premium editorial tech photography: clean desk setup with a MacBook showing SaaS dashboards, "
+        "realistic office or studio lighting, shallow depth of field, modern millennial workspace vibe, "
+        "warm aesthetic tones, high-resolution, no logos, and no readable text."
     )
     indexnow_key: str = ""
     indexnow_key_location: str = ""
     indexnow_engines: list[str] = field(default_factory=lambda: ["bing", "yandex", "seznam", "indexnow"])
     dry_run_default: bool = True
     firecrawl_api_key: str = ""
+    tavily_api_key: str = ""
+    state_store_type: str = "sqlite"
+    supermemory_api_key: str = ""
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_user: str = ""
+    smtp_password: str = ""
+    smtp_from: str = ""
+    smtp_to: str = ""
+    open_seo_url: str = ""  # URL of self-hosted open-seo Cloud Run service
+    blogger_blog_id: str = ""
+
 
     def missing_required(self) -> list[str]:
         required = {
-            "ANTHROPIC_API_KEY": self.anthropic_api_key,
             "WP_BASE_URL": self.wp_base_url,
             "WP_USERNAME": self.wp_username,
             "WP_APP_PASSWORD": self.wp_app_password,
@@ -82,6 +102,11 @@ class Settings:
             "GA4_PROPERTY_ID": self.ga4_property_id,
             "GSC_SITE_URL": self.gsc_site_url,
         }
+        if self.writer_provider == "gemini":
+            required["GEMINI_API_KEY"] = self.gemini_api_key
+        else:
+            required["ANTHROPIC_API_KEY"] = self.anthropic_api_key
+
         missing = [name for name, value in required.items() if not value]
         if not self.dataforseo_auth_base64 and not (self.dataforseo_login and self.dataforseo_password):
             missing.append("DATAFORSEO_AUTH_BASE64 or DATAFORSEO_LOGIN/DATAFORSEO_PASSWORD")
@@ -131,6 +156,8 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         site=_load_site_config(site_path),
         anthropic_api_key=os.getenv("ANTHROPIC_API_KEY", ""),
         anthropic_model=os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-5"),
+        writer_provider=os.getenv("WRITER_PROVIDER", "gemini"),
+        gemini_model=os.getenv("GEMINI_MODEL", "gemini-2.5-pro"),
         dataforseo_login=os.getenv("DATAFORSEO_LOGIN", ""),
         dataforseo_password=os.getenv("DATAFORSEO_PASSWORD", ""),
         dataforseo_auth_base64=os.getenv("DATAFORSEO_AUTH_BASE64", os.getenv("DATAFORSEO_BASE_64", "")),
@@ -140,6 +167,11 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         google_service_account_json=os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", ""),
         google_oauth_client_secrets_json=os.getenv("GOOGLE_OAUTH_CLIENT_SECRETS_JSON", ""),
         google_oauth_token_json=os.getenv("GOOGLE_OAUTH_TOKEN_JSON", str(data_dir / "google-oauth-token.json")),
+        google_ads_developer_token=os.getenv("GOOGLE_ADS_DEVELOPER_TOKEN", ""),
+        google_ads_customer_id=os.getenv("GOOGLE_ADS_CUSTOMER_ID", ""),
+        google_ads_client_id=os.getenv("GOOGLE_ADS_CLIENT_ID", ""),
+        google_ads_client_secret=os.getenv("GOOGLE_ADS_CLIENT_SECRET", ""),
+        google_ads_refresh_token=os.getenv("GOOGLE_ADS_REFRESH_TOKEN", ""),
         pagespeed_api_key=os.getenv("PAGESPEED_API_KEY", os.getenv("GOOGLE_PAGESPEED_API_KEY", "")),
         ga4_property_id=os.getenv("GA4_PROPERTY_ID", ""),
         gsc_site_url=os.getenv("GSC_SITE_URL", ""),
@@ -149,13 +181,24 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         banana_resolution=os.getenv("BANANA_RESOLUTION", "2K"),
         banana_style_prompt=os.getenv(
             "BANANA_STYLE_PROMPT",
-            "Pixar-meets-reality cinematic 3D realism: warm expressive original characters, "
-            "real SaaS workspace lighting, tactile product interfaces, and a subtle Lyra AI "
-            "operator presence that represents the software without using logos or readable text.",
+            "Premium editorial tech photography: clean desk setup with a MacBook showing SaaS dashboards, "
+            "realistic office or studio lighting, shallow depth of field, modern millennial workspace vibe, "
+            "warm aesthetic tones, high-resolution, no logos, and no readable text.",
         ),
         indexnow_key=os.getenv("INDEXNOW_KEY", ""),
         indexnow_key_location=os.getenv("INDEXNOW_KEY_LOCATION", ""),
         indexnow_engines=[part.strip() for part in os.getenv("INDEXNOW_ENGINES", "bing,yandex,seznam,indexnow").split(",") if part.strip()],
         dry_run_default=os.getenv("CONTENT_MACHINE_DRY_RUN", "true").lower() != "false",
         firecrawl_api_key=os.getenv("FIRECRAWL_API_KEY", ""),
+        tavily_api_key=os.getenv("TAVILY_API_KEY", ""),
+        state_store_type=os.getenv("STATE_STORE_TYPE", "sqlite"),
+        supermemory_api_key=os.getenv("SUPERMEMORY_API_KEY", ""),
+        smtp_host=os.getenv("SMTP_HOST", ""),
+        smtp_port=int(os.getenv("SMTP_PORT", "587")),
+        smtp_user=os.getenv("SMTP_USER", ""),
+        smtp_password=os.getenv("SMTP_PASSWORD", ""),
+        smtp_from=os.getenv("SMTP_FROM", ""),
+        smtp_to=os.getenv("SMTP_TO", ""),
+        open_seo_url=os.getenv("OPEN_SEO_URL", ""),
+        blogger_blog_id=os.getenv("BLOGGER_BLOG_ID", ""),
     )

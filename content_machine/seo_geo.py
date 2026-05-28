@@ -6,7 +6,6 @@ import re
 from pathlib import Path
 from typing import Any
 import httpx
-from anthropic import Anthropic
 
 from .config import Settings, load_settings
 
@@ -36,15 +35,31 @@ class SEOGEOAuditor:
 
         print(f"[*] Calling Claude API for GEO analysis of {url}...")
         try:
-            client = Anthropic(api_key=api_key, timeout=30.0)
-            prompt = self._build_prompt(url)
-            response = client.messages.create(
-                model=self.settings.anthropic_model or "claude-sonnet-4-5",
-                max_tokens=4000,
-                system="You are an expert Generative Engine Optimization (GEO) agent.",
-                messages=[{"role": "user", "content": prompt}]
-            )
-            api_response_text = response.content[0].text
+            async with httpx.AsyncClient(timeout=180) as client:
+                resp = await client.post(
+                    "https://api.anthropic.com/v1/messages",
+                    headers={
+                        "x-api-key": api_key,
+                        "anthropic-version": "2023-06-01",
+                        "anthropic-beta": "prompt-caching-2024-07-31",
+                        "content-type": "application/json",
+                    },
+                    json={
+                        "model": self.settings.anthropic_model or "claude-sonnet-4-5",
+                        "max_tokens": 4000,
+                        "system": [
+                            {
+                                "type": "text",
+                                "text": "You are an expert Generative Engine Optimization (GEO) agent.\n" + self._build_prompt(url),
+                                "cache_control": {"type": "ephemeral"}
+                            }
+                        ],
+                        "messages": [{"role": "user", "content": "Run the GEO analysis now and return the JSON."}]
+                    }
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                api_response_text = data["content"][0]["text"]
             print("[+] Successfully generated GEO plan via Claude API.")
         except Exception as exc:
             raise RuntimeError(

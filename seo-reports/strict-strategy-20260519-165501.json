@@ -1,0 +1,3399 @@
+{
+  "generated_at": "2026-05-19T16:53:12.348663+00:00",
+  "mode": "strict_strategy",
+  "fallbacks_allowed": false,
+  "source": {
+    "primary": "dylang001/claude-seo",
+    "compatibility_reference": "AgriciDaniel/claude-seo",
+    "active_files": [
+      "dylang001/claude-seo:README.md",
+      "vendor/claude-seo/gsc_query.py",
+      "vendor/claude-seo/ga4_report.py",
+      "vendor/claude-seo/pagespeed_check.py",
+      "vendor/claude-seo/schema-templates.json"
+    ]
+  },
+  "site": {
+    "brand": "MeetLyra",
+    "blog_url": "https://blog.meetlyra.app",
+    "wordpress_base_url": "https://blog.meetlyra.app",
+    "app_url": "https://meetlyra.app"
+  },
+  "provider_status": {
+    "ok": true,
+    "checks": {
+      "anthropic": {
+        "ok": true,
+        "status": 200,
+        "model": "claude-sonnet-4-5"
+      },
+      "dataforseo": {
+        "ok": true,
+        "status": 200,
+        "auth_mode": "base64"
+      },
+      "wordpress": {
+        "ok": true,
+        "status": 200,
+        "message": "WordPress REST API reachable and Yoast bridge detected",
+        "rest_style": "pretty",
+        "rest_api_ok": true,
+        "yoast_bridge": {
+          "ok": true,
+          "rest_style": "query",
+          "message": "SEO Machine Yoast bridge diagnostic route is installed.",
+          "yoast_version": "27.3",
+          "yoast_premium_active": true,
+          "post_types": [
+            "post",
+            "page",
+            "attachment",
+            "nav_menu_item",
+            "wp_block",
+            "wp_template",
+            "wp_template_part",
+            "wp_global_styles",
+            "wp_navigation",
+            "wp_font_family",
+            "wp_font_face"
+          ],
+          "rest_field": "yoast_seo"
+        }
+      },
+      "banana": {
+        "ok": true,
+        "status": 200,
+        "model": "gemini-3.1-flash-image-preview"
+      },
+      "google_config": {
+        "ok": true,
+        "warnings": []
+      },
+      "indexnow": {
+        "ok": true,
+        "status": 200,
+        "key_location": "https://blog.meetlyra.app/indexnow-key.txt",
+        "matches_key": true,
+        "configured": true
+      }
+    }
+  },
+  "claude_seo_capability_matrix": [
+    {
+      "capability": "technical_seo",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "page_intelligence",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "content_quality",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "schema_engine",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "geo_aeo",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "semantic_clustering",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "competitor_gap_engine",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "drift_monitoring",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "google_api_reporting",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "pdf_report_generation",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "firecrawl_crawling",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "backlink_profile_analysis",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "local_maps_intelligence",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "international_hreflang",
+      "status": "full",
+      "detail": "Implemented directly in content_machine"
+    },
+    {
+      "capability": "gsc",
+      "status": "full",
+      "detail": "Google Search Console OAuth query"
+    },
+    {
+      "capability": "ga4",
+      "status": "full",
+      "detail": "GA4 organic landing-page report"
+    },
+    {
+      "capability": "pagespeed_crux",
+      "status": "full",
+      "detail": "PageSpeed/CWV report"
+    },
+    {
+      "capability": "indexnow",
+      "status": "full",
+      "detail": "IndexNow key verification"
+    }
+  ],
+  "claude_seo": {
+    "source": "dylang001/claude-seo",
+    "source_files": [
+      "dylang001/claude-seo:README.md",
+      "vendor/claude-seo/gsc_query.py",
+      "vendor/claude-seo/ga4_report.py",
+      "vendor/claude-seo/pagespeed_check.py",
+      "vendor/claude-seo/schema-templates.json"
+    ],
+    "technical": {
+      "ok": true,
+      "checks": {
+        "home": {
+          "url": "https://blog.meetlyra.app",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "ok": true
+        },
+        "robots": {
+          "url": "https://blog.meetlyra.app/robots.txt",
+          "status": 200,
+          "content_type": "text/plain",
+          "ok": true
+        },
+        "sitemap": {
+          "url": "https://blog.meetlyra.app/sitemap_index.xml",
+          "status": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "ok": true
+        }
+      }
+    },
+    "pagespeed": {
+      "ok": true,
+      "status": 200,
+      "auth_mode": "api_key",
+      "analysis_timestamp": "2026-05-19T16:54:29.582Z",
+      "scores": {
+        "performance": 77,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "core_web_vitals": {
+        "largest-contentful-paint": {
+          "label": "LCP",
+          "display": "4.7\u00a0s",
+          "score": 0.33,
+          "numeric_value": 4687.210747845977
+        },
+        "interactive": {
+          "label": "TTI",
+          "display": "4.7\u00a0s",
+          "score": 0.8,
+          "numeric_value": 4687.210747845977
+        },
+        "total-blocking-time": {
+          "label": "TBT",
+          "display": "270\u00a0ms",
+          "score": 0.82,
+          "numeric_value": 268.99999999999955
+        },
+        "cumulative-layout-shift": {
+          "label": "CLS",
+          "display": "0",
+          "score": 1,
+          "numeric_value": 0
+        },
+        "first-contentful-paint": {
+          "label": "FCP",
+          "display": "1.1\u00a0s",
+          "score": 1,
+          "numeric_value": 1051.0157069961347
+        },
+        "speed-index": {
+          "label": "Speed Index",
+          "display": "3.6\u00a0s",
+          "score": 0.87,
+          "numeric_value": 3604.004026919094
+        }
+      },
+      "source_script": "vendor/claude-seo/pagespeed_check.py"
+    },
+    "gsc": {
+      "ok": true,
+      "auth_mode": "oauth_user",
+      "row_count": 0,
+      "top_rows": [],
+      "quick_wins": [],
+      "source_script": "vendor/claude-seo/gsc_query.py"
+    },
+    "ga4": {
+      "property": "properties/493361388",
+      "auth_mode": "oauth_user",
+      "date_range": {
+        "start": "2026-02-18",
+        "end": "2026-05-18"
+      },
+      "totals": {
+        "sessions": 0,
+        "users": 0,
+        "pageviews": 0
+      },
+      "top_pages": [],
+      "ok": true,
+      "source_script": "vendor/claude-seo/ga4_report.py"
+    },
+    "schema_templates_available": true
+  },
+  "indexnow": {
+    "ok": true,
+    "status": 200,
+    "key_location": "https://blog.meetlyra.app/indexnow-key.txt",
+    "matches_key": true
+  },
+  "keyword_map": {
+    "cluster_count": 2,
+    "clusters": [
+      {
+        "name": "AI Marketing Operations",
+        "primary_keyword": "free ai tools for marketing",
+        "intent_mix": {
+          "commercial": 5
+        },
+        "opportunities": [
+          {
+            "kind": "new_article",
+            "keyword": "free ai tools for marketing",
+            "title": "Free Ai Tools For Marketing",
+            "score": 72.5,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 260,
+              "kd": 17,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.36,
+              "competition_level": "MEDIUM",
+              "cpc": 21.03,
+              "trend": {
+                "monthly": 50,
+                "quarterly": 0,
+                "yearly": -79
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 390
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 4424.9,
+              "avg_referring_domains": 203.7,
+              "collected_at": "2026-05-19T16:53:33.799810+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.eesel.ai",
+              "www.marketermilk.com",
+              "www.thryv.com",
+              "www.hubspot.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "best ai marketing tools",
+            "title": "Best Ai Marketing Tools",
+            "score": 71.8,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 480,
+              "kd": 24,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.34,
+              "competition_level": "MEDIUM",
+              "cpc": 35.03,
+              "trend": {
+                "monthly": 127,
+                "quarterly": 84,
+                "yearly": -33
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 390
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 880
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 880
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 1043.5,
+              "avg_referring_domains": 353.2,
+              "collected_at": "2026-05-19T16:53:33.799513+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.marketermilk.com",
+              "www.youtube.com",
+              "zapier.com",
+              "www.sitecore.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "free ai marketing tools",
+            "title": "Free Ai Marketing Tools",
+            "score": 71.8,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 170,
+              "kd": 15,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.41,
+              "competition_level": "MEDIUM",
+              "cpc": 18.74,
+              "trend": {
+                "monthly": 27,
+                "quarterly": 27,
+                "yearly": -81
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 110
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 110
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 110
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 110
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 110
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 320
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 3812.9,
+              "avg_referring_domains": 206.8,
+              "collected_at": "2026-05-19T16:53:33.799905+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.eesel.ai",
+              "www.marketermilk.com",
+              "www.thryv.com",
+              "www.hubspot.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "best ai tools for marketing",
+            "title": "Best Ai Tools For Marketing",
+            "score": 70.6,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 480,
+              "kd": 27,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.42,
+              "competition_level": "MEDIUM",
+              "cpc": 32.06,
+              "trend": {
+                "monthly": 0,
+                "quarterly": 0,
+                "yearly": -33
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 390
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 880
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 880
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 13048.7,
+              "avg_referring_domains": 2544.9,
+              "collected_at": "2026-05-19T16:53:33.800099+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.marketermilk.com",
+              "insiderone.com",
+              "www.youtube.com",
+              "www.smartinsights.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "best ai for marketing",
+            "title": "Best Ai For Marketing",
+            "score": 63.5,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 390,
+              "kd": 43,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.69,
+              "competition_level": "HIGH",
+              "cpc": 28.49,
+              "trend": {
+                "monthly": 23,
+                "quarterly": 84,
+                "yearly": 23
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 390
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 390
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 480
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 20149.9,
+              "avg_referring_domains": 3026.2,
+              "collected_at": "2026-05-19T16:53:33.800028+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.marketermilk.com",
+              "www.youtube.com",
+              "www.smartinsights.com",
+              "www.eesel.ai"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SEO Content Engine",
+        "primary_keyword": "best ai tools for seo",
+        "intent_mix": {
+          "commercial": 5
+        },
+        "opportunities": [
+          {
+            "kind": "new_article",
+            "keyword": "best ai tools for seo",
+            "title": "Best Ai Tools For Seo",
+            "score": 78.2,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 480,
+              "kd": 8,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.15,
+              "competition_level": "LOW",
+              "cpc": 53.11,
+              "trend": {
+                "monthly": 133,
+                "quarterly": -19,
+                "yearly": 24
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 90
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 1900
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 1600
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 90
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 110
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 210
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 185.2,
+              "avg_referring_domains": 93.3,
+              "collected_at": "2026-05-19T16:53:33.799931+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.rankability.com",
+              "onelittleweb.com",
+              "www.eesel.ai",
+              "www.siteimprove.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "ai tools for seo",
+            "title": "Ai Tools For Seo",
+            "score": 74.8,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 1000,
+              "kd": 23,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.07,
+              "competition_level": "LOW",
+              "cpc": 24.88,
+              "trend": {
+                "monthly": 0,
+                "quarterly": -18,
+                "yearly": -18
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 880
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 1000
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 880
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 880
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 2900
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 880
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 1300
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 1600
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 880
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 694,
+              "avg_referring_domains": 197.8,
+              "collected_at": "2026-05-19T16:53:33.799881+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.rankability.com",
+              "www.reddit.com",
+              "whatagraph.com",
+              "www.eesel.ai",
+              "www.siteimprove.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "generative ai seo software",
+            "title": "Generative Ai Seo Software",
+            "score": 71.8,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 170,
+              "kd": 15,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.01,
+              "competition_level": "LOW",
+              "cpc": null,
+              "trend": {
+                "monthly": 550,
+                "quarterly": 271,
+                "yearly": null
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 40
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 70
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 50
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 40
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 70
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 50
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 30
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 50
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 210
+                }
+              ],
+              "detected_language": "en",
+              "is_another_language": false,
+              "avg_backlinks": 1220.8,
+              "avg_referring_domains": 334.8,
+              "collected_at": "2026-05-19T16:53:33.800051+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "whatagraph.com",
+              "www.frase.io",
+              "athenahq.ai",
+              "www.yotpo.com",
+              "www.rankability.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "best ai seo tools",
+            "title": "Best Ai Seo Tools",
+            "score": 71.7,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 720,
+              "kd": 28,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.07,
+              "competition_level": "LOW",
+              "cpc": 37.17,
+              "trend": {
+                "monthly": 108,
+                "quarterly": 69,
+                "yearly": 108
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 1000
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 480
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 1300
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 1900
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 260
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 720
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 590
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 590
+                }
+              ],
+              "detected_language": "fr",
+              "is_another_language": true,
+              "avg_backlinks": 7141.3,
+              "avg_referring_domains": 1129.6,
+              "collected_at": "2026-05-19T16:53:33.799835+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.reddit.com",
+              "www.rankability.com",
+              "onelittleweb.com",
+              "whatagraph.com",
+              "freddiechatt.com"
+            ]
+          },
+          {
+            "kind": "new_article",
+            "keyword": "best seo ai tools",
+            "title": "Best Seo Ai Tools",
+            "score": 66.0,
+            "url": null,
+            "post_id": null,
+            "reason": "DataForSEO keyword opportunity",
+            "metadata": {
+              "volume": 320,
+              "kd": 35,
+              "intent": "commercial",
+              "funnel": "BOFU",
+              "competition": 0.2,
+              "competition_level": "LOW",
+              "cpc": 33.65,
+              "trend": {
+                "monthly": 21,
+                "quarterly": -47,
+                "yearly": -47
+              },
+              "monthly_searches": [
+                {
+                  "year": 2026,
+                  "month": 3,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2026,
+                  "month": 2,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2026,
+                  "month": 1,
+                  "search_volume": 320
+                },
+                {
+                  "year": 2025,
+                  "month": 12,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 11,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 10,
+                  "search_volume": 390
+                },
+                {
+                  "year": 2025,
+                  "month": 9,
+                  "search_volume": 1300
+                },
+                {
+                  "year": 2025,
+                  "month": 8,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 7,
+                  "search_volume": 140
+                },
+                {
+                  "year": 2025,
+                  "month": 6,
+                  "search_volume": 170
+                },
+                {
+                  "year": 2025,
+                  "month": 5,
+                  "search_volume": 210
+                },
+                {
+                  "year": 2025,
+                  "month": 4,
+                  "search_volume": 390
+                }
+              ],
+              "detected_language": "fr",
+              "is_another_language": true,
+              "avg_backlinks": 7751.1,
+              "avg_referring_domains": 1236.9,
+              "collected_at": "2026-05-19T16:53:33.800075+00:00"
+            },
+            "recommended_content_type": "comparison page",
+            "serp_top_domains": [
+              "www.rankability.com",
+              "www.reddit.com",
+              "onelittleweb.com",
+              "whatagraph.com",
+              "www.eesel.ai"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "site_structure": {
+    "blog_meetlyra_app": [
+      {
+        "hub": "AI Marketing Operations",
+        "url": "https://blog.meetlyra.app/ai-marketing-operations/",
+        "role": "Blog pillar or hub page",
+        "supporting_posts": [
+          "free ai tools for marketing",
+          "best ai marketing tools",
+          "free ai marketing tools",
+          "best ai tools for marketing",
+          "best ai for marketing"
+        ]
+      },
+      {
+        "hub": "SEO Content Engine",
+        "url": "https://blog.meetlyra.app/seo-content-engine/",
+        "role": "Blog pillar or hub page",
+        "supporting_posts": [
+          "best ai tools for seo",
+          "ai tools for seo",
+          "generative ai seo software",
+          "best ai seo tools",
+          "best seo ai tools"
+        ]
+      }
+    ],
+    "meetlyra_app": [
+      {
+        "page": "AI Marketing Operations",
+        "url": "https://meetlyra.app/use-cases/ai-marketing-operations",
+        "role": "Product/use-case landing page for commercial intent traffic"
+      },
+      {
+        "page": "SEO Content Engine",
+        "url": "https://meetlyra.app/use-cases/seo-content-engine",
+        "role": "Product/use-case landing page for commercial intent traffic"
+      }
+    ]
+  },
+  "blogging_plan": {
+    "cadence": "2 posts/day when quality gate passes; otherwise save as draft.",
+    "first_30_days": [
+      {
+        "kind": "new_article",
+        "keyword": "best ai tools for seo",
+        "title": "Best Ai Tools For Seo",
+        "score": 78.2,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 480,
+          "kd": 8,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.15,
+          "competition_level": "LOW",
+          "cpc": 53.11,
+          "trend": {
+            "monthly": 133,
+            "quarterly": -19,
+            "yearly": 24
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 210
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 90
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 260
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 140
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 1900
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 1600
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 140
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 90
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 110
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 210
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 185.2,
+          "avg_referring_domains": 93.3,
+          "collected_at": "2026-05-19T16:53:33.799931+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.rankability.com",
+          "onelittleweb.com",
+          "www.eesel.ai",
+          "www.siteimprove.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "ai tools for seo",
+        "title": "Ai Tools For Seo",
+        "score": 74.8,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 1000,
+          "kd": 23,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.07,
+          "competition_level": "LOW",
+          "cpc": 24.88,
+          "trend": {
+            "monthly": 0,
+            "quarterly": -18,
+            "yearly": -18
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 720
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 1000
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 2900
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 720
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 1300
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 1600
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 880
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 694,
+          "avg_referring_domains": 197.8,
+          "collected_at": "2026-05-19T16:53:33.799881+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.rankability.com",
+          "www.reddit.com",
+          "whatagraph.com",
+          "www.eesel.ai",
+          "www.siteimprove.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "free ai tools for marketing",
+        "title": "Free Ai Tools For Marketing",
+        "score": 72.5,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 260,
+          "kd": 17,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.36,
+          "competition_level": "MEDIUM",
+          "cpc": 21.03,
+          "trend": {
+            "monthly": 50,
+            "quarterly": 0,
+            "yearly": -79
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 210
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 140
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 260
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 390
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 4424.9,
+          "avg_referring_domains": 203.7,
+          "collected_at": "2026-05-19T16:53:33.799810+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.eesel.ai",
+          "www.marketermilk.com",
+          "www.thryv.com",
+          "www.hubspot.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "best ai marketing tools",
+        "title": "Best Ai Marketing Tools",
+        "score": 71.8,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 480,
+          "kd": 24,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.34,
+          "competition_level": "MEDIUM",
+          "cpc": 35.03,
+          "trend": {
+            "monthly": 127,
+            "quarterly": 84,
+            "yearly": -33
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 590
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 260
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 260
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 720
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 390
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 720
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 880
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 1043.5,
+          "avg_referring_domains": 353.2,
+          "collected_at": "2026-05-19T16:53:33.799513+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.marketermilk.com",
+          "www.youtube.com",
+          "zapier.com",
+          "www.sitecore.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "free ai marketing tools",
+        "title": "Free Ai Marketing Tools",
+        "score": 71.8,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 170,
+          "kd": 15,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.41,
+          "competition_level": "MEDIUM",
+          "cpc": 18.74,
+          "trend": {
+            "monthly": 27,
+            "quarterly": 27,
+            "yearly": -81
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 140
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 110
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 110
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 110
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 110
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 140
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 110
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 320
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 3812.9,
+          "avg_referring_domains": 206.8,
+          "collected_at": "2026-05-19T16:53:33.799905+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.eesel.ai",
+          "www.marketermilk.com",
+          "www.thryv.com",
+          "www.hubspot.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "generative ai seo software",
+        "title": "Generative Ai Seo Software",
+        "score": 71.8,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 170,
+          "kd": 15,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.01,
+          "competition_level": "LOW",
+          "cpc": null,
+          "trend": {
+            "monthly": 550,
+            "quarterly": 271,
+            "yearly": null
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 260
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 40
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 70
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 50
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 40
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 70
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 50
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 30
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 50
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 210
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 1220.8,
+          "avg_referring_domains": 334.8,
+          "collected_at": "2026-05-19T16:53:33.800051+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "whatagraph.com",
+          "www.frase.io",
+          "athenahq.ai",
+          "www.yotpo.com",
+          "www.rankability.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "best ai seo tools",
+        "title": "Best Ai Seo Tools",
+        "score": 71.7,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 720,
+          "kd": 28,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.07,
+          "competition_level": "LOW",
+          "cpc": 37.17,
+          "trend": {
+            "monthly": 108,
+            "quarterly": 69,
+            "yearly": 108
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 1000
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 480
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 1300
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 1900
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 260
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 720
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 720
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 590
+            }
+          ],
+          "detected_language": "fr",
+          "is_another_language": true,
+          "avg_backlinks": 7141.3,
+          "avg_referring_domains": 1129.6,
+          "collected_at": "2026-05-19T16:53:33.799835+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.rankability.com",
+          "onelittleweb.com",
+          "whatagraph.com",
+          "freddiechatt.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "best ai tools for marketing",
+        "title": "Best Ai Tools For Marketing",
+        "score": 70.6,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 480,
+          "kd": 27,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.42,
+          "competition_level": "MEDIUM",
+          "cpc": 32.06,
+          "trend": {
+            "monthly": 0,
+            "quarterly": 0,
+            "yearly": -33
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 590
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 590
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 390
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 590
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 880
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 880
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 13048.7,
+          "avg_referring_domains": 2544.9,
+          "collected_at": "2026-05-19T16:53:33.800099+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.marketermilk.com",
+          "insiderone.com",
+          "www.youtube.com",
+          "www.smartinsights.com"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "best seo ai tools",
+        "title": "Best Seo Ai Tools",
+        "score": 66.0,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 320,
+          "kd": 35,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.2,
+          "competition_level": "LOW",
+          "cpc": 33.65,
+          "trend": {
+            "monthly": 21,
+            "quarterly": -47,
+            "yearly": -47
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 170
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 140
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 390
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 1300
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 140
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 170
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 390
+            }
+          ],
+          "detected_language": "fr",
+          "is_another_language": true,
+          "avg_backlinks": 7751.1,
+          "avg_referring_domains": 1236.9,
+          "collected_at": "2026-05-19T16:53:33.800075+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.rankability.com",
+          "www.reddit.com",
+          "onelittleweb.com",
+          "whatagraph.com",
+          "www.eesel.ai"
+        ]
+      },
+      {
+        "kind": "new_article",
+        "keyword": "best ai for marketing",
+        "title": "Best Ai For Marketing",
+        "score": 63.5,
+        "url": null,
+        "post_id": null,
+        "reason": "DataForSEO keyword opportunity",
+        "metadata": {
+          "volume": 390,
+          "kd": 43,
+          "intent": "commercial",
+          "funnel": "BOFU",
+          "competition": 0.69,
+          "competition_level": "HIGH",
+          "cpc": 28.49,
+          "trend": {
+            "monthly": 23,
+            "quarterly": 84,
+            "yearly": 23
+          },
+          "monthly_searches": [
+            {
+              "year": 2026,
+              "month": 3,
+              "search_volume": 590
+            },
+            {
+              "year": 2026,
+              "month": 2,
+              "search_volume": 480
+            },
+            {
+              "year": 2026,
+              "month": 1,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 12,
+              "search_volume": 210
+            },
+            {
+              "year": 2025,
+              "month": 11,
+              "search_volume": 260
+            },
+            {
+              "year": 2025,
+              "month": 10,
+              "search_volume": 260
+            },
+            {
+              "year": 2025,
+              "month": 9,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 8,
+              "search_volume": 320
+            },
+            {
+              "year": 2025,
+              "month": 7,
+              "search_volume": 390
+            },
+            {
+              "year": 2025,
+              "month": 6,
+              "search_volume": 390
+            },
+            {
+              "year": 2025,
+              "month": 5,
+              "search_volume": 480
+            },
+            {
+              "year": 2025,
+              "month": 4,
+              "search_volume": 480
+            }
+          ],
+          "detected_language": "en",
+          "is_another_language": false,
+          "avg_backlinks": 20149.9,
+          "avg_referring_domains": 3026.2,
+          "collected_at": "2026-05-19T16:53:33.800028+00:00"
+        },
+        "recommended_content_type": "comparison page",
+        "serp_top_domains": [
+          "www.reddit.com",
+          "www.marketermilk.com",
+          "www.youtube.com",
+          "www.smartinsights.com",
+          "www.eesel.ai"
+        ]
+      }
+    ],
+    "days_31_60": [],
+    "days_61_90": []
+  },
+  "competitor_research": {
+    "method": "DataForSEO SERP only",
+    "top_competing_domains": [
+      {
+        "domain": "www.reddit.com",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "ai tools for seo",
+          "free ai tools for marketing",
+          "best ai marketing tools",
+          "free ai marketing tools",
+          "best ai seo tools",
+          "best ai tools for marketing",
+          "best seo ai tools",
+          "best ai for marketing"
+        ],
+        "top_titles": [
+          "For anyone using AI to improve SEO, what tools have you ...",
+          "For anyone using AI to improve SEO, what tools have you ...",
+          "What are the best free AI tools for digital marketing?",
+          "What are the best AI tools for marketing you have actually ...",
+          "What are the best free AI tools for digital marketing?",
+          "For anyone using AI to improve SEO, what tools have you ...",
+          "What are the best AI tools for marketing you have actually ...",
+          "For anyone using AI to improve SEO, what tools have you ...",
+          "What are the best AI tools for marketing you have actually ..."
+        ]
+      },
+      {
+        "domain": "www.eesel.ai",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "ai tools for seo",
+          "free ai tools for marketing",
+          "best ai marketing tools",
+          "free ai marketing tools",
+          "best ai seo tools",
+          "best ai tools for marketing",
+          "best seo ai tools",
+          "best ai for marketing"
+        ],
+        "top_titles": [
+          "I tested dozens of free SEO AI tools in 2026. Here are the 6 ...",
+          "I tested dozens of free SEO AI tools in 2026. Here are the 6 ...",
+          "I tested dozens of free AI marketing tools in 2026. Here are ...",
+          "I tried 7 of the best AI tools for marketing in 2026 (here's ...",
+          "I tested dozens of free AI marketing tools in 2026. Here are ...",
+          "I tested 7 AI tools for SEO optimization to find what really ...",
+          "I tried 7 of the best AI tools for marketing in 2026 (here's ...",
+          "I tested 7 AI tools for SEO optimization to find what really ...",
+          "I tried 7 of the best AI tools for marketing in 2026 (here's ..."
+        ]
+      },
+      {
+        "domain": "www.youtube.com",
+        "ranking_keywords": [
+          "free ai tools for marketing",
+          "best ai marketing tools",
+          "best ai marketing tools",
+          "best ai tools for marketing",
+          "best ai tools for marketing",
+          "best seo ai tools",
+          "best ai for marketing",
+          "best ai for marketing"
+        ],
+        "top_titles": [
+          "8 FREE AI Tools Everyone Should Use In Their Business",
+          "Best AI Tools for Marketers (Content, Campaigns, Automation ...",
+          "My Top AI Marketing Tools in 2026 (Stop Wasting Money)",
+          "Best AI Tools for Marketers (Content, Campaigns, Automation ...",
+          "My Top AI Marketing Tools in 2026 (Stop Wasting Money)",
+          "I Tried 100 AI SEO Tools - These Will Rank You #1!",
+          "Best AI Tools for Marketers (Content, Campaigns, Automation ...",
+          "Top AI Marketing & Branding Tools & Strategies (w/ Neil Patel)"
+        ]
+      },
+      {
+        "domain": "www.rankability.com",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "ai tools for seo",
+          "generative ai seo software",
+          "best ai seo tools",
+          "best seo ai tools"
+        ],
+        "top_titles": [
+          "We Tested 13 Best AI SEO Content Optimization Tools. ...",
+          "We Tested 13 Best AI SEO Content Optimization Tools. ...",
+          "We Tested 13 Best AI SEO Content Optimization Tools. ...",
+          "We Tested 13 Best AI SEO Content Optimization Tools. ...",
+          "We Tested 13 Best AI SEO Content Optimization Tools. ..."
+        ]
+      },
+      {
+        "domain": "whatagraph.com",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "ai tools for seo",
+          "generative ai seo software",
+          "best ai seo tools",
+          "best seo ai tools"
+        ],
+        "top_titles": [
+          "We Tested the 12 Best (& Underrated) AI SEO Tools in 2026",
+          "We Tested the 12 Best (& Underrated) AI SEO Tools in 2026",
+          "We Tested the 12 Best (& Underrated) AI SEO Tools in 2026",
+          "We Tested the 12 Best (& Underrated) AI SEO Tools in 2026",
+          "We Tested the 12 Best (& Underrated) AI SEO Tools in 2026"
+        ]
+      },
+      {
+        "domain": "behindrankings.com",
+        "ranking_keywords": [
+          "ai tools for seo",
+          "free ai tools for marketing",
+          "free ai marketing tools",
+          "generative ai seo software",
+          "best ai tools for marketing"
+        ],
+        "top_titles": [
+          "Best AI SEO Tools 2026 & the Ones to Avoid (I Tested 20+)",
+          "My Take on AI Marketing Tools in 2026 (What Works)",
+          "My Take on AI Marketing Tools in 2026 (What Works)",
+          "Best AI SEO Tools 2026 & the Ones to Avoid (I Tested 20+)",
+          "My Take on AI Marketing Tools in 2026 (What Works)"
+        ]
+      },
+      {
+        "domain": "www.marketermilk.com",
+        "ranking_keywords": [
+          "free ai tools for marketing",
+          "best ai marketing tools",
+          "free ai marketing tools",
+          "best ai tools for marketing",
+          "best ai for marketing"
+        ],
+        "top_titles": [
+          "30 best AI marketing tools I'm using to get ahead in 2026",
+          "30 best AI marketing tools I'm using to get ahead in 2026",
+          "30 best AI marketing tools I'm using to get ahead in 2026",
+          "30 best AI marketing tools I'm using to get ahead in 2026",
+          "30 best AI marketing tools I'm using to get ahead in 2026"
+        ]
+      },
+      {
+        "domain": "seo.ai",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "ai tools for seo",
+          "best ai seo tools",
+          "best seo ai tools"
+        ],
+        "top_titles": [
+          "AI SEO - done for you by an AI agent",
+          "AI SEO - done for you by an AI agent",
+          "AI SEO - done for you by an AI agent",
+          "AI SEO - done for you by an AI agent"
+        ]
+      },
+      {
+        "domain": "onelittleweb.com",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "best ai seo tools",
+          "best seo ai tools"
+        ],
+        "top_titles": [
+          "14 Best AI SEO Tools We've Tested for 2026",
+          "14 Best AI SEO Tools We've Tested for 2026",
+          "14 Best AI SEO Tools We've Tested for 2026"
+        ]
+      },
+      {
+        "domain": "www.20northmarketing.com",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "best ai seo tools",
+          "best seo ai tools"
+        ],
+        "top_titles": [
+          "The Best AI Tools for SEO: Transform Your Search Rankings",
+          "The Best AI Tools for SEO: Transform Your Search Rankings",
+          "The Best AI Tools for SEO: Transform Your Search Rankings"
+        ]
+      },
+      {
+        "domain": "freddiechatt.com",
+        "ranking_keywords": [
+          "ai tools for seo",
+          "best ai seo tools",
+          "best seo ai tools"
+        ],
+        "top_titles": [
+          "I Tried 18 AI SEO Tools. Here Are The Ones That Really Work",
+          "I Tried 18 AI SEO Tools. Here Are The Ones That Really Work",
+          "I Tried 18 AI SEO Tools. Here Are The Ones That Really Work"
+        ]
+      },
+      {
+        "domain": "www.siteimprove.com",
+        "ranking_keywords": [
+          "best ai tools for seo",
+          "ai tools for seo"
+        ],
+        "top_titles": [
+          "AI SEO Tools: How to Use AI for Faster, Smarter Optimization",
+          "AI SEO Tools: How to Use AI for Faster, Smarter Optimization"
+        ]
+      },
+      {
+        "domain": "www.thryv.com",
+        "ranking_keywords": [
+          "free ai tools for marketing",
+          "free ai marketing tools"
+        ],
+        "top_titles": [
+          "Best Free AI Tools for Small Businesses: Save Time, Get ...",
+          "Best Free AI Tools for Small Businesses: Save Time, Get ..."
+        ]
+      },
+      {
+        "domain": "www.hubspot.com",
+        "ranking_keywords": [
+          "free ai tools for marketing",
+          "free ai marketing tools"
+        ],
+        "top_titles": [
+          "Campaign Assistant: HubSpot's Free AI Marketing Asset ...",
+          "Campaign Assistant: HubSpot's Free AI Marketing Asset ..."
+        ]
+      },
+      {
+        "domain": "leadpages.com",
+        "ranking_keywords": [
+          "free ai tools for marketing",
+          "free ai marketing tools"
+        ],
+        "top_titles": [
+          "Free AI Tools for Digital Marketing: 5 Powerhouse Solutions",
+          "Free AI Tools for Digital Marketing: 5 Powerhouse Solutions"
+        ]
+      },
+      {
+        "domain": "thecmo.com",
+        "ranking_keywords": [
+          "free ai tools for marketing",
+          "free ai marketing tools"
+        ],
+        "top_titles": [
+          "21 Best Free AI Marketing Tools Reviewed in 2026",
+          "21 Best Free AI Marketing Tools Reviewed in 2026"
+        ]
+      },
+      {
+        "domain": "zapier.com",
+        "ranking_keywords": [
+          "best ai marketing tools",
+          "best ai for marketing"
+        ],
+        "top_titles": [
+          "The 12 best AI marketing tools",
+          "The 12 best AI marketing tools"
+        ]
+      },
+      {
+        "domain": "www.sitecore.com",
+        "ranking_keywords": [
+          "best ai marketing tools",
+          "best ai tools for marketing"
+        ],
+        "top_titles": [
+          "The Best AI Marketing Tools",
+          "The Best AI Marketing Tools"
+        ]
+      },
+      {
+        "domain": "www.smartinsights.com",
+        "ranking_keywords": [
+          "best ai tools for marketing",
+          "best ai for marketing"
+        ],
+        "top_titles": [
+          "The best Generative AI tools for writing marketing plans ...",
+          "The best Generative AI tools for writing marketing plans ..."
+        ]
+      },
+      {
+        "domain": "www.quattr.com",
+        "ranking_keywords": [
+          "best ai tools for seo"
+        ],
+        "top_titles": [
+          "Free AI SEO Tools"
+        ]
+      }
+    ],
+    "content_gaps": [
+      "Create a complete guide for `best ai tools for seo`.",
+      "Consider a fair comparison/supporting article for `best ai tools for seo`.",
+      "Create a complete guide for `ai tools for seo`.",
+      "Consider a fair comparison/supporting article for `ai tools for seo`.",
+      "Create a complete guide for `free ai tools for marketing`.",
+      "Add a workflow walkthrough for `free ai tools for marketing`.",
+      "Consider a fair comparison/supporting article for `free ai tools for marketing`.",
+      "Create a complete guide for `best ai marketing tools`.",
+      "Add a workflow walkthrough for `best ai marketing tools`.",
+      "Consider a fair comparison/supporting article for `best ai marketing tools`.",
+      "Create a complete guide for `free ai marketing tools`.",
+      "Add a workflow walkthrough for `free ai marketing tools`.",
+      "Consider a fair comparison/supporting article for `free ai marketing tools`.",
+      "Create a complete guide for `generative ai seo software`.",
+      "Consider a fair comparison/supporting article for `generative ai seo software`.",
+      "Create a complete guide for `best ai seo tools`.",
+      "Add a workflow walkthrough for `best ai seo tools`.",
+      "Consider a fair comparison/supporting article for `best ai seo tools`.",
+      "Create a complete guide for `best ai tools for marketing`.",
+      "Add a workflow walkthrough for `best ai tools for marketing`.",
+      "Consider a fair comparison/supporting article for `best ai tools for marketing`.",
+      "Create a complete guide for `best seo ai tools`.",
+      "Add a workflow walkthrough for `best seo ai tools`.",
+      "Consider a fair comparison/supporting article for `best seo ai tools`.",
+      "Add a workflow walkthrough for `best ai for marketing`.",
+      "Consider a fair comparison/supporting article for `best ai for marketing`."
+    ]
+  },
+  "technical_seo": {
+    "crawlability": {
+      "ok": true,
+      "checks": {
+        "home": {
+          "url": "https://blog.meetlyra.app",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "ok": true
+        },
+        "robots": {
+          "url": "https://blog.meetlyra.app/robots.txt",
+          "status": 200,
+          "content_type": "text/plain",
+          "ok": true
+        },
+        "sitemap": {
+          "url": "https://blog.meetlyra.app/sitemap_index.xml",
+          "status": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "ok": true
+        }
+      }
+    },
+    "pagespeed": {
+      "ok": true,
+      "status": 200,
+      "auth_mode": "api_key",
+      "analysis_timestamp": "2026-05-19T16:54:29.582Z",
+      "scores": {
+        "performance": 77,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "core_web_vitals": {
+        "largest-contentful-paint": {
+          "label": "LCP",
+          "display": "4.7\u00a0s",
+          "score": 0.33,
+          "numeric_value": 4687.210747845977
+        },
+        "interactive": {
+          "label": "TTI",
+          "display": "4.7\u00a0s",
+          "score": 0.8,
+          "numeric_value": 4687.210747845977
+        },
+        "total-blocking-time": {
+          "label": "TBT",
+          "display": "270\u00a0ms",
+          "score": 0.82,
+          "numeric_value": 268.99999999999955
+        },
+        "cumulative-layout-shift": {
+          "label": "CLS",
+          "display": "0",
+          "score": 1,
+          "numeric_value": 0
+        },
+        "first-contentful-paint": {
+          "label": "FCP",
+          "display": "1.1\u00a0s",
+          "score": 1,
+          "numeric_value": 1051.0157069961347
+        },
+        "speed-index": {
+          "label": "Speed Index",
+          "display": "3.6\u00a0s",
+          "score": 0.87,
+          "numeric_value": 3604.004026919094
+        }
+      },
+      "source_script": "vendor/claude-seo/pagespeed_check.py"
+    },
+    "indexnow": {
+      "ok": true,
+      "status": 200,
+      "key_location": "https://blog.meetlyra.app/indexnow-key.txt",
+      "matches_key": true
+    },
+    "page_issues": [
+      {
+        "url": "https://blog.meetlyra.app",
+        "issues": [
+          "Meta description length is outside the 130-160 character target.",
+          "Page should have exactly one H1."
+        ]
+      },
+      {
+        "url": "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+        "issues": [
+          "Title length is outside the 45-65 character target.",
+          "Meta description length is outside the 130-160 character target.",
+          "Page should have exactly one H1."
+        ]
+      },
+      {
+        "url": "https://blog.meetlyra.app/contact/",
+        "issues": [
+          "Title length is outside the 45-65 character target.",
+          "Missing meta description.",
+          "Some images are missing alt text."
+        ]
+      },
+      {
+        "url": "https://blog.meetlyra.app/about/",
+        "issues": [
+          "Title length is outside the 45-65 character target.",
+          "Missing meta description.",
+          "Some images are missing alt text."
+        ]
+      },
+      {
+        "url": "https://blog.meetlyra.app/3029-2/",
+        "issues": [
+          "Title length is outside the 45-65 character target.",
+          "Missing meta description."
+        ]
+      },
+      {
+        "url": "https://blog.meetlyra.app/image-gallery-block/",
+        "issues": [
+          "Missing meta description.",
+          "Some images are missing alt text."
+        ]
+      },
+      {
+        "url": "https://blog.meetlyra.app/table-block/",
+        "issues": [
+          "Title length is outside the 45-65 character target.",
+          "Missing meta description."
+        ]
+      }
+    ],
+    "recommendations": [
+      "Improve mobile performance toward 90+, with priority on LCP and FCP.",
+      "Fix page-level title/meta/H1/schema/image-alt issues before scaling publishing."
+    ]
+  },
+  "page_intelligence": [
+    {
+      "url": "https://blog.meetlyra.app",
+      "final_url": "https://blog.meetlyra.app",
+      "status": 200,
+      "title": "Lyra&#039;s Journal - The autonomous marketing operating system",
+      "title_length": 63,
+      "meta_description": "The autonomous marketing operating system",
+      "meta_description_length": 41,
+      "canonical": "https://blog.meetlyra.app/",
+      "h1_count": 0,
+      "h1": [],
+      "h2_count": 6,
+      "image_count": 13,
+      "images_missing_alt": 0,
+      "internal_link_count": 89,
+      "outbound_link_count": 2,
+      "word_count": 8396,
+      "has_noindex": false,
+      "schema_types": [
+        "CollectionPage",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "ImageObject",
+        "QuantitativeValue"
+      ],
+      "issues": [
+        "Meta description length is outside the 130-160 character target.",
+        "Page should have exactly one H1."
+      ]
+    },
+    {
+      "url": "https://blog.meetlyra.app/ai-marketing-agent-seo-content/",
+      "final_url": "https://blog.meetlyra.app/ai-marketing-agent-seo-content/",
+      "status": 200,
+      "title": "AI marketing agent: SEO Content Systems That Scale",
+      "title_length": 50,
+      "meta_description": "Discover how AI marketing agent for SEO content works. Learn how autonomous systems execute research, strategy, creation, and optimization automatically.",
+      "meta_description_length": 153,
+      "canonical": "https://blog.meetlyra.app/ai-marketing-agent-seo-content/",
+      "h1_count": 1,
+      "h1": [
+        "AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work"
+      ],
+      "h2_count": 20,
+      "image_count": 15,
+      "images_missing_alt": 0,
+      "internal_link_count": 114,
+      "outbound_link_count": 7,
+      "word_count": 12248,
+      "has_noindex": false,
+      "schema_types": [
+        "Article",
+        "CommentAction",
+        "WebPage",
+        "ReadAction",
+        "ImageObject",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "QuantitativeValue",
+        "Person",
+        "Thing"
+      ],
+      "issues": []
+    },
+    {
+      "url": "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+      "final_url": "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+      "status": 200,
+      "title": "AI Marketing Agent for SEO Content: Autonomous Content Systems That Scale",
+      "title_length": 73,
+      "meta_description": "Learn how AI marketing agents automate SEO content creation from strategy to publication. Beyond AI writing tools\u2014these autonomous systems replace entire content workflows for lean teams.",
+      "meta_description_length": 187,
+      "canonical": "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+      "h1_count": 2,
+      "h1": [
+        "AI Marketing Agent for SEO Content: How Autonomous Systems Replace Your Content Team",
+        "AI Marketing Agent for SEO Content: How Autonomous Systems Replace Your Content Team"
+      ],
+      "h2_count": 13,
+      "image_count": 15,
+      "images_missing_alt": 0,
+      "internal_link_count": 98,
+      "outbound_link_count": 5,
+      "word_count": 11099,
+      "has_noindex": false,
+      "schema_types": [
+        "Article",
+        "CommentAction",
+        "WebPage",
+        "ReadAction",
+        "ImageObject",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "QuantitativeValue",
+        "Person",
+        "Thing"
+      ],
+      "issues": [
+        "Title length is outside the 45-65 character target.",
+        "Meta description length is outside the 130-160 character target.",
+        "Page should have exactly one H1."
+      ]
+    },
+    {
+      "url": "https://blog.meetlyra.app/contact/",
+      "final_url": "https://blog.meetlyra.app/contact/",
+      "status": 200,
+      "title": "Contact - Lyra&#039;s Journal",
+      "title_length": 29,
+      "meta_description": "",
+      "meta_description_length": 0,
+      "canonical": "https://blog.meetlyra.app/contact/",
+      "h1_count": 1,
+      "h1": [
+        "Say Hello!"
+      ],
+      "h2_count": 2,
+      "image_count": 12,
+      "images_missing_alt": 4,
+      "internal_link_count": 67,
+      "outbound_link_count": 2,
+      "word_count": 8901,
+      "has_noindex": false,
+      "schema_types": [
+        "WebPage",
+        "ReadAction",
+        "ImageObject",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "QuantitativeValue",
+        "VideoObject"
+      ],
+      "issues": [
+        "Title length is outside the 45-65 character target.",
+        "Missing meta description.",
+        "Some images are missing alt text."
+      ]
+    },
+    {
+      "url": "https://blog.meetlyra.app/about/",
+      "final_url": "https://blog.meetlyra.app/about/",
+      "status": 200,
+      "title": "About Us - Lyra&#039;s Journal",
+      "title_length": 30,
+      "meta_description": "",
+      "meta_description_length": 0,
+      "canonical": "https://blog.meetlyra.app/about/",
+      "h1_count": 1,
+      "h1": [
+        "About Us"
+      ],
+      "h2_count": 6,
+      "image_count": 18,
+      "images_missing_alt": 10,
+      "internal_link_count": 67,
+      "outbound_link_count": 2,
+      "word_count": 9783,
+      "has_noindex": false,
+      "schema_types": [
+        "WebPage",
+        "ReadAction",
+        "ImageObject",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "QuantitativeValue"
+      ],
+      "issues": [
+        "Title length is outside the 45-65 character target.",
+        "Missing meta description.",
+        "Some images are missing alt text."
+      ]
+    },
+    {
+      "url": "https://blog.meetlyra.app/3029-2/",
+      "final_url": "https://blog.meetlyra.app/3029-2/",
+      "status": 200,
+      "title": "Button &amp; Separator - Lyra&#039;s Journal",
+      "title_length": 44,
+      "meta_description": "",
+      "meta_description_length": 0,
+      "canonical": "https://blog.meetlyra.app/3029-2/",
+      "h1_count": 1,
+      "h1": [
+        "Button &#038; Separator"
+      ],
+      "h2_count": 2,
+      "image_count": 8,
+      "images_missing_alt": 0,
+      "internal_link_count": 67,
+      "outbound_link_count": 2,
+      "word_count": 6408,
+      "has_noindex": false,
+      "schema_types": [
+        "WebPage",
+        "ReadAction",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "ImageObject",
+        "QuantitativeValue"
+      ],
+      "issues": [
+        "Title length is outside the 45-65 character target.",
+        "Missing meta description."
+      ]
+    },
+    {
+      "url": "https://blog.meetlyra.app/image-gallery-block/",
+      "final_url": "https://blog.meetlyra.app/image-gallery-block/",
+      "status": 200,
+      "title": "Image &amp; Gallery Block - Lyra&#039;s Journal",
+      "title_length": 47,
+      "meta_description": "",
+      "meta_description_length": 0,
+      "canonical": "https://blog.meetlyra.app/image-gallery-block/",
+      "h1_count": 1,
+      "h1": [
+        "Image &#038; Gallery Block"
+      ],
+      "h2_count": 2,
+      "image_count": 16,
+      "images_missing_alt": 1,
+      "internal_link_count": 67,
+      "outbound_link_count": 2,
+      "word_count": 10560,
+      "has_noindex": false,
+      "schema_types": [
+        "WebPage",
+        "ReadAction",
+        "ImageObject",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "QuantitativeValue"
+      ],
+      "issues": [
+        "Missing meta description.",
+        "Some images are missing alt text."
+      ]
+    },
+    {
+      "url": "https://blog.meetlyra.app/table-block/",
+      "final_url": "https://blog.meetlyra.app/table-block/",
+      "status": 200,
+      "title": "Table Block - Lyra&#039;s Journal",
+      "title_length": 33,
+      "meta_description": "",
+      "meta_description_length": 0,
+      "canonical": "https://blog.meetlyra.app/table-block/",
+      "h1_count": 1,
+      "h1": [
+        "Table Block"
+      ],
+      "h2_count": 2,
+      "image_count": 8,
+      "images_missing_alt": 0,
+      "internal_link_count": 67,
+      "outbound_link_count": 2,
+      "word_count": 6565,
+      "has_noindex": false,
+      "schema_types": [
+        "WebPage",
+        "ReadAction",
+        "BreadcrumbList",
+        "ListItem",
+        "WebSite",
+        "SearchAction",
+        "EntryPoint",
+        "PropertyValueSpecification",
+        "Organization",
+        "ImageObject",
+        "QuantitativeValue"
+      ],
+      "issues": [
+        "Title length is outside the 45-65 character target.",
+        "Missing meta description."
+      ]
+    }
+  ],
+  "content_quality": {
+    "ok": true,
+    "thin_pages": [],
+    "missing_schema_pages": [],
+    "eeat_checks": [
+      "Add visible author/organization context to informational posts.",
+      "Cite Google, Search Engine Land, DataForSEO/SERP evidence, or product docs for technical claims.",
+      "Avoid fake case studies, unsupported metrics, and generic examples."
+    ],
+    "helpfulness_checks": [
+      "Open with a direct answer.",
+      "Include examples, decision rules, and proof blocks.",
+      "Keep pages tied to MeetLyra use cases and actual product capabilities."
+    ]
+  },
+  "schema_engine": {
+    "strategy": "yoast_schema_api",
+    "yoast_hooks": [
+      "wpseo_schema_graph_pieces",
+      "wpseo_schema_graph",
+      "wpseo_schema_article",
+      "wpseo_schema_webpage",
+      "wpseo_schema_block_<block-type>",
+      "wpseo_pre-schema_block-type_<block-type>"
+    ],
+    "post_count": 13,
+    "dominant_topic_terms": [
+      "block",
+      "autonomous",
+      "systems",
+      "&#038;",
+      "sidebar",
+      "width",
+      "replace",
+      "contact"
+    ],
+    "recommendations": [
+      "Keep Yoast's native schema graph enabled; extend it through Yoast filters rather than adding duplicate standalone JSON-LD when possible.",
+      "Use Article schema for every generated post and reference Organization/WebSite graph pieces already emitted by Yoast.",
+      "Use Breadcrumb schema on posts so the graph connects blog posts back to the blog and site root.",
+      "Only use FAQ schema when the article contains a genuine FAQ block with visible questions and answers.",
+      "Build topic-cluster schema notes from internal-link groups once the blog has 5+ real posts."
+    ],
+    "required_graph_pieces": [
+      "Organization",
+      "WebSite",
+      "WebPage",
+      "Article",
+      "BreadcrumbList"
+    ],
+    "conditional_graph_pieces": [
+      "FAQPage only when visible FAQ content exists"
+    ],
+    "cluster_schema_notes": [
+      {
+        "cluster": "AI Marketing Operations",
+        "schema": "Article + BreadcrumbList + relevant FAQPage when questions are visible"
+      },
+      {
+        "cluster": "SEO Content Engine",
+        "schema": "Article + BreadcrumbList + relevant FAQPage when questions are visible"
+      }
+    ]
+  },
+  "geo_aeo": {
+    "answer_engine_targets": [
+      "best ai marketing tools",
+      "best ai tools for marketing",
+      "best ai for marketing",
+      "best ai tools for seo",
+      "best ai seo tools",
+      "best seo ai tools"
+    ],
+    "required_blocks": [
+      "Quick Answer",
+      "FAQ",
+      "Key Takeaways",
+      "Comparison Table",
+      "Source/Proof Callout"
+    ],
+    "answer_ready_pages": [
+      "https://blog.meetlyra.app/ai-marketing-agent-seo-content/",
+      "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/"
+    ],
+    "recommendations": [
+      "Use concise answer sections near the top of every informational article.",
+      "Use visible FAQs only where the article naturally answers repeated SERP questions.",
+      "Name entities clearly: MeetLyra, AI marketing agent, SEO content engine, WordPress, Yoast, GA4, GSC."
+    ]
+  },
+  "drift_monitoring": {
+    "ok": true,
+    "baseline_path": ".content-machine/drift/latest-baseline.json",
+    "previous_baseline_found": true,
+    "changes": []
+  },
+  "internal_link_plan": {
+    "rules": [
+      "Use blog.meetlyra.app for blog posts, guides, comparisons, and articles.",
+      "Use meetlyra.app for app, product, feature, use-case, industry, pricing, signup, and platform pages.",
+      "Avoid exact-match focus-keyphrase anchors."
+    ],
+    "available_blog_links": [
+      {
+        "title": "AI Marketing Agent for SEO Content: How Autonomous Marketing Systems Work",
+        "url": "https://blog.meetlyra.app/ai-marketing-agent-seo-content/",
+        "slug": "ai-marketing-agent-seo-content"
+      },
+      {
+        "title": "AI Marketing Agent for SEO Content: How Autonomous Systems Replace Your Content Team",
+        "url": "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+        "slug": "ai-marketing-agent-for-seo-content"
+      },
+      {
+        "title": "Contact",
+        "url": "https://blog.meetlyra.app/contact/",
+        "slug": "contact"
+      },
+      {
+        "title": "About Us",
+        "url": "https://blog.meetlyra.app/about/",
+        "slug": "about"
+      },
+      {
+        "title": "Button &#038; Separator",
+        "url": "https://blog.meetlyra.app/3029-2/",
+        "slug": "3029-2"
+      },
+      {
+        "title": "Image &#038; Gallery Block",
+        "url": "https://blog.meetlyra.app/image-gallery-block/",
+        "slug": "image-gallery-block"
+      },
+      {
+        "title": "Table Block",
+        "url": "https://blog.meetlyra.app/table-block/",
+        "slug": "table-block"
+      },
+      {
+        "title": "Quote Block",
+        "url": "https://blog.meetlyra.app/quote-block/",
+        "slug": "quote-block"
+      },
+      {
+        "title": "Columns Block",
+        "url": "https://blog.meetlyra.app/columns-block/",
+        "slug": "columns-block"
+      },
+      {
+        "title": "Left Sidebar",
+        "url": "https://blog.meetlyra.app/left-sidebar/",
+        "slug": "left-sidebar"
+      },
+      {
+        "title": "Right Sidebar",
+        "url": "https://blog.meetlyra.app/right-sidebar/",
+        "slug": "right-sidebar"
+      },
+      {
+        "title": "Default Width",
+        "url": "https://blog.meetlyra.app/default-width/",
+        "slug": "default-width"
+      },
+      {
+        "title": "Narrow Width",
+        "url": "https://blog.meetlyra.app/narrow-width/",
+        "slug": "narrow-width"
+      }
+    ],
+    "recommended_product_links": [
+      {
+        "anchor": "AI Marketing Operations",
+        "url": "https://meetlyra.app/use-cases/ai-marketing-operations"
+      },
+      {
+        "anchor": "SEO Content Engine",
+        "url": "https://meetlyra.app/use-cases/seo-content-engine"
+      }
+    ]
+  },
+  "next_actions": [
+    {
+      "priority": "high",
+      "effort": "moderate",
+      "action": "Build cluster: AI Marketing Operations",
+      "impact": "Topical authority and internal-link depth"
+    },
+    {
+      "priority": "high",
+      "effort": "moderate",
+      "action": "Build cluster: SEO Content Engine",
+      "impact": "Topical authority and internal-link depth"
+    },
+    {
+      "priority": "high",
+      "effort": "quick",
+      "action": "Fix on-page issues for https://blog.meetlyra.app",
+      "impact": "Cleaner crawl and Yoast alignment"
+    },
+    {
+      "priority": "high",
+      "effort": "quick",
+      "action": "Fix on-page issues for https://blog.meetlyra.app/ai-marketing-agent-for-seo-content/",
+      "impact": "Cleaner crawl and Yoast alignment"
+    },
+    {
+      "priority": "high",
+      "effort": "quick",
+      "action": "Fix on-page issues for https://blog.meetlyra.app/contact/",
+      "impact": "Cleaner crawl and Yoast alignment"
+    },
+    {
+      "priority": "high",
+      "effort": "quick",
+      "action": "Fix on-page issues for https://blog.meetlyra.app/about/",
+      "impact": "Cleaner crawl and Yoast alignment"
+    },
+    {
+      "priority": "high",
+      "effort": "quick",
+      "action": "Fix on-page issues for https://blog.meetlyra.app/3029-2/",
+      "impact": "Cleaner crawl and Yoast alignment"
+    },
+    {
+      "priority": "medium",
+      "effort": "moderate",
+      "action": "Create a complete guide for `best ai tools for seo`.",
+      "impact": "Close visible SERP format/topic gap"
+    },
+    {
+      "priority": "medium",
+      "effort": "moderate",
+      "action": "Consider a fair comparison/supporting article for `best ai tools for seo`.",
+      "impact": "Close visible SERP format/topic gap"
+    },
+    {
+      "priority": "medium",
+      "effort": "moderate",
+      "action": "Create a complete guide for `ai tools for seo`.",
+      "impact": "Close visible SERP format/topic gap"
+    },
+    {
+      "priority": "medium",
+      "effort": "moderate",
+      "action": "Consider a fair comparison/supporting article for `ai tools for seo`.",
+      "impact": "Close visible SERP format/topic gap"
+    },
+    {
+      "priority": "medium",
+      "effort": "moderate",
+      "action": "Create a complete guide for `free ai tools for marketing`.",
+      "impact": "Close visible SERP format/topic gap"
+    }
+  ],
+  "backlink_profile": {
+    "target": "blog.meetlyra.app",
+    "rank": 0,
+    "backlinks": 0,
+    "referring_domains": 0
+  },
+  "local_maps": null,
+  "firecrawl_map_urls": [
+    "https://blog.meetlyra.app",
+    "https://blog.meetlyra.app/sitemap_index.xml",
+    "https://blog.meetlyra.app/post_tag-sitemap.xml",
+    "https://blog.meetlyra.app/post-sitemap.xml",
+    "https://blog.meetlyra.app/page-sitemap.xml",
+    "https://blog.meetlyra.app/category-sitemap.xml",
+    "https://blog.meetlyra.app/author-sitemap.xml",
+    "https://blog.meetlyra.app/narrow-width",
+    "https://blog.meetlyra.app/default-width",
+    "https://blog.meetlyra.app/right-sidebar",
+    "https://blog.meetlyra.app/left-sidebar",
+    "https://blog.meetlyra.app/columns-block",
+    "https://blog.meetlyra.app/quote-block",
+    "https://blog.meetlyra.app/table-block",
+    "https://blog.meetlyra.app/image-gallery-block",
+    "https://blog.meetlyra.app/3029-2",
+    "https://blog.meetlyra.app/about",
+    "https://blog.meetlyra.app/contact",
+    "https://blog.meetlyra.app/tag/agentic-ai",
+    "https://blog.meetlyra.app/tag/ai-marketing",
+    "https://blog.meetlyra.app/tag/ai-marketing-agent",
+    "https://blog.meetlyra.app/tag/autonomous-ai",
+    "https://blog.meetlyra.app/tag/autonomous-systems",
+    "https://blog.meetlyra.app/tag/content-automation",
+    "https://blog.meetlyra.app/tag/content-marketing",
+    "https://blog.meetlyra.app/tag/content-strategy",
+    "https://blog.meetlyra.app/tag/marketing-agents",
+    "https://blog.meetlyra.app/tag/marketing-automation",
+    "https://blog.meetlyra.app/tag/marketing-technology",
+    "https://blog.meetlyra.app/tag/seo-automation",
+    "https://blog.meetlyra.app/tag/seo-content",
+    "https://blog.meetlyra.app/tag/seo-tools",
+    "https://blog.meetlyra.app/ai-marketing-agent-for-seo-content",
+    "https://blog.meetlyra.app/ai-marketing-agent-seo-content",
+    "https://blog.meetlyra.app/author/dylang001",
+    "https://blog.meetlyra.app/category/ai-tools",
+    "https://blog.meetlyra.app/category/artificial-intelligence",
+    "https://blog.meetlyra.app/category/content-marketing",
+    "https://blog.meetlyra.app/category/marketing-automation",
+    "https://blog.meetlyra.app/category/seo"
+  ]
+}
