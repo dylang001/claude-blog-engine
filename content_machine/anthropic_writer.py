@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from datetime import datetime, timezone
 from typing import Any
 
@@ -11,6 +12,10 @@ from .config import Settings
 from .models import AuditReport, GeneratedContent, Opportunity
 from .supermemory import SuperMemoryClient
 from .utils import excerpt, load_agent_instructions, markdown_to_html, slugify
+
+logger = logging.getLogger(__name__)
+
+GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
 
 
 class ContentWriter:
@@ -45,8 +50,8 @@ class ContentWriter:
                     for item in failures
                     if item.get("content") or item.get("text")
                 ]
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Failed to enrich research with audit failures: %s", exc)
         return research
 
     async def repair(self, content: GeneratedContent, opportunity: Opportunity, research: dict[str, Any], audit: AuditReport) -> GeneratedContent:
@@ -62,7 +67,7 @@ class ContentWriter:
             )
 
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"{GEMINI_API_BASE}/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -114,7 +119,12 @@ class ContentWriter:
             }
 
             async with httpx.AsyncClient(timeout=180) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(
+                    url,
+                    params={"key": self.settings.gemini_api_key},
+                    headers={"content-type": "application/json"},
+                    json=payload,
+                )
                 if resp.status_code >= 400:
                     try:
                         err_detail = resp.json()
@@ -122,19 +132,11 @@ class ContentWriter:
                     except Exception:
                         err_msg = resp.text
                     raise RuntimeError(f"Gemini API returned {resp.status_code}: {err_msg}")
-                resp.raise_for_status()
                 data = resp.json()
 
             text = data["candidates"][0]["content"]["parts"][0]["text"]
             parsed = self._parse_json(text)
             return optimize_content(self._from_payload(opportunity, parsed), opportunity)
-        except httpx.HTTPStatusError as exc:
-            try:
-                err_detail = exc.response.json()
-                err_msg = err_detail.get("error", {}).get("message", exc.response.text)
-            except Exception:
-                err_msg = exc.response.text
-            raise RuntimeError(f"Gemini API returned {exc.response.status_code}: {err_msg}")
         except RuntimeError:
             raise
         except Exception as exc:
@@ -150,7 +152,7 @@ class ContentWriter:
             )
 
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"{GEMINI_API_BASE}/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -202,7 +204,12 @@ class ContentWriter:
             }
 
             async with httpx.AsyncClient(timeout=180) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(
+                    url,
+                    params={"key": self.settings.gemini_api_key},
+                    headers={"content-type": "application/json"},
+                    json=payload,
+                )
                 if resp.status_code >= 400:
                     try:
                         err_detail = resp.json()
@@ -210,19 +217,11 @@ class ContentWriter:
                     except Exception:
                         err_msg = resp.text
                     raise RuntimeError(f"Gemini API returned {resp.status_code}: {err_msg}")
-                resp.raise_for_status()
                 data = resp.json()
 
             text = data["candidates"][0]["content"]["parts"][0]["text"]
             parsed = self._parse_json(text)
             return optimize_content(self._from_payload(opportunity, parsed), opportunity)
-        except httpx.HTTPStatusError as exc:
-            try:
-                err_detail = exc.response.json()
-                err_msg = err_detail.get("error", {}).get("message", exc.response.text)
-            except Exception:
-                err_msg = exc.response.text
-            raise RuntimeError(f"Gemini API returned {exc.response.status_code}: {err_msg}")
         except RuntimeError:
             raise
         except Exception as exc:
@@ -267,18 +266,10 @@ class ContentWriter:
                     except Exception:
                         err_msg = resp.text
                     raise RuntimeError(f"Anthropic API returned {resp.status_code}: {err_msg}")
-                resp.raise_for_status()
                 data = resp.json()
             text = data["content"][0]["text"]
             parsed = self._parse_json(text)
             return optimize_content(self._from_payload(opportunity, parsed), opportunity)
-        except httpx.HTTPStatusError as exc:
-            try:
-                err_detail = exc.response.json()
-                err_msg = err_detail.get("error", {}).get("message", exc.response.text)
-            except Exception:
-                err_msg = exc.response.text
-            raise RuntimeError(f"Anthropic API returned {exc.response.status_code}: {err_msg}")
         except RuntimeError:
             raise
         except Exception as exc:
@@ -323,17 +314,9 @@ class ContentWriter:
                     except Exception:
                         err_msg = resp.text
                     raise RuntimeError(f"Anthropic API returned {resp.status_code}: {err_msg}")
-                resp.raise_for_status()
                 data = resp.json()
             parsed = self._parse_json(data["content"][0]["text"])
             return optimize_content(self._from_payload(opportunity, parsed), opportunity)
-        except httpx.HTTPStatusError as exc:
-            try:
-                err_detail = exc.response.json()
-                err_msg = err_detail.get("error", {}).get("message", exc.response.text)
-            except Exception:
-                err_msg = exc.response.text
-            raise RuntimeError(f"Anthropic API returned {exc.response.status_code}: {err_msg}")
         except RuntimeError:
             raise
         except Exception as exc:
@@ -368,7 +351,7 @@ CTA: {site.cta}
 Target keyword: {opportunity.keyword}
 Work type: {opportunity.kind.value}
 Current date: {datetime.now(timezone.utc).date().isoformat()}
-Research JSON: {json.dumps(research, default=str)}
+Research JSON: {json.dumps(research, default=str)[:8000]}
 {parent_link_instruction}
 Return ONLY valid JSON. The main content body must be returned in the 'markdown' key. However, despite the key being named 'markdown', the value MUST be publish-ready Gutenberg-formatted HTML (NOT Markdown).
 
@@ -505,8 +488,8 @@ Hard requirements:
 - Ensure all outbound tool/software links have rel="nofollow".
 
 Opportunity: {json.dumps(opportunity.__dict__, default=str)}
-Research JSON: {json.dumps(research, default=str)}
-Current content JSON: {json.dumps(content.__dict__, default=str)}
+Research JSON: {json.dumps(research, default=str)[:8000]}
+Current content JSON: {json.dumps(content.__dict__, default=str)[:12000]}
 """
 
     def _parse_json(self, text: str) -> dict[str, Any]:
@@ -571,7 +554,7 @@ Return ONLY valid JSON.
         if self.settings.writer_provider == "gemini":
             if not self.settings.gemini_api_key:
                 raise RuntimeError("GEMINI_API_KEY is required for Gemini content generation.")
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"{GEMINI_API_BASE}/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -596,7 +579,12 @@ Return ONLY valid JSON.
                 }
             }
             async with httpx.AsyncClient(timeout=120) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(
+                    url,
+                    params={"key": self.settings.gemini_api_key},
+                    headers={"content-type": "application/json"},
+                    json=payload,
+                )
                 resp.raise_for_status()
                 data = resp.json()
             text = data["candidates"][0]["content"]["parts"][0]["text"]
@@ -648,7 +636,7 @@ Return ONLY valid JSON.
         if self.settings.writer_provider == "gemini":
             if not self.settings.gemini_api_key:
                 raise RuntimeError("GEMINI_API_KEY is required for Gemini content generation.")
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"{GEMINI_API_BASE}/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -674,7 +662,12 @@ Return ONLY valid JSON.
                 }
             }
             async with httpx.AsyncClient(timeout=120) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(
+                    url,
+                    params={"key": self.settings.gemini_api_key},
+                    headers={"content-type": "application/json"},
+                    json=payload,
+                )
                 resp.raise_for_status()
                 data = resp.json()
             text = data["candidates"][0]["content"]["parts"][0]["text"]
