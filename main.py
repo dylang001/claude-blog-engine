@@ -22,6 +22,36 @@ logger = logging.getLogger("content_machine_functions")
 # Initialize firebase admin
 initialize_app()
 
+# Load Firebase Functions config if available (for env vars)
+try:
+    from firebase_functions import params
+    # Firebase Functions config - used when env vars are set via "firebase functions:config:set"
+    firebase_config = params._params.get("config", {})
+    
+    # Map Firebase config to environment variables
+    if firebase_config:
+        wp_config = firebase_config.get("wp", {})
+        if wp_config.get("app_password"):
+            os.environ["WP_APP_PASSWORD"] = wp_config["app_password"]
+        if wp_config.get("base_url"):
+            os.environ["WP_BASE_URL"] = wp_config["base_url"]
+        if wp_config.get("username"):
+            os.environ["WP_USERNAME"] = wp_config["username"]
+            
+        dataforseo_config = firebase_config.get("dataforseo", {})
+        if dataforseo_config.get("login"):
+            os.environ["DATAFORSEO_LOGIN"] = dataforseo_config["login"]
+        if dataforseo_config.get("password"):
+            os.environ["DATAFORSEO_PASSWORD"] = dataforseo_config["password"]
+            
+        anthropic_config = firebase_config.get("anthropic", {})
+        if anthropic_config.get("api_key"):
+            os.environ["ANTHROPIC_API_KEY"] = anthropic_config["api_key"]
+            
+        logger.info("Loaded environment variables from Firebase Functions config")
+except Exception as e:
+    logger.debug(f"Could not load Firebase Functions config: {e}")
+
 from content_machine.config import load_settings
 from content_machine.pipeline import ContentMachine
 from content_machine.reporter import EmailReporter
