@@ -535,7 +535,7 @@ Do not return any markdown code blocks, text, or explanations outside the JSON a
                 "high_top_of_page_bid": kw["high_top_of_page_bid"]
             })
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.gemini_model}:generateContent?key={settings.gemini_api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.gemini_model}:generateContent"
         payload = {
             "contents": [
                 {
@@ -553,7 +553,7 @@ Do not return any markdown code blocks, text, or explanations outside the JSON a
         }
 
         async with httpx.AsyncClient(timeout=60) as client:
-            resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+            resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": settings.gemini_api_key}, json=payload)
             resp.raise_for_status()
             data = resp.json()
 
@@ -651,7 +651,7 @@ Return ONLY a valid JSON object matching this schema:
 }}
 Do not return any markdown code blocks, explanations, or commentary outside the JSON object."""
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.gemini_model}:generateContent?key={settings.gemini_api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.gemini_model}:generateContent"
         payload = {
             "contents": [
                 {
@@ -669,7 +669,7 @@ Do not return any markdown code blocks, explanations, or commentary outside the 
         }
 
         async with httpx.AsyncClient(timeout=60) as client:
-            resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+            resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": settings.gemini_api_key}, json=payload)
             resp.raise_for_status()
             data = resp.json()
 

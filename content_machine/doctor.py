@@ -182,7 +182,7 @@ async def _check_banana(settings: Settings) -> dict:
         async with httpx.AsyncClient(timeout=30) as client:
             resp = await client.get(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{settings.banana_model}",
-                params={"key": settings.gemini_api_key},
+                headers={"x-goog-api-key": settings.gemini_api_key},
             )
         if resp.status_code >= 400:
             try:

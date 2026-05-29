@@ -62,7 +62,7 @@ class ContentWriter:
             )
 
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -114,7 +114,7 @@ class ContentWriter:
             }
 
             async with httpx.AsyncClient(timeout=180) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": self.settings.gemini_api_key}, json=payload)
                 if resp.status_code >= 400:
                     try:
                         err_detail = resp.json()
@@ -150,7 +150,7 @@ class ContentWriter:
             )
 
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -202,7 +202,7 @@ class ContentWriter:
             }
 
             async with httpx.AsyncClient(timeout=180) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": self.settings.gemini_api_key}, json=payload)
                 if resp.status_code >= 400:
                     try:
                         err_detail = resp.json()
@@ -571,7 +571,7 @@ Return ONLY valid JSON.
         if self.settings.writer_provider == "gemini":
             if not self.settings.gemini_api_key:
                 raise RuntimeError("GEMINI_API_KEY is required for Gemini content generation.")
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -596,7 +596,7 @@ Return ONLY valid JSON.
                 }
             }
             async with httpx.AsyncClient(timeout=120) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": self.settings.gemini_api_key}, json=payload)
                 resp.raise_for_status()
                 data = resp.json()
             text = data["candidates"][0]["content"]["parts"][0]["text"]
@@ -648,7 +648,7 @@ Return ONLY valid JSON.
         if self.settings.writer_provider == "gemini":
             if not self.settings.gemini_api_key:
                 raise RuntimeError("GEMINI_API_KEY is required for Gemini content generation.")
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent?key={self.settings.gemini_api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.gemini_model}:generateContent"
             payload = {
                 "contents": [
                     {
@@ -674,7 +674,7 @@ Return ONLY valid JSON.
                 }
             }
             async with httpx.AsyncClient(timeout=120) as client:
-                resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+                resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": self.settings.gemini_api_key}, json=payload)
                 resp.raise_for_status()
                 data = resp.json()
             text = data["candidates"][0]["content"]["parts"][0]["text"]

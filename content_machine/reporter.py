@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import html as html_mod
 import json
 import smtplib
 import logging
@@ -38,14 +39,14 @@ async def _gemini_strategic_summary(settings: Settings, runs: list[dict[str, Any
         )
         url = (
             f"https://generativelanguage.googleapis.com/v1beta/models/{settings.gemini_model}"
-            f":generateContent?key={settings.gemini_api_key}"
+            f":generateContent"
         )
         payload = {
             "contents": [{"role": "user", "parts": [{"text": prompt}]}],
             "generationConfig": {"temperature": 0.4, "maxOutputTokens": 512},
         }
         async with httpx.AsyncClient(timeout=30) as client:
-            resp = await client.post(url, headers={"content-type": "application/json"}, json=payload)
+            resp = await client.post(url, headers={"content-type": "application/json", "x-goog-api-key": settings.gemini_api_key}, json=payload)
             if resp.status_code == 200:
                 data = resp.json()
                 return data["candidates"][0]["content"]["parts"][0]["text"].strip()
@@ -78,20 +79,20 @@ class EmailReporter:
                 elif status in ["draft", "dry_run"]:
                     status_color = "#f59e0b"  # yellow
 
-                wp_url = run.get("wordpress_url")
+                wp_url = html_mod.escape(run.get("wordpress_url") or "")
                 wp_id = run.get("wordpress_id")
                 view_link = f'<a href="{wp_url}" style="color: #3b82f6;">View</a>' if wp_url else ""
                 # Build WP admin edit link
-                wp_base = run.get("settings_wp_base_url", "")
+                wp_base = html_mod.escape(run.get("settings_wp_base_url", ""))
                 edit_link = ""
                 if wp_id and wp_base:
-                    edit_link = f' &bull; <a href="{wp_base}/wp-admin/post.php?post={wp_id}&action=edit" style="color: #6366f1;">Edit</a>'
+                    edit_link = f' &bull; <a href="{wp_base}/wp-admin/post.php?post={html_mod.escape(str(wp_id))}&action=edit" style="color: #6366f1;">Edit</a>'
                 link_html = (view_link + edit_link) if (view_link or edit_link) else "N/A"
 
                 opp = run.get("opportunity", {})
-                keyword = opp.get("keyword", "N/A")
-                kind = opp.get("kind", "N/A")
-                title = run.get("content", {}).get("title") or keyword
+                keyword = html_mod.escape(opp.get("keyword", "N/A"))
+                kind = html_mod.escape(opp.get("kind", "N/A"))
+                title = html_mod.escape(run.get("content", {}).get("title") or keyword)
 
                 audit = run.get("audit", {})
                 audit_details = audit.get("details", {})
@@ -104,7 +105,7 @@ class EmailReporter:
                 if issues:
                     issue_html = (
                         '<br><span style="color:#ef4444;font-size:11px;">'
-                        + " · ".join(issues[:2])
+                        + " · ".join(html_mod.escape(str(i)) for i in issues[:2])
                         + (" +more" if len(issues) > 2 else "")
                         + "</span>"
                     )
@@ -119,9 +120,9 @@ class EmailReporter:
                         if assets:
                             asset_links = []
                             for a in assets:
-                                plat = a.get("platform", "N/A").title()
-                                p_url = a.get("published_url")
-                                p_status = a.get("status", "unknown")
+                                plat = html_mod.escape(a.get("platform", "N/A").title())
+                                p_url = html_mod.escape(a.get("published_url") or "")
+                                p_status = html_mod.escape(a.get("status", "unknown"))
                                 if p_url:
                                     asset_links.append(f'<a href="{p_url}" style="color:#059669;text-decoration:none;">{plat} ({p_status})</a>')
                                 else:
@@ -135,9 +136,9 @@ class EmailReporter:
                         if backlink_targets:
                             target_list = []
                             for b in backlink_targets:
-                                site = b.get("target_site", "N/A")
-                                name = b.get("contact_name") or "Editor"
-                                email = b.get("contact_email") or "N/A"
+                                site = html_mod.escape(b.get("target_site", "N/A"))
+                                name = html_mod.escape(b.get("contact_name") or "Editor")
+                                email = html_mod.escape(b.get("contact_email") or "N/A")
                                 target_list.append(f'{site} ({name} &lt;{email}&gt;)')
                             backlinks_html = '<div style="margin-top:4px;font-size:11px;color:#4b5563;">Backlink Targets: ' + ", ".join(target_list[:3]) + ('...' if len(target_list) > 3 else '') + '</div>'
                     except Exception as e:

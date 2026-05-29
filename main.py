@@ -76,14 +76,21 @@ def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
     
     # Validate auth key
     expected_raw = (settings.wp_app_password or "").replace(" ", "")
-    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    if not expected_raw:
+        logger.error(f"WP_APP_PASSWORD is not configured [{run_id}].")
+        return https_fn.Response(
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    expected_key = expected_raw[:8]
     provided_key = (req.args.get("key") or "").replace(" ", "")
     
     is_valid, error_msg = validate_auth_key(provided_key, expected_key)
     if not is_valid:
-        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}].")
         return https_fn.Response(
-            json.dumps({"error": error_msg, "run_id": run_id}),
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
             status=401,
             content_type="application/json"
         )
@@ -148,7 +155,7 @@ def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
             json.dumps({
                 "success": False,
                 "run_id": run_id,
-                "error": error_msg,
+                "error": "Internal server error",
                 "duration_ms": duration_ms,
             }, indent=2),
             status=500,
@@ -190,14 +197,21 @@ def send_daily_report(req: https_fn.Request) -> https_fn.Response:
     # Get client IP and validate auth
     client_ip = get_client_ip(req)
     expected_raw = (settings.wp_app_password or "").replace(" ", "")
-    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    if not expected_raw:
+        logger.error(f"WP_APP_PASSWORD is not configured [{run_id}].")
+        return https_fn.Response(
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    expected_key = expected_raw[:8]
     provided_key = (req.args.get("key") or "").replace(" ", "")
     
     is_valid, error_msg = validate_auth_key(provided_key, expected_key)
     if not is_valid:
-        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}].")
         return https_fn.Response(
-            json.dumps({"error": error_msg, "run_id": run_id}),
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
             status=401,
             content_type="application/json"
         )
@@ -242,7 +256,7 @@ def send_daily_report(req: https_fn.Request) -> https_fn.Response:
             function_name="daily_email_report",
         ))
         return https_fn.Response(
-            json.dumps({"success": False, "error": str(e), "run_id": run_id}),
+            json.dumps({"success": False, "error": "Internal server error", "run_id": run_id}),
             status=500,
             content_type="application/json"
         )
@@ -270,14 +284,21 @@ def weekly_review(req: https_fn.Request) -> https_fn.Response:
     # Get client IP and validate auth
     client_ip = get_client_ip(req)
     expected_raw = (settings.wp_app_password or "").replace(" ", "")
-    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    if not expected_raw:
+        logger.error(f"WP_APP_PASSWORD is not configured [{run_id}].")
+        return https_fn.Response(
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    expected_key = expected_raw[:8]
     provided_key = (req.args.get("key") or "").replace(" ", "")
     
     is_valid, error_msg = validate_auth_key(provided_key, expected_key)
     if not is_valid:
-        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}].")
         return https_fn.Response(
-            json.dumps({"error": error_msg, "run_id": run_id}),
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
             status=401,
             content_type="application/json"
         )
@@ -327,7 +348,7 @@ def weekly_review(req: https_fn.Request) -> https_fn.Response:
             function_name="weekly_performance_review",
         ))
         return https_fn.Response(
-            json.dumps({"success": False, "error": str(exc), "run_id": run_id}),
+            json.dumps({"success": False, "error": "Internal server error", "run_id": run_id}),
             status=500,
             content_type="application/json"
         )
@@ -378,16 +399,23 @@ def run_now(req: https_fn.Request) -> https_fn.Response:
     
     # Enhanced authentication
     expected_raw = (settings.wp_app_password or "").replace(" ", "")
-    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    if not expected_raw:
+        logger.error(f"WP_APP_PASSWORD is not configured [{run_id}].")
+        return https_fn.Response(
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    expected_key = expected_raw[:8]
     provided_key = (req.args.get("key") or "").replace(" ", "")
     
     # Validate auth key
     is_valid, error_msg = validate_auth_key(provided_key, expected_key)
     if not is_valid:
-        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
-        health.record_heartbeat("run_now", "failed", run_id=run_id, error_message=error_msg)
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}].")
+        health.record_heartbeat("run_now", "failed", run_id=run_id, error_message="Unauthorized")
         return https_fn.Response(
-            json.dumps({"error": error_msg, "run_id": run_id}),
+            json.dumps({"error": "Unauthorized", "run_id": run_id}),
             status=401,
             content_type="application/json"
         )
@@ -458,7 +486,7 @@ def run_now(req: https_fn.Request) -> https_fn.Response:
             json.dumps({
                 "success": False,
                 "run_id": run_id,
-                "error": str(e),
+                "error": "Internal server error",
                 "duration_ms": duration_ms,
             }, indent=2),
             status=500,

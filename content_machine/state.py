@@ -199,7 +199,8 @@ class SQLiteStateStore:
                 """
             )
             # Dynamically alter table if columns are missing (for existing databases)
-            for col_name in ["business_value", "traffic_potential"]:
+            _ALLOWED_MIGRATION_COLUMNS = {"business_value", "traffic_potential"}
+            for col_name in _ALLOWED_MIGRATION_COLUMNS:
                 try:
                     conn.execute(f"ALTER TABLE content_plan ADD COLUMN {col_name} INTEGER DEFAULT 0")
                 except sqlite3.OperationalError:
