@@ -22,35 +22,55 @@ logger = logging.getLogger("content_machine_functions")
 # Initialize firebase admin
 initialize_app()
 
-# Load Firebase Functions config if available (for env vars)
+# Define Firebase Functions parameters (modern approach)
+# These will be populated from environment variables set in the Firebase Console
 try:
     from firebase_functions import params
-    # Firebase Functions config - used when env vars are set via "firebase functions:config:set"
-    firebase_config = params._params.get("config", {})
     
-    # Map Firebase config to environment variables
-    if firebase_config:
-        wp_config = firebase_config.get("wp", {})
-        if wp_config.get("app_password"):
-            os.environ["WP_APP_PASSWORD"] = wp_config["app_password"]
-        if wp_config.get("base_url"):
-            os.environ["WP_BASE_URL"] = wp_config["base_url"]
-        if wp_config.get("username"):
-            os.environ["WP_USERNAME"] = wp_config["username"]
-            
-        dataforseo_config = firebase_config.get("dataforseo", {})
-        if dataforseo_config.get("login"):
-            os.environ["DATAFORSEO_LOGIN"] = dataforseo_config["login"]
-        if dataforseo_config.get("password"):
-            os.environ["DATAFORSEO_PASSWORD"] = dataforseo_config["password"]
-            
-        anthropic_config = firebase_config.get("anthropic", {})
-        if anthropic_config.get("api_key"):
-            os.environ["ANTHROPIC_API_KEY"] = anthropic_config["api_key"]
-            
-        logger.info("Loaded environment variables from Firebase Functions config")
+    # Define typed parameters for better validation
+    wp_app_password_param = params.SecretParam("WP_APP_PASSWORD")
+    wp_base_url_param = params.StringParam("WP_BASE_URL")
+    wp_username_param = params.StringParam("WP_USERNAME")
+    dataforseo_login_param = params.StringParam("DATAFORSEO_LOGIN")
+    dataforseo_password_param = params.SecretParam("DATAFORSEO_PASSWORD")
+    anthropic_api_key_param = params.SecretParam("ANTHROPIC_API_KEY")
+    
+    # Try to load from params (will work after deployment with proper env vars)
+    try:
+        os.environ["WP_APP_PASSWORD"] = wp_app_password_param.value
+        logger.info("Loaded WP_APP_PASSWORD from SecretParam")
+    except:
+        pass
+        
+    try:
+        os.environ["WP_BASE_URL"] = wp_base_url_param.value
+    except:
+        pass
+        
+    try:
+        os.environ["WP_USERNAME"] = wp_username_param.value
+    except:
+        pass
+        
+    try:
+        os.environ["DATAFORSEO_LOGIN"] = dataforseo_login_param.value
+    except:
+        pass
+        
+    try:
+        os.environ["DATAFORSEO_PASSWORD"] = dataforseo_password_param.value
+        logger.info("Loaded DATAFORSEO_PASSWORD from SecretParam")
+    except:
+        pass
+        
+    try:
+        os.environ["ANTHROPIC_API_KEY"] = anthropic_api_key_param.value
+        logger.info("Loaded ANTHROPIC_API_KEY from SecretParam")
+    except:
+        pass
+        
 except Exception as e:
-    logger.debug(f"Could not load Firebase Functions config: {e}")
+    logger.debug(f"Firebase params not available (expected in local dev): {e}")
 
 from content_machine.config import load_settings
 from content_machine.pipeline import ContentMachine
