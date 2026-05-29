@@ -45,3 +45,18 @@ services:
         value: "16:9"
       - key: BANANA_RESOLUTION
         value: 2K
+      - key: FIREBASE_FUNCTIONS_URL
+        value: https://us-central1-aeo-seo-agents-team.cloudfunctions.net
+
+  - type: web
+    name: content-machine-dashboard
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r dashboard/requirements.txt
+    startCommand: cd dashboard && python app.py
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: CONTENT_MACHINE_DATA_DIR
+        value: /var/data
