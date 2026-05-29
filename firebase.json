@@ -12,10 +12,37 @@
       ".content-machine",
       "tests",
       ".pytest_cache",
-      "seo-reports"
+      "seo-reports",
+      "vendor/open-seo",
+      "claude-seo",
+      "vendor/dataseo-mcp",
+      "vendor/seomachine",
+      "vendor/*",
+      "*.md",
+      "docs/",
+      "scripts/",
+      "scratch/"
     ]
   },
   "firestore": {
     "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }
