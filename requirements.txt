@@ -12,4 +12,7 @@ firebase-functions>=0.2.0
 google-cloud-firestore>=2.14.0
 google-ads>=31.0.0
 playwright>=1.40.0
+diskcache>=5.6.0
+pydantic>=2.5.0
+aiohttp>=3.9.0
 
