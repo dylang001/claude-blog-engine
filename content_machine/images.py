@@ -32,9 +32,9 @@ class BananaImageGenerator:
             async with httpx.AsyncClient(timeout=180) as client:
                 resp = await client.post(
                     f"https://generativelanguage.googleapis.com/v1beta/models/{self.settings.banana_model}:generateContent",
-                    params={"key": self.settings.gemini_api_key},
                     headers={
                         "Content-Type": "application/json",
+                        "x-goog-api-key": self.settings.gemini_api_key,
                     },
                     json={
                         "contents": [{"parts": [{"text": prompt}]}],

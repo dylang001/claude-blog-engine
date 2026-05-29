@@ -5,6 +5,7 @@ Provides Pydantic models for validating inputs, configurations, and API requests
 
 from __future__ import annotations
 
+import hmac
 import re
 from datetime import datetime
 from enum import Enum
@@ -268,11 +269,10 @@ def validate_auth_key(key: str, expected_key: str) -> tuple[bool, Optional[str]]
     if not expected_key:
         return False, "Server configuration error"
     
-    # Use simple comparison (not timing-safe in Python, but good enough for this use case)
     key_clean = key.strip().replace(" ", "")
     expected_clean = expected_key.strip().replace(" ", "")
     
-    if key_clean != expected_clean:
+    if not hmac.compare_digest(key_clean, expected_clean):
         return False, "Invalid authentication key"
     
     return True, None
