@@ -39,6 +39,13 @@ class SiteConfig:
     enable_gmb_api: bool = False
 
 
+_DEFAULT_BANANA_STYLE_PROMPT = (
+    "Premium editorial tech photography: clean desk setup with a MacBook showing SaaS dashboards, "
+    "realistic office or studio lighting, shallow depth of field, modern millennial workspace vibe, "
+    "warm aesthetic tones, high-resolution, no logos, and no readable text."
+)
+
+
 @dataclass(frozen=True)
 class Settings:
     root_dir: Path
@@ -70,11 +77,7 @@ class Settings:
     banana_model: str = "gemini-3.1-flash-image-preview"
     banana_aspect_ratio: str = "16:9"
     banana_resolution: str = "2K"
-    banana_style_prompt: str = (
-        "Premium editorial tech photography: clean desk setup with a MacBook showing SaaS dashboards, "
-        "realistic office or studio lighting, shallow depth of field, modern millennial workspace vibe, "
-        "warm aesthetic tones, high-resolution, no logos, and no readable text."
-    )
+    banana_style_prompt: str = _DEFAULT_BANANA_STYLE_PROMPT
     indexnow_key: str = ""
     indexnow_key_location: str = ""
     indexnow_engines: list[str] = field(default_factory=lambda: ["bing", "yandex", "seznam", "indexnow"])
@@ -179,12 +182,7 @@ def load_settings(root_dir: Path | None = None, config_path: Path | None = None)
         banana_model=os.getenv("BANANA_MODEL", "gemini-3.1-flash-image-preview"),
         banana_aspect_ratio=os.getenv("BANANA_ASPECT_RATIO", "16:9"),
         banana_resolution=os.getenv("BANANA_RESOLUTION", "2K"),
-        banana_style_prompt=os.getenv(
-            "BANANA_STYLE_PROMPT",
-            "Premium editorial tech photography: clean desk setup with a MacBook showing SaaS dashboards, "
-            "realistic office or studio lighting, shallow depth of field, modern millennial workspace vibe, "
-            "warm aesthetic tones, high-resolution, no logos, and no readable text.",
-        ),
+        banana_style_prompt=os.getenv("BANANA_STYLE_PROMPT", _DEFAULT_BANANA_STYLE_PROMPT),
         indexnow_key=os.getenv("INDEXNOW_KEY", ""),
         indexnow_key_location=os.getenv("INDEXNOW_KEY_LOCATION", ""),
         indexnow_engines=[part.strip() for part in os.getenv("INDEXNOW_ENGINES", "bing,yandex,seznam,indexnow").split(",") if part.strip()],

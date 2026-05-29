@@ -13,3 +13,8 @@ blog-posts/
 .pytest_cache/
 __pycache__/
 *.pyc
+
+# Generated / debug artifacts
+scratch/
+data/
+cluster-plan.*
