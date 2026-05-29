@@ -37,15 +37,21 @@ timezone = settings.site.timezone or "America/New_York"
 logger.info(f"Loaded Firebase function settings. Timezone: {timezone}")
 
 
-@scheduler_fn.on_schedule(
-    schedule="0 9,15 * * *",
-    timezone=timezone,
+# NOTE: Scheduled triggers DISABLED - using Render worker instead
+# @scheduler_fn.on_schedule(
+#     schedule="0 9,15 * * *",
+#     timezone=timezone,
+#     timeout_sec=900,
+#     memory=options.MemoryOption.GB_1,
+#     max_instances=1,
+# )
+# def content_machine_worker(event) -> None:
+@https_fn.on_request(
     timeout_sec=900,
     memory=options.MemoryOption.GB_1,
-    max_instances=1,
 )
-def content_machine_worker(event) -> None:
-    """Scheduled worker to run the Content Machine pipeline twice a day."""
+def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
+    """HTTP endpoint to run the Content Machine pipeline (scheduled on Render)."""
     run_id = f"scheduled_{int(time.time())}"
     health = get_health_monitor()
     
@@ -105,19 +111,46 @@ def content_machine_worker(event) -> None:
             function_name="content_machine_worker",
             details={"traceback": tb[:1000]},
         ))
-        raise
+        return https_fn.Response(
+            json.dumps({
+                "success": False,
+                "run_id": run_id,
+                "error": error_msg,
+                "duration_ms": duration_ms,
+            }, indent=2),
+            status=500,
+            content_type="application/json"
+        )
     finally:
         loop.close()
+    
+    # Success case - function completed without exception
+    return https_fn.Response(
+        json.dumps({
+            "success": True,
+            "run_id": run_id,
+            "status": "completed",
+            "duration_ms": duration_ms,
+        }, indent=2),
+        status=200,
+        content_type="application/json"
+    )
 
 
-@scheduler_fn.on_schedule(
-    schedule="0 20 * * *",
-    timezone=timezone,
+# NOTE: Scheduled triggers DISABLED - using Render worker instead
+# @scheduler_fn.on_schedule(
+#     schedule="0 20 * * *",
+#     timezone=timezone,
+#     timeout_sec=300,
+#     max_instances=1,
+# )
+# def daily_email_report(event) -> None:
+@https_fn.on_request(
     timeout_sec=300,
-    max_instances=1,
+    memory=options.MemoryOption.MB_512,
 )
-def daily_email_report(event) -> None:
-    """Scheduled worker to send the daily email report at 20:00."""
+def daily_email_report(req: https_fn.Request) -> https_fn.Response:
+    """HTTP endpoint to send daily email report (scheduled on Render)."""
     run_id = f"email_{int(time.time())}"
     health = get_health_monitor()
     
@@ -139,6 +172,17 @@ def daily_email_report(event) -> None:
                 run_id=run_id,
                 function_name="daily_email_report",
             ))
+            return https_fn.Response(
+                json.dumps({"success": False, "warning": "Email could not be sent", "run_id": run_id}),
+                status=200,  # Still 200 since function ran
+                content_type="application/json"
+            )
+        
+        return https_fn.Response(
+            json.dumps({"success": True, "run_id": run_id}),
+            status=200,
+            content_type="application/json"
+        )
     except Exception as e:
         logger.exception(f"Daily email report failed [{run_id}]: {e}")
         health.record_heartbeat("daily_email_report", "failed", run_id=run_id, error_message=str(e))
@@ -149,19 +193,29 @@ def daily_email_report(event) -> None:
             run_id=run_id,
             function_name="daily_email_report",
         ))
-        raise
+        return https_fn.Response(
+            json.dumps({"success": False, "error": str(e), "run_id": run_id}),
+            status=500,
+            content_type="application/json"
+        )
 
 
-@scheduler_fn.on_schedule(
-    schedule="0 23 * * 0",
-    timezone=timezone,
+# NOTE: Scheduled triggers DISABLED - using Render worker instead
+# @scheduler_fn.on_schedule(
+#     schedule="0 23 * * 0",
+#     timezone=timezone,
+#     timeout_sec=900,
+#     max_instances=1,
+# )
+# def weekly_performance_review(event) -> None:
+@https_fn.on_request(
     timeout_sec=900,
-    max_instances=1,
+    memory=options.MemoryOption.GB_1,
 )
-def weekly_performance_review(event) -> None:
-    """Autonomous weekly reviewer: audits GSC/GA4 metrics, detects content drift,
-    identifies page-2 ranking opportunities, and injects refresh candidates
-    back into the pipeline queue."""
+def weekly_performance_review(req: https_fn.Request) -> https_fn.Response:
+    """HTTP endpoint for weekly performance review (scheduled on Render).
+    Audits GSC/GA4 metrics, detects content drift, identifies page-2 ranking
+    opportunities, and injects refresh candidates back into the pipeline queue."""
     run_id = f"weekly_{int(time.time())}"
     health = get_health_monitor()
     
@@ -209,9 +263,25 @@ def weekly_performance_review(event) -> None:
             run_id=run_id,
             function_name="weekly_performance_review",
         ))
-        raise
+        return https_fn.Response(
+            json.dumps({"success": False, "error": str(exc), "run_id": run_id}),
+            status=500,
+            content_type="application/json"
+        )
     finally:
         loop.close()
+    
+    return https_fn.Response(
+        json.dumps({
+            "success": True,
+            "run_id": run_id,
+            "drift_count": drift_count,
+            "opportunities_count": opps_count,
+            "refresh_injected": refresh_count,
+        }, indent=2),
+        status=200,
+        content_type="application/json"
+    )
 
 
 @https_fn.on_request(
