@@ -29,6 +29,8 @@ from content_machine.performance_analyst import PerformanceAnalyst
 from content_machine.health import get_health_monitor
 from content_machine.alerting import get_alert_manager, alert
 from content_machine.circuit_breaker import WORDPRESS_CB, DATAFORSEO_CB, ANTHROPIC_CB
+from content_machine.rate_limiter import check_rate_limit, get_client_ip
+from content_machine.validation import validate_auth_key
 
 # Load settings from root
 settings = load_settings(root_dir=Path(__file__).resolve().parent)
@@ -55,7 +57,38 @@ def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
     run_id = f"scheduled_{int(time.time())}"
     health = get_health_monitor()
     
-    logger.info(f"Starting scheduled Content Machine run [{run_id}]...")
+    # Get client IP for rate limiting
+    client_ip = get_client_ip(req)
+    
+    # Check rate limit (20 requests per minute - internal calls from Render)
+    is_allowed, rate_info = check_rate_limit(client_ip, "content_machine_worker")
+    if not is_allowed:
+        logger.warning(f"Rate limit exceeded for IP {client_ip} [{run_id}]")
+        return https_fn.Response(
+            json.dumps({
+                "error": "Rate limit exceeded",
+                "run_id": run_id,
+                "retry_after_seconds": rate_info.get("reset_after_seconds", 60),
+            }),
+            status=429,
+            content_type="application/json"
+        )
+    
+    # Validate auth key
+    expected_raw = (settings.wp_app_password or "").replace(" ", "")
+    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    provided_key = (req.args.get("key") or "").replace(" ", "")
+    
+    is_valid, error_msg = validate_auth_key(provided_key, expected_key)
+    if not is_valid:
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        return https_fn.Response(
+            json.dumps({"error": error_msg, "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    
+    logger.info(f"Starting scheduled Content Machine run [{run_id}] from {client_ip}...")
     health.record_heartbeat("content_machine_worker", "started", run_id=run_id)
     
     machine = ContentMachine(settings)
@@ -149,12 +182,27 @@ def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
     timeout_sec=300,
     memory=options.MemoryOption.MB_512,
 )
-def daily_email_report(req: https_fn.Request) -> https_fn.Response:
+def send_daily_report(req: https_fn.Request) -> https_fn.Response:
     """HTTP endpoint to send daily email report (scheduled on Render)."""
     run_id = f"email_{int(time.time())}"
     health = get_health_monitor()
     
-    logger.info(f"Starting daily email report [{run_id}]...")
+    # Get client IP and validate auth
+    client_ip = get_client_ip(req)
+    expected_raw = (settings.wp_app_password or "").replace(" ", "")
+    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    provided_key = (req.args.get("key") or "").replace(" ", "")
+    
+    is_valid, error_msg = validate_auth_key(provided_key, expected_key)
+    if not is_valid:
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        return https_fn.Response(
+            json.dumps({"error": error_msg, "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    
+    logger.info(f"Starting daily email report [{run_id}] from {client_ip}...")
     health.record_heartbeat("daily_email_report", "started", run_id=run_id)
     
     reporter = EmailReporter(settings)
@@ -212,14 +260,29 @@ def daily_email_report(req: https_fn.Request) -> https_fn.Response:
     timeout_sec=900,
     memory=options.MemoryOption.GB_1,
 )
-def weekly_performance_review(req: https_fn.Request) -> https_fn.Response:
+def weekly_review(req: https_fn.Request) -> https_fn.Response:
     """HTTP endpoint for weekly performance review (scheduled on Render).
     Audits GSC/GA4 metrics, detects content drift, identifies page-2 ranking
     opportunities, and injects refresh candidates back into the pipeline queue."""
     run_id = f"weekly_{int(time.time())}"
     health = get_health_monitor()
     
-    logger.info(f"Starting weekly performance review [{run_id}]...")
+    # Get client IP and validate auth
+    client_ip = get_client_ip(req)
+    expected_raw = (settings.wp_app_password or "").replace(" ", "")
+    expected_key = expected_raw[:8] if expected_raw else "default_secret"
+    provided_key = (req.args.get("key") or "").replace(" ", "")
+    
+    is_valid, error_msg = validate_auth_key(provided_key, expected_key)
+    if not is_valid:
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        return https_fn.Response(
+            json.dumps({"error": error_msg, "run_id": run_id}),
+            status=401,
+            content_type="application/json"
+        )
+    
+    logger.info(f"Starting weekly performance review [{run_id}] from {client_ip}...")
     health.record_heartbeat("weekly_performance_review", "started", run_id=run_id)
     
     analyst = PerformanceAnalyst(settings)
@@ -293,19 +356,38 @@ def run_now(req: https_fn.Request) -> https_fn.Response:
     run_id = f"manual_{int(time.time())}"
     health = get_health_monitor()
     
-    logger.info(f"HTTP request received to run pipeline [{run_id}]...")
+    # Get client IP for rate limiting
+    client_ip = get_client_ip(req)
+    
+    # Check rate limit (10 requests per minute per IP)
+    is_allowed, rate_info = check_rate_limit(client_ip, "run_now")
+    if not is_allowed:
+        logger.warning(f"Rate limit exceeded for IP {client_ip} [{run_id}]")
+        return https_fn.Response(
+            json.dumps({
+                "error": "Rate limit exceeded",
+                "run_id": run_id,
+                "retry_after_seconds": rate_info.get("reset_after_seconds", 60),
+            }),
+            status=429,
+            content_type="application/json"
+        )
+    
+    logger.info(f"HTTP request received to run pipeline [{run_id}] from {client_ip}...")
     health.record_heartbeat("run_now", "started", run_id=run_id)
     
-    # Enhanced authentication with rate limiting check
+    # Enhanced authentication
     expected_raw = (settings.wp_app_password or "").replace(" ", "")
     expected_key = expected_raw[:8] if expected_raw else "default_secret"
     provided_key = (req.args.get("key") or "").replace(" ", "")
     
-    if provided_key != expected_key:
-        logger.warning(f"Unauthorized request [{run_id}]. Expected prefix: {expected_key[:4]}...")
-        health.record_heartbeat("run_now", "failed", run_id=run_id, error_message="Unauthorized")
+    # Validate auth key
+    is_valid, error_msg = validate_auth_key(provided_key, expected_key)
+    if not is_valid:
+        logger.warning(f"Unauthorized request from {client_ip} [{run_id}]: {error_msg}")
+        health.record_heartbeat("run_now", "failed", run_id=run_id, error_message=error_msg)
         return https_fn.Response(
-            json.dumps({"error": "Unauthorized", "run_id": run_id}),
+            json.dumps({"error": error_msg, "run_id": run_id}),
             status=401,
             content_type="application/json"
         )

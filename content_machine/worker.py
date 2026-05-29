@@ -82,8 +82,8 @@ async def run_pipeline_slot(session: aiohttp.ClientSession) -> None:
 
 async def run_email_report_slot(session: aiohttp.ClientSession) -> None:
     """Trigger daily email report via Firebase HTTP endpoint."""
-    logger.info("Triggering daily_email_report via Firebase HTTP...")
-    result = await call_firebase_function(session, "daily_email_report")
+    logger.info("Triggering send_daily_report via Firebase HTTP...")
+    result = await call_firebase_function(session, "send_daily_report")
     
     if result["success"]:
         logger.info("Email report triggered successfully")
@@ -93,8 +93,8 @@ async def run_email_report_slot(session: aiohttp.ClientSession) -> None:
 
 async def run_weekly_review_slot(session: aiohttp.ClientSession) -> None:
     """Trigger weekly performance review via Firebase HTTP endpoint."""
-    logger.info("Triggering weekly_performance_review via Firebase HTTP...")
-    result = await call_firebase_function(session, "weekly_performance_review")
+    logger.info("Triggering weekly_review via Firebase HTTP...")
+    result = await call_firebase_function(session, "weekly_review")
     
     if result["success"]:
         data = result["data"]
