@@ -22,55 +22,18 @@ logger = logging.getLogger("content_machine_functions")
 # Initialize firebase admin
 initialize_app()
 
-# Define Firebase Functions parameters (modern approach)
-# These will be populated from environment variables set in the Firebase Console
-try:
-    from firebase_functions import params
-    
-    # Define typed parameters for better validation
-    wp_app_password_param = params.SecretParam("WP_APP_PASSWORD")
-    wp_base_url_param = params.StringParam("WP_BASE_URL")
-    wp_username_param = params.StringParam("WP_USERNAME")
-    dataforseo_login_param = params.StringParam("DATAFORSEO_LOGIN")
-    dataforseo_password_param = params.SecretParam("DATAFORSEO_PASSWORD")
-    anthropic_api_key_param = params.SecretParam("ANTHROPIC_API_KEY")
-    
-    # Try to load from params (will work after deployment with proper env vars)
-    try:
-        os.environ["WP_APP_PASSWORD"] = wp_app_password_param.value
-        logger.info("Loaded WP_APP_PASSWORD from SecretParam")
-    except:
-        pass
-        
-    try:
-        os.environ["WP_BASE_URL"] = wp_base_url_param.value
-    except:
-        pass
-        
-    try:
-        os.environ["WP_USERNAME"] = wp_username_param.value
-    except:
-        pass
-        
-    try:
-        os.environ["DATAFORSEO_LOGIN"] = dataforseo_login_param.value
-    except:
-        pass
-        
-    try:
-        os.environ["DATAFORSEO_PASSWORD"] = dataforseo_password_param.value
-        logger.info("Loaded DATAFORSEO_PASSWORD from SecretParam")
-    except:
-        pass
-        
-    try:
-        os.environ["ANTHROPIC_API_KEY"] = anthropic_api_key_param.value
-        logger.info("Loaded ANTHROPIC_API_KEY from SecretParam")
-    except:
-        pass
-        
-except Exception as e:
-    logger.debug(f"Firebase params not available (expected in local dev): {e}")
+# Environment variables are loaded from Cloud Run / Firebase automatically
+# No additional setup needed - they are already in os.environ
+# Log which vars are present (without exposing values)
+required_vars = ["WP_APP_PASSWORD", "WP_BASE_URL", "WP_USERNAME", 
+                 "DATAFORSEO_LOGIN", "DATAFORSEO_PASSWORD", "ANTHROPIC_API_KEY"]
+loaded_vars = [v for v in required_vars if os.environ.get(v)]
+missing_vars = [v for v in required_vars if not os.environ.get(v)]
+
+if loaded_vars:
+    logger.info(f"Loaded environment variables: {', '.join(loaded_vars)}")
+if missing_vars:
+    logger.warning(f"Missing environment variables: {', '.join(missing_vars)}")
 
 from content_machine.config import load_settings
 from content_machine.pipeline import ContentMachine
