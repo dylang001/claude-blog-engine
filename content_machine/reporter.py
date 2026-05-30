@@ -11,6 +11,20 @@ from typing import Any
 from .config import Settings
 from .state import StateStore
 
+# Import GA4 report functionality
+try:
+    import sys
+    import os
+    _CLAUDE_SEO_SCRIPTS = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "vendor", "claude-seo",
+    )
+    if _CLAUDE_SEO_SCRIPTS not in sys.path:
+        sys.path.insert(0, _CLAUDE_SEO_SCRIPTS)
+    from ga4_report import organic_traffic_report
+except ImportError:
+    organic_traffic_report = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -59,7 +73,12 @@ class EmailReporter:
         self.settings = settings
         self.store = StateStore(settings.state_db, settings=settings)
 
-    def generate_html_report(self, runs: list[dict[str, Any]], ai_summary: str = "") -> str:
+    def generate_html_report(
+        self,
+        runs: list[dict[str, Any]],
+        ai_summary: str = "",
+        ga4_data: dict[str, Any] | None = None,
+    ) -> str:
         rows_html = ""
         if not runs:
             rows_html = """
@@ -219,6 +238,78 @@ class EmailReporter:
         </div>
         """
 
+        # GA4 Analytics Block
+        ga4_block = ""
+        if ga4_data and not ga4_data.get("error"):
+            totals = ga4_data.get("totals", {})
+            total_sessions = totals.get("sessions", 0)
+            total_users = totals.get("users", 0)
+            total_pageviews = totals.get("pageviews", 0)
+            avg_daily = totals.get("avg_daily_sessions", 0)
+
+            # Top pages section
+            top_pages_html = ""
+            top_pages = ga4_data.get("top_pages", [])[:5]
+            if top_pages:
+                top_pages_html = "".join([
+                    f"""
+                    <tr>
+                        <td style="padding:8px; border-bottom:1px solid #e5e7eb; font-size:13px;">{i+1}</td>
+                        <td style="padding:8px; border-bottom:1px solid #e5e7eb; font-size:13px; color:#374151;">{page['landing_page'][:50]}{'...' if len(page['landing_page']) > 50 else ''}</td>
+                        <td style="padding:8px; border-bottom:1px solid #e5e7eb; font-size:13px; text-align:center; font-weight:600; color:#4f46e5;">{page['sessions']:,}</td>
+                    </tr>
+                    """
+                    for i, page in enumerate(top_pages)
+                ])
+
+            ga4_block = f"""
+            <div style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 1px solid #e2e8f0; border-radius:8px; padding:20px; margin-bottom:24px;">
+                <h3 style="margin:0 0 16px 0; font-size:16px; color:#1e293b; font-weight:700; display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:20px;">📊</span> Google Analytics 4 — Organic Traffic (Last 28 Days)
+                </h3>
+                <div style="display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap;">
+                    <div style="flex:1; min-width:100px; background:#ffffff; border-radius:6px; padding:12px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                        <div style="font-size:24px; font-weight:800; color:#0f172a;">{total_sessions:,}</div>
+                        <div style="font-size:11px; color:#64748b; font-weight:600;">Total Sessions</div>
+                    </div>
+                    <div style="flex:1; min-width:100px; background:#ffffff; border-radius:6px; padding:12px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                        <div style="font-size:24px; font-weight:800; color:#0f172a;">{total_users:,}</div>
+                        <div style="font-size:11px; color:#64748b; font-weight:600;">Unique Users</div>
+                    </div>
+                    <div style="flex:1; min-width:100px; background:#ffffff; border-radius:6px; padding:12px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                        <div style="font-size:24px; font-weight:800; color:#0f172a;">{total_pageviews:,}</div>
+                        <div style="font-size:11px; color:#64748b; font-weight:600;">Page Views</div>
+                    </div>
+                    <div style="flex:1; min-width:100px; background:#ffffff; border-radius:6px; padding:12px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                        <div style="font-size:24px; font-weight:800; color:#0f172a;">{avg_daily:,.0f}</div>
+                        <div style="font-size:11px; color:#64748b; font-weight:600;">Avg Daily</div>
+                    </div>
+                </div>
+                {f"""
+                <div style="background:#ffffff; border-radius:6px; overflow:hidden;">
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#f8fafc;">
+                                <th style="padding:8px; text-align:left; font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">#</th>
+                                <th style="padding:8px; text-align:left; font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Top Organic Landing Pages</th>
+                                <th style="padding:8px; text-align:center; font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Sessions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {top_pages_html}
+                        </tbody>
+                    </table>
+                </div>
+                """ if top_pages_html else "<p style='margin:0; font-size:13px; color:#64748b;'>No top pages data available.</p>"}
+            </div>
+            """
+        elif ga4_data and ga4_data.get("error"):
+            ga4_block = f"""
+            <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:16px; margin-bottom:24px;">
+                <p style="margin:0; font-size:13px; color:#dc2626;">📊 GA4 Error: {ga4_data.get("error")}</p>
+            </div>
+            """
+
         html = f"""
         <!DOCTYPE html>
         <html>
@@ -302,6 +393,7 @@ class EmailReporter:
                     </p>
                     {ai_block}
                     {stats_block}
+                    {ga4_block}
                     <div class="table-container">
                         <table>
                             <thead>
@@ -371,7 +463,26 @@ class EmailReporter:
         published = sum(1 for r in runs_last_24h if r.get("wordpress_status") == "publish")
         draft = sum(1 for r in runs_last_24h if r.get("wordpress_status") == "draft")
 
-        html_content = self.generate_html_report(runs_last_24h, ai_summary=ai_summary)
+        # Fetch GA4 organic traffic data
+        ga4_data = None
+        if organic_traffic_report and self.settings.ga4_property_id:
+            try:
+                logger.info("Fetching GA4 organic traffic data...")
+                # Extract property ID from settings (remove 'properties/' prefix if present)
+                prop_id = self.settings.ga4_property_id
+                if prop_id.startswith("properties/"):
+                    prop_id = prop_id[len("properties/"):]
+                ga4_data = organic_traffic_report(prop_id, days=28, limit=100)
+                if ga4_data.get("error"):
+                    logger.warning(f"GA4 data fetch returned error: {ga4_data.get('error')}")
+                else:
+                    totals = ga4_data.get("totals", {})
+                    logger.info(f"GA4 data fetched: {totals.get('sessions', 0):,} sessions, {totals.get('users', 0):,} users")
+            except Exception as exc:
+                logger.warning(f"Failed to fetch GA4 data: {exc}")
+                ga4_data = {"error": str(exc)}
+
+        html_content = self.generate_html_report(runs_last_24h, ai_summary=ai_summary, ga4_data=ga4_data)
 
         subject = (
             f"MeetLyra SEO · Daily Report: {published} published, {draft} draft"
