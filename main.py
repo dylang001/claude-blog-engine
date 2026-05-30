@@ -47,15 +47,15 @@ from content_machine.validation import validate_auth_key
 
 # Load settings from root
 settings = load_settings(root_dir=Path(__file__).resolve().parent)
-timezone = settings.site.timezone or "America/New_York"
+tz_str = settings.site.timezone or "America/New_York"
 
-logger.info(f"Loaded Firebase function settings. Timezone: {timezone}")
+logger.info(f"Loaded Firebase function settings. Timezone: {tz_str}")
 
 
 # NOTE: Scheduled triggers DISABLED - using Render worker instead
 # @scheduler_fn.on_schedule(
 #     schedule="0 9,15 * * *",
-#     timezone=timezone,
+#     timezone=tz_str,
 #     timeout_sec=900,
 #     memory=options.MemoryOption.GB_1,
 #     max_instances=1,
@@ -187,7 +187,7 @@ def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
 # NOTE: Scheduled triggers DISABLED - using Render worker instead
 # @scheduler_fn.on_schedule(
 #     schedule="0 20 * * *",
-#     timezone=timezone,
+#     timezone=tz_str,
 #     timeout_sec=300,
 #     max_instances=1,
 # )
@@ -266,7 +266,7 @@ def send_daily_report(req: https_fn.Request) -> https_fn.Response:
 # NOTE: Scheduled triggers DISABLED - using Render worker instead
 # @scheduler_fn.on_schedule(
 #     schedule="0 23 * * 0",
-#     timezone=timezone,
+#     timezone=tz_str,
 #     timeout_sec=900,
 #     max_instances=1,
 # )
