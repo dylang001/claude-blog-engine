@@ -64,6 +64,7 @@ logger.info(f"Loaded Firebase function settings. Timezone: {timezone}")
 @https_fn.on_request(
     timeout_sec=900,
     memory=options.MemoryOption.GB_1,
+    invoker="public",
 )
 def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
     """HTTP endpoint to run the Content Machine pipeline (scheduled on Render)."""
@@ -194,6 +195,7 @@ def content_machine_worker(req: https_fn.Request) -> https_fn.Response:
 @https_fn.on_request(
     timeout_sec=300,
     memory=options.MemoryOption.MB_512,
+    invoker="public",
 )
 def send_daily_report(req: https_fn.Request) -> https_fn.Response:
     """HTTP endpoint to send daily email report (scheduled on Render)."""
@@ -272,6 +274,7 @@ def send_daily_report(req: https_fn.Request) -> https_fn.Response:
 @https_fn.on_request(
     timeout_sec=900,
     memory=options.MemoryOption.GB_1,
+    invoker="public",
 )
 def weekly_review(req: https_fn.Request) -> https_fn.Response:
     """HTTP endpoint for weekly performance review (scheduled on Render).
@@ -363,6 +366,7 @@ def weekly_review(req: https_fn.Request) -> https_fn.Response:
 @https_fn.on_request(
     timeout_sec=900,
     memory=options.MemoryOption.GB_1,
+    invoker="public",
 )
 def run_now(req: https_fn.Request) -> https_fn.Response:
     """HTTPS trigger to manually run the pipeline immediately."""
@@ -485,6 +489,7 @@ def run_now(req: https_fn.Request) -> https_fn.Response:
 @https_fn.on_request(
     timeout_sec=30,
     memory=options.MemoryOption.MB_256,
+    invoker="public",
 )
 def health_check(req: https_fn.Request) -> https_fn.Response:
     """Health check endpoint for monitoring."""
