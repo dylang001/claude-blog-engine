@@ -1,0 +1,642 @@
+The ultimate guide to content SEO
+  URL: https://yoast.com/ultimate-guide-content-seo/
+  Learn about the three crucial steps of content SEO: keyword research, site structure and awesome copywriting in this ultimate guide!
+
+  --- Content ---
+  Content SEO is a key part of any SEO strategy. Without content, your site can’t rank in search engines. It’s, therefore, crucial to write and structure quality content! This ultimate guide covers the most important areas of content SEO. Read on if you want to learn how to [create content that ranks](https://yoast.com/you-have-to-publish-resources/).
+  
+  ## What is content SEO?
+  
+  Content SEO refers to creating content that helps your web pages to rank high in the search engines. It includes everything from writing to structuring the content on your website. You need to consider three major elements that will make your website rank well: keyword strategy, site structure, and copywriting.
+  
+  Why is content SEO important in the first place? Because search engines like Google read your website, so the words you use determine whether or not your site will rank in their results pages. Of course, [your website should be well-designed](https://yoast.com/what-makes-a-good-website/), with a great user interface, and all the technical stuff that makes your site rank in Google should also be covered. But without [quality content](https://yoast.com/quality-content/) your site doesn’t stand a chance in the search engines.
+  
+  ## 1\. Keyword research
+  
+  ### What is keyword research?
+  
+  Keyword research is the steps you take to create an extensive list of keywords you would like to rank for. Every content SEO strategy should begin with [keyword research](https://yoast.com/keyword-research-ultimate-guide/), because you have to know what your audience is searching for if you want to generate traffic. Keyword research helps you discover the terms for which you should rank.
+  
+  Keyword research has four steps:
+  
+  - Write down the mission of your business;
+  - Make a list of all the keywords you want to be found for;
+  - Look at search intent;
+  - Create landing pages for these keywords.
+  
+  If you do your keyword research right, you should have a clear overview of the terms people use and the terms for which you want the pages on your site to be found. This overview will serve as a guide for writing content on your website.
+  
+  Read more: [Keyword research: the ultimate guide »](https://yoast.com/keyword-research-ultimate-guide/)
+  
+  ### Why is keyword research so important for SEO content?
+  
+  Proper keyword research will make clear which [search terms](https://yoast.com/search-term/) your audience uses. This is crucial. At Yoast, we regularly encounter clients who use particular words when talking about their products, while their customers use entirely different words. Writing and optimizing SEO content for words that people don’t use doesn’t make any sense. Doing proper keyword research makes sure that you are using the same words as your target audience, therefore making the effort of optimizing your website worthwhile.
+  
+  ### Terms we use in keyword research
+  
+  #### Keywords and keyphrases
+  
+  We tend to use the word ‘ [keyword](https://yoast.com/what-is-a-keyword/)‘ all the time. However, it doesn’t have to be just one word. After all, ‘WordPress SEO’ is a keyword, as is ‘Google Analytics plugin.’ So you can have keywords containing multiple words!
+  
+  #### Long-tail keywords
+  
+  The longer (and more specific) a search term is, the easier to rank for it. More specific keywords (and usually longer) are usually referred to as [long-tail keywords](https://yoast.com/focus-on-long-tail-keywords/). Long-tail keywords are more specific and focus more on a niche.
+  
+  ### How many keywords?
+  
+  It is very hard to give an exact number of keywords you should focus on. You just need to have a lot – as many as you can come up with. More than 1,000 keywords are probably too many, though!
+  
+  Even if you’re a reasonably small business, you’ll probably end up with a couple of hundred keywords. But you don’t have to create pages for all of these immediately. The great thing about having a Content Management System (CMS) like WordPress is that you can gradually add content. Think about what keywords you would like to rank for right away, and which ones aren’t immediately important. Determine what your priorities are and [plan the creation of your content](https://yoast.com/managing-a-growing-blog-content-planning/).
+  
+  ### Head or tail?
+  
+  Classifying your keywords is essential. Some keywords are common and competitive (head), while others are long-tail. Decide which are your most critical, high-level keywords that generate sufficient traffic for your website and best fit your business. You’ll probably only have a few of these general keywords for your business, the rest will be more down the tail. In the next section, we’ll give more in-depth information on [long-tail keywords](https://yoast.com/what-are-long-tail-keywords/) (and the importance of these keywords).
+  
+  Tip: Make sure your homepage and the pages one level beneath that are optimized for the most common keywords! Content that’s focused on long-tail keywords (and therefore more niche) should be on the tail end of your site.
+  
+  ### Keyword intent and search intent
+  
+  As you’re doing keyword research, it really pays off to think about the search intent of users. Are they looking for information, or do they want to buy something? What is their goal when they enter your keyword as a [search term](https://yoast.com/search-term/)? This goal is otherwise known as _keyword intent_. Some keywords are pretty clear, like \[buy leather sofa\], or \[how to train your puppy\]. But it’s not always that simple.
+  
+  #### Four types of intent
+  
+  There are four types of intent:
+  
+  - **Navigational intent:** People want to visit a specific website, but rather than entering the URL, they’re entering a term into a search engine.
+  - **Informational intent:** People are trying to find an answer to a particular question or information on a specific topic.
+  - **Commercial intent:** People want to buy something in the near future and are doing research before making a purchase.
+  - **Transactional intent:** People are looking to buy something after doing their commercial intent searches.
+  
+  Search engines are always trying to answer people’s exact needs, and they’re getting better at it too. So, put simply, if 95% of the people searching for \[change car tire\] have informational intent, and you’re optimizing for transactional intent to sell tires, you’re probably not going to rank.
+  
+  #### Check the SERPs
+  
+  You can get a wealth of information from the results pages when you’re doing keyword research. If you want to find out what the intent is of people using your keywords, simply google those keywords and take a good look at the search results. Then, try to create content that answers the specific need that you distill from the results for each keyword. Tip: Read more about how to [use the search results to create content](https://yoast.com/use-google-to-create-great-content/) for the right intent.
+  
+  Keep reading: [What is search intent? »](https://yoast.com/search-intent/)
+  
+  ### Keyword research tools you can use
+  
+  Multiple free and premium tools are available to help you with your keyword research. [Yoast SEO has a Semrush integration](https://yoast.com/features/semrush/) that gives suggestions for related keyphrases, including search volume trends. Of course, this is not a full keyword research tool. But it can help you gain valuable insights, and find high-performing keywords! For other tools, please check out our article about [keyword research tools](https://yoast.com/keyword-research-tools/).
+  
+  ### Adapting your keyword strategy
+  
+  Your keyword strategy shouldn’t be static. It should change and evolve alongside your company and website. It should evolve and grow with you. If it doesn’t, you’re doing it wrong.
+  
+  Stay on top of company changes and adapt your strategy simultaneously. If your online shop starts selling new products, extend your list with more keywords. If you’re aiming for new markets, your keywords must also target these new markets.
+  
+  There are several keyword strategies to adopt. One of them is to try and rank for long-tail keywords first, then aim at more general keywords. However, you could also focus on general keywords before aiming for more long-tail ones. You can zoom in and pursue more niche activities, broaden your approach, add content on different things, or do both simultaneously.
+  
+  ## 2\. Site structure
+  
+  The second important aspect of content SEO is your site’s structure. First, I’ll explain [why site structure is critical](https://yoast.com/site-structure/), then I’ll show you what an ideal site structure looks like. I will also give you tips on how to (quickly) improve your site structure without completely disrupting the core of your website.
+  
+  ### Why is site structure important for content SEO?
+  
+  There are two main reasons why site structure is an important [ranking factor](https://yoast.com/15-questions-about-ranking-factors/) and, therefore, imperative for building SEO content:
+  
+  #### a. A good structure helps Google ‘understand’ your site
+  
+  How your site is structured gives Google significant clues about where to find the most important content. Your site’s structure determines whether a search engine understands what your site is about, and how easily it will find and index content relevant to your site’s purpose and intent. Therefore, a good site structure will lead to a higher ranking in Google.
+  
+  By creating such a structure, you can use existing content that has attracted links from others to help your other pages rank, too. Your site’s structure will help spread some of that link juice to the other pages on your site. On a commercial site, this means you can use high-quality content you’ve written to boost the search engine rankings of your sales pages, too.
+  
+  #### b. A good structure makes sure you aren’t competing with your SEO content
+  
+  You will probably have multiple articles about similar topics on your site. At Yoast, for example, we write about SEO. If we wrote eight articles about SEO, Google wouldn’t know which is the most important. That’s why we used our site structure to clarify this. If we hadn’t, we’d compete with our articles for Google’s top spot. So, if you solve problems like this using a sound [internal linking structure](https://yoast.com/internal-linking-for-seo-why-and-how/), the result will be higher rankings overall.
+  
+  ### The ideal site structure
+  
+  Ideally, your site should be structured like a pyramid. At the top is your homepage. On your homepage, you link to other pages (such as category pages), linking to even more pages.
+  
+  In an effective content [SEO strategy](https://yoast.com/how-to-plan-an-seo-campaign/), your keyword and site structure work together. You’ll have thought about common, competitive keywords and long-tail (and niche) search terms in a proper keyword strategy. You should make a similar dichotomy in your site structure. Pages that focus on common search terms should appear high in your pyramid, while pages that are optimized for long-tail keywords should appear in a lower part of your structure. And remember to let the long-tail pages at the bottom link to the pages higher in the pyramid!
+  
+  Read on: [The ultimate guide to site structure »](https://yoast.com/site-structure-the-ultimate-guide/)
+  
+  ### Practical tips on improving your site structure
+  
+  If you’re serious about content SEO, you’ll already have a live website. So, it may be late to set up your site’s structure in an ideal pyramid-like way. Don’t despair – you can still do many things to improve your site’s structure and SEO content.
+  
+  #### Decide upon cornerstone content
+  
+  You should focus your efforts on [cornerstone articles](https://yoast.com/how-to-set-up-a-cornerstone-content-strategy-with-yoast-seo/). These are the articles you’re most proud of and that fit the mission of your website best. You want to rank for these articles the most. Fun fact: This ultimate guide is one of our cornerstones!
+  
+  If you haven’t decided which articles are the most important, start thinking about them now. Make these articles the best ones on your site. Give them extra TLC and update them regularly.
+  
+  Keep on reading: [What is cornerstone content »](https://yoast.com/what-is-cornerstone-content/)
+  
+  #### Link from tail to head
+  
+  Once you’ve decided upon your precious cornerstones, link from all your ‘tail’ articles to those cornerstones. That way, Google will know which articles to rank highest. You can read about this in our article about incorporating cornerstones into your site structure. Good to know: [Yoast SEO Premium has an advanced internal linking tool](https://yoast.com/features/internal-linking-suggestions/) that automatically suggests relevant articles to link.
+  
+  _**Pro tip:** You can use our [cornerstone content SEO workout](https://yoast.com/seo-workout-rank-higher-best-content/) in Yoast SEO Premium to check on all your cornerstone content pages, see how many internal links they’re getting, and quickly add more if necessary._
+  
+  #### Use tags (but not too many)
+  
+  Your site will also benefit from adding tags. Tags and taxonomies will give your site more structure – at least, Google will understand it better. They group your articles about similar topics. Please don’t overdo it, though. Some people have more tags than articles. Using too many tags will lead to a confusing and poorly structured site.
+  
+  #### Avoid duplicate content
+  
+  The same SEO content can turn up at multiple places on your site. As a reader, you don’t mind: you still get the content you came for. But a search engine has to choose something to show in the search results, as it [doesn’t want to show the same content twice](https://yoast.com/duplicate-content/). And what about other sites that want to link to your product? Chances are that some of them will link to the first URL, while others will link to the second.
+  
+  However, if you ensure all these duplicate posts link to the same URL, your chances of ranking in the top ten for the relevant keyword would be much higher. In other words: [Canonicalization](https://yoast.com/rel-canonical/) is the solution to duplicate content. You can configure the [canonical URL](https://yoast.com/rel-canonical/) in the [advanced tab of Yoast SEO](https://yoast.com/features/canonical-url-tags/).
+  
+  #### Remove old SEO content
+  
+  Should you [keep old content](https://yoast.com/should-you-keep-old-content/)? That depends. You have three options: update, redirect, or merge. If the content on a page is outdated, remove it! But what about the valuable links to that page? After all, you want to ensure you still benefit from these links even though the page no longer exists. That’s where the second option comes in: redirect.
+  
+  Redirecting pages is easy if you have our [Yoast SEO Premium plugin](https://yoast.com/product/yoast-seo-premium-wordpress/), which can help you handle redirects. Preferably, you redirect the old URL (301) to the new and updated page or product. You can also redirect to a related page if there is no replacement. For example, the category page of the specific product, or, as a very last resort, your homepage. This way, the (outdated) page won’t interfere with your site structure anymore.
+  
+  #### Deal with orphaned content
+  
+  The term ‘ [orphaned content](https://yoast.com/features/orphaned-content-finder/)’ refers to articles that don’t have any links from your other articles or posts. Because of that, these articles are hard to find, both by Google and by your users. What’s more, Google will consider this type of content to be less important! So if an article is important to you, you should make it clear to Google (and your visitors) by linking to that particular article from other (related) content. Read more about solving the problem of orphaned articles in [our article about orphaned content](https://yoast.com/orphaned-content/).
+  
+  _**Pro tip:** Use our [orphaned content SEO workout](https://yoast.com/seo-workout-clean-up-your-content/) in Yoast SEO Premium to quickly find and fix pages with no incoming internal links._
+  
+  #### Deal with content cannibalization
+  
+  Once you’ve been writing content for a while, you might have dozens of articles on any topic. If these articles say the same thing, search engines and users might get confused. Not to mention that your content might compete against itself in the search engines. This is called [keyword cannibalization](https://yoast.com/keyword-cannibalization/). It’s not inherently bad, but it’s something you need to take a look at. Are your articles performing as well as they should, or is the competition hurting the chances at a higher ranking? Luckily, it’s not hard to [find and fix keyword cannibalization](https://yoast.com/find-fix-keyword-cannibalization-issues/).
+  
+  ## 3\. Copywriting for content SEO
+  
+  The third and final aspect of a successful content SEO strategy is copywriting. Two very important things to remember: Write articles that are attractive to read, and that will make your audience want to stay on your site. However, you shouldn’t forget to make your SEO content attractive for Google. Just don’t go too far by [optimizing your content so overtly](https://yoast.com/over-optimized-website/) that it becomes terrible to read. At Yoast, we suggest optimizing your text for search without adversely affecting the originality of your idea or the readability of your text.
+  
+  Read more: [The ultimate guide to SEO copywriting »](https://yoast.com/complete-guide-seo-copywriting/)
+  
+  ### Start with an original idea
+  
+  The first requirement for high-quality copywriting is to write [original content](https://yoast.com/importance-original-content/). Your post or article should be ‘fresh,’ new, and original. It has to be different from all the other posts and articles already on the internet. Plus, it should be content that people want to read.
+  
+  If you did your keyword research well, you now have a long list of terms that you want to be found for. This list can be a guide for you to choose from. A keyword isn’t necessarily a topic, though. You should [come up with an original idea](https://yoast.com/creative-writing-exercises/) for your blog post – an idea in which the desired focus keyword has a prominent place. If you have writer’s block, you could use a [blog topic generator](https://www.hubspot.com/blog-topic-generator) or an AI chatbot to get article suggestions based on your keywords or relevant themes.
+  
+  But don’t worry! Original SEO content doesn’t mean brand-new content. Giving your (professional) opinion on a particular topic also counts as original content. Because your angle to a story will make your content unique and original. Of course, if your story is completely new, that automatically means it’s original.
+  
+  #### Think about your audience
+  
+  If you want to write original content, consider your audience and [who they are](https://yoast.com/analyzing-your-audience-a-how-to/). Also, ask yourself:
+  
+  - What do you want to tell your audience?
+  - What will be the main message of your article?
+  - Can you tell the [purpose of your article](https://yoast.com/purpose-text-seo/)?
+  - What do you want your audience to do after they’ve read your article? (Do you want them to engage, buy your products/service, or read more posts?)
+  
+  Thinking about these questions will help you develop an original idea for your post or article.
+  
+  ### Content design and content SEO
+  
+  Content design is a process that helps you produce content based on actual user needs. It doesn’t just help you figure out what your user _wants_, but it also focuses on what the user actually _needs_. Thinking about your content this way will help you create content in the language and format your user needs.
+  
+  However, content design isn’t just a technique to help you produce better content – it’s a new way of thinking about content. If you want to know more about content design, read our post on [content design: a great way to make user-centered content](https://yoast.com/content-design/).
+  
+  ### Copywriting requires readable SEO content
+  
+  A key requirement for writing high-quality content is to write content that’s easy to read. Readability is important both for your audience and for Google. After all, not only people read your articles but Google does too.
+  
+  If your text is well structured and clearly written, readers can clearly understand your message. And so will Google! If your main message [is clear to Google](https://yoast.com/how-does-google-understand-text/), your post is far more likely to rank well in the search engines.
+  
+  Readability is about many factors, such as text structure, sentence length and writing clear paragraphs. You can read all about [the importance of readability in this post](https://yoast.com/does-readability-rank/). For more tips on readability, you can read our post on [how to make an article more readable](https://yoast.com/5-tips-improve-readability-blog-post/).
+  
+  ### Content, context and search intent
+  
+  As Google gets smarter, it has started to better understand the content on sites, thanks to many developments in the natural language processing sphere, like [BERT](https://yoast.com/google-bert/). It’s no longer just about how many times a keyword pops on a page. It also considers [the context of those keywords](https://yoast.com/semantically-link-entities/), like co-occurring terms and phrases, related words and synonyms. On top of that, as mentioned before, Google can understand users’ queries better by trying to determine the users’ [search intent](https://yoast.com/search-intent/). Are they looking for a product or just information? Which pages fit that intent best?
+  
+  All these developments mean that you should focus on more than just using your keyword often enough. It means you should also consider the words you use around it: do they clarify what topic you’re discussing? And do you have a purpose in mind for the post or page you’re creating? Does it just provide information, or are you trying to sell something? Does that align with what your users are actually looking for?
+  
+  [Yoast SEO Premium](https://yoast.com/product/yoast-seo-premium-wordpress/) lets you [optimize your SEO content with synonyms and related keyphrases](https://yoast.com/features/premium-seo-analysis/), making adding context to your articles even easier. In addition, if you use Yoast SEO Premium, you get various other AI features, like [Yoast AI Optimize](https://yoast.com/features/ai-features/), that help you do the hard work.
+  
+  Keep reading: [Blog or vlog, which one is better? »](https://yoast.com/blog-or-vlog/)
+  
+  ### Optimize content for search engines and readers
+  
+  The final requirement for writing high-quality content is to make sure the content is optimized for search engines. You want your SEO content to be easily found. [Findability](https://yoast.com/using-yoast-seo-make-content-findable/) increases the likelihood that Google will pick up your content for the result pages. You must take this final step after you’ve written an original and readable post.
+  
+  Yoast SEO helps you tweak your text just a little bit more. If you’ve written your article, focused on that original idea, and optimized your post’s readability, you should look at the [traffic lights in the SEO analysis in Yoast SEO](https://yoast.com/yoast-seo-traffic-lights/). Red and orange traffic lights indicate which aspects of your findability need more attention. You don’t need a green traffic light for every aspect, though, if your overall score is good.
+  
+  Yoast SEO will help you to optimize your [snippet preview](https://yoast.com/snippet-preview/) as well. These tweaks can vastly improve your chances to be picked up by the search engines. Read more about optimizing your post in our article on [how to use the content and SEO analysis.](https://yoast.com/use-content-analysis-yoast-seo/)
+  
+  ## Conclusion on content SEO
+  
+  Content SEO is such a huge part of SEO. It encompasses every aspect of writing and structuring content on your website. Content SEO is essential. No one will read your content if it’s crappy. Like visitors, Google reads and scans your website text. Google’s algorithm decides your site’s ranking largely based on the content you publish. And we all know content is king. So, you need to write awesome SEO content, focus on the right keywords, and structure your website so that Google understands it. It’s a lot of work, but it will pay off in the long run.
+  
+  Read on: [Blogging: the ultimate guide »](https://yoast.com/ultimate-guide-blogging/)
+  
+  ### Find out how SEO fit your content is!
+  
+  As you’ve learned from this guide, there’s a lot you need to do to keep your site’s content SEO fit. [Take this short test](https://yoast.com/assess-your-seo-content-fitness/) and find out if there are some aspects of content SEO you may need to improve!
+  
+  Share this post
+  
+  [Share on X](https://twitter.com/share?url=https%3A%2F%2Fyoast.com%2Fultimate-guide-content-seo%2F&via=yoast&text=The%20ultimate%20guide%20to%20content%20SEO%20by%20Yoast "Share on X") [Share on LinkedIn](https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyoast.com%2Fultimate-guide-content-seo%2F&title=The%20ultimate%20guide%20to%20content%20SEO%20by%20Yoast "Share on LinkedIn") [Share on WhatsApp](https://wa.me/?text=The%20ultimate%20guide%20to%20content%20SEO%20by%20Yoast%20-%20https%3A%2F%2Fyoast.com%2Fultimate-guide-content-seo%2F "Share on WhatsApp") [Share on Telegram](https://telegram.me/share/url?url=https%3A%2F%2Fyoast.com%2Fultimate-guide-content-seo%2F&text=The%20ultimate%20guide%20to%20content%20SEO%20by%20Yoast "Share on Telegram") [Share on Mastodon](https://mastodonshare.com/?text=The%20ultimate%20guide%20to%20content%20SEO%20by%20Yoast&url=https%3A%2F%2Fyoast.com%2Fultimate-guide-content-seo%2F "Share on Mastodon") [Copy to clipboard](https://yoast.com/ultimate-guide-content-seo/# "Copy to clipboard") [Share](https://yoast.com/ultimate-guide-content-seo/#)
+  
+  ![Avatar of Marieke van de Rakt](https://yoast.com/cdn-cgi/image/width=75,height=85,f=auto,onerror=redirect/app/uploads/2020/11/marieke_bubble-250x281.png)
+  
+  Marieke van de Rakt
+  
+  Marieke was Head of Strategy and former CEO at Yoast. During her time at our company she wrote a lot. Topics that she loves writing about include SEO copywriting, site structure and readability.
+  
+  * * *
+  
+  ### Discussion (2)
+  
+  1. ![Muhammad Kamran](https://secure.gravatar.com/avatar/9a4566ee2b3839af2c8e454b60b697bf3e7f1ccfdc58fc8a3fec99f6ce21cbc5?s=100&d=mm&r=g)Muhammad KamranMay. 01, 2023
+  
+  
+  
+  
+  
+  I found this article to be really well-written and engaging – it kept my attention from start to finish.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+     - ![Cindy Paul](https://yoast.com/app/uploads/2022/02/avatar_user_1317120_1644396165-70x70.png)Cindy PaulMay. 01, 2023
+  
+  
+  
+  
+  
+       Thank you! I’m glad the article was useful for you.
+  
+  
+  * * *
+  --- End Content ---
+
+Yoast SEO settings: Content types
+  URL: https://yoast.com/help/yoast-seo-settings-content-types/
+  In this article, we'll discuss the Content types settings in Yoast SEO in your WordPress backend. Y. Where to find the Content types settings.
+
+  --- Content ---
+  - [Where to find the Content types settings](https://yoast.com/help/yoast-seo-settings-content-types/#h-where-to-find-the-content-types-settings)
+  - [Homepage](https://yoast.com/help/yoast-seo-settings-content-types/#h-homepage)
+  - [Posts](https://yoast.com/help/yoast-seo-settings-content-types/#h-posts)
+  - [Other content types](https://yoast.com/help/yoast-seo-settings-content-types/#h-other-content-types)
+  
+  # Yoast SEO settings: Content types
+  
+  In this article, we’ll discuss the _Content types_ settings in Yoast SEO in your WordPress backend. Y
+  
+  ## Where to find the Content types settings
+  
+  To find the Content types settings, follow the instructons below.
+  
+  1. **In your WordPress _Dashboard_, go to _Yoast SEO_**
+  
+  
+  ![](https://yoast.com/app/uploads/2025/06/yoastseodashboard-260x800.jpg)
+  
+  2. **Go to _Settings_**
+  
+  
+  ![](https://yoast.com/app/uploads/2016/04/yoastseosettings.jpg)
+  
+  3. **Under _Content types_, select your content type**
+  The available content types depend on your site, such as _Homepage, Posts, Pages, Products, Locations_ and other custom post types.
+  
+  
+  ## Homepage
+  
+  The first item in the menu _Homepage_. Here, you can customize how your homepage appears in search results. You can use [variables](https://yoast.com/help/list-available-snippet-variables-yoast-seo/) like your site title, separator, and tagline to create an SEO title for your homepage. You can also add emojis to make your search result stand out. In the meta description field, you can add a brief summary of your homepage’s content. You can also use snippet variables and emojis in this field.
+  
+  ![Screenshot of the "Search appearance" section of the Homepage settings in Yoast SEO](https://yoast.com/app/uploads/2022/12/homepage-search-appearance-600x287.jpg)
+  
+  Under _Social appearance_, you can choose an image, title, and description that will be displayed when your homepage is shared on social media. Simply select an image and enter the appropriate information for the title and description.
+  
+  ![Screenshot of the "Social appearance" section of the Homepage settings in Yoast SEO](https://yoast.com/app/uploads/2022/12/homepage-social-appearance-600x375.jpg)
+  
+  ## Posts
+  
+  In WordPress, the default content types are _Posts_ and _Pages_, but you can have other content types, depending on your plugins and site.
+  
+  ### Search appearance
+  
+  Under _Search appearance_, you can choose whether you want your content to appear in search results. We recommend keeping the default setting and enabling this option so that your content is visible to search engines. If you need to hide your content, you can simply toggle the switch off.
+  
+  The next two input fields allow you to create an SEO title and meta description template for your posts. These fields work similarly to the ones we discussed earlier for the homepage. You can use variables to automatically include certain information, such as your site title, in all of your meta descriptions. Remember to click _Save changes_ to save any changes you make.
+  
+  ![Screenshot of the "Search appearance" section of the Posts settings in Yoast SEO](https://yoast.com/app/uploads/2022/12/posts-search-appearance-600x372.jpg)
+  
+  ### Social appearance
+  
+  The _Social appearance_ section, available with Yoast SEO Premium, allows you to customize how your content looks when shared on social media. By adding an image, title, and description, you can make your content more enticing and encourage people to click on the link and visit your site. You can set a default social template for each content type, or you can edit the social snippet for specific posts in the post editor. You can use [variables](https://yoast.com/help/list-available-snippet-variables-yoast-seo/) like your site title and tagline, as well as emojis, to make your content stand out.
+  
+  The title field is automatically filled with the title variable, but you can also edit this field manually. In the description field, you can use variables like the tagline and emojis to add extra information and personality. Remember to click _Save changes_ when you’re finished.
+  
+  ![Screenshot of the "Social appearance" section in the Posts settings in Yoast SEO](https://yoast.com/app/uploads/2022/12/posts-social-appearance-600x377.jpg)
+  
+  ### Schema
+  
+  The Schema settings allow you to use schema.org markup, a type of code, to describe the content of your posts and pages to search engines. This helps search engines understand your content better and present it more effectively in search results.
+  
+  By default, Yoast SEO uses WebPage Schema for Pages and Article Schema for Posts, but you can change these settings. For example, if you choose the News Article as the default article type, all of your posts will contain specific Schema code for news articles.
+  
+  Be careful when you change the default settings, as they will apply to all of your posts or pages. If you want to change the settings for a specific post or page, you can do so in the Yoast SEO sidebar. Keep in mind that altering the schema markup may result in errors or unexpected behavior.
+  
+  ![Screenshot of the "Schema" section in the Posts settings in Yoast SEO](https://yoast.com/app/uploads/2022/12/posts-schema-600x124.jpg)
+  
+  ### Additional settings
+  
+  Under _Additional settings_, you can enable or disable the Yoast SEO settings and assessments. We recommend leaving this option enabled, as our plugin’s features can help improve the SEO of your content. You’ll miss valuable insights and recommendations if you turn them off.
+  
+  The custom fields option, available only for Premium users, is intended for developers to add specific filters. If you’re not a developer, you can ignore this field.
+  
+  ![](https://yoast.com/app/uploads/2022/12/posts-additional-settings-600x158.jpg)
+  
+  ## Other content types
+  
+  You might have another plugin installed, which creates another type of content on your site, such as _Products_ or _Locations_. The _Search appearance_, _Social media appearance_, _Schema_ and _Additional settings_ will also be available for these content types.
+  
+  ![](https://yoast.com/cdn-cgi/image/width=75,height=75,fit=contain,f=auto,onerror=redirect/app/uploads/2025/08/premium_icon.svg)
+  
+  ## Get Yoast SEO Premium
+  
+  Drive **more traffic** to your site. Use **AI to save time** doing SEO tasks. Make **SEO easier**. And get **24/7 support**.
+  
+  **Includes Local SEO, Video SEO & News SEO.**
+  
+  **$118.80**/ year (ex. VAT)
+  
+  [Get Yoast SEO Premium »](https://yoast.com/cart/?add-to-cart=4113952)
+  
+  [**Reviews from real users** Rated 4.6 stars by 819 users\\
+  \\
+  4.6 / 5 \\
+  (opens in a new tab)](https://www.trustpilot.com/review/yoast.com)
+  
+  ### Did this article answer your question?
+  
+  0/400
+  
+  SubmitCancel
+  
+  Thanks for your feedback!
+  
+  * * *
+  
+  ## Still having issues?
+  
+  Try searching for your issue below
+  
+  Search our help center
+  
+  Search
+  
+  ## Want to stay ahead of the SEO game?
+  
+  Subscribe to our newsletter: Get weekly tips to improve your website’s SEO, usability, and conversion!
+  
+  Enter your email\*
+  
+  Yes, give me your free tips!
+  
+  We care about the protection of your data. Read our [privacy policy.](https://yoast.com/privacy-notice/)
+  
+  * * *
+  --- End Content ---
+
+Blogging: The ultimate guide
+  URL: https://yoast.com/ultimate-guide-blogging/
+  Original content. Your posts should always be fresh, new, and original. Each one should be sufficiently different from other posts and articles ...
+
+  --- Content ---
+  A blog can grow your audience and build trust, but only if you do it right. AI search now answers questions before users click, so your posts need to stand out, not just rank. Where do you start? What should you write? How do you keep readers coming back? This guide covers everything from finding inspiration and writing great posts to optimizing for search, building an audience, and even making money.
+  
+  ## Key takeaways
+  
+  - Blogging boosts SEO and serves as a powerful marketing tool, enhancing brand visibility and reader engagement.
+  - Regular content creation helps improve Google rankings and allows targeting of new keywords.
+  - Effective blogging requires careful planning, keyword research, and understanding search intent to draw an audience.
+  - Original and readable posts attract readers; tools like Yoast SEO help optimize content for search engines.
+  - Engagement through comments and social media is crucial for maintaining a blog’s visibility and attracting traffic.
+  
+  ## Why blog?
+  
+  If you have a website of any kind, you must blog occasionally. It doesn’t matter whether you have an online shop, a personal website, or a portfolio. Besides being great fun, blogging is one of the best things you can do for SEO. Not only that, thanks to a high-quality, unique blog, you can turn your site into a powerful marketing tool.
+  
+  Google’s AI Overviews/AI Mode and other AI search platforms favor blogs that answer questions clearly and thoroughly. If you’re not blogging, you’re missing a great way to get seen in search and connect with your audience.
+  
+  ### Blogging for SEO
+  
+  Adding content regularly should be a part of every [sustainable SEO strategy](https://yoast.com/sustainable-seo/). If you write regularly, Google will see your site as active, alive, and relevant. These signals help your pages rank better in both traditional and AI-powered search. This also gives you more chances to appear in AI-generated snapshots, where Google summarizes answers for users.
+  
+  In addition, blogging allows you to rank for new keywords and to keep ranking for those you’re already being found for. Since AI search favors fresh, well-structured content, regular updates ensure your site stays competitive. Your blog also gives you another way to target [search intent](https://yoast.com/search-intent/), whether users are looking for answers, comparisons, or solutions. We’ll discuss that in more detail later on.
+  
+  ### Blogging as a marketing tool
+  
+  A blog is one of the best marketing tools for any website. It helps readers get to know your brand and products beyond just sales pitches. People remember stories, not ads, so share behind-the-scenes details or real customer experiences to build trust. Not everyone visiting your website is already committed to you or your products. A quality site will work in your favor in those cases: if you can offer people useful information in a post, they’re more likely to remember and convert in the future. Today, this kind of authentic engagement matters more than ever, as AI search prioritizes brands that users already know and trust.
+  
+  Read more: [To blog or not to blog »](https://yoast.com/to-blog-or-not-to-blog/)
+  
+  * * *
+  
+  ![](https://yoast.com/app/uploads/2025/05/carolyn.png)
+  
+  > A blog isn’t valuable just because it exists. It becomes valuable when it helps your audience solve problems, understand something better, or see your expertise in action. In today’s search landscape, the goal isn’t simply to publish, or even to publish more. It’s to create content worth being found, cited, and remembered.
+  >
+  > **[Carolyn Shelby](https://yoast.com/about-us/team/carolyn-shelby/)** – Principal SEO at Yoast
+  
+  * * *
+  
+  ## Setting up a new blog
+  
+  If you’re starting a new blog, preparing beforehand is important. A little planning now prevents headaches later, especially with AI search favoring well-organized, intent-driven content. Take some time to think about your niche and do proper [keyword research](https://yoast.com/keyword-research-ultimate-guide/). Remember, don’t just chase search volume. Focus on topics your audience actually cares about, like questions they’re asking or problems they need solved.
+  
+  Please don’t forget to set up a clear and manageable structure for your blog. A logical layout helps both readers and search engines navigate your content, which improves engagement and rankings. If you give some thought to how you want to set up your blog before you start writing, it will save you a lot of work later. These include tasks such as mapping categories, setting up cornerstone topics, and developing an [internal linking](https://yoast.com/internal-linking-for-seo-why-and-how/) strategy. A strong foundation makes it easier to adapt as AI search evolves.
+  
+  Keep reading: [How to start a blog »](https://yoast.com/how-to-start-a-blog/)
+  
+  ## What should you blog about?
+  
+  You can only blog with ideas, so you’ll need many to keep a successful blog going. Whether blogging is your site’s main purpose or you use your blog as a marketing tool, you must consider which topics you want to cover. Don’t forget to think about what your audience needs to read. Where do you look for inspiration?
+  
+  ### Keyword research
+  
+  You’ll have to decide which terms you want to be found for before you start writing your content. To decide that, you need to get inside people’s heads and find out which words they use while searching for your type of business. Think beyond single keywords. Consider phrases, questions, and even conversational queries people might ask AI search tools. When you write, use these exact terms in your content to signal relevance to both search engines and AI-powered results. [Keyword research](https://yoast.com/keyword-research/) is the first step in [SEO copywriting](https://yoast.com/complete-guide-seo-copywriting/) and an essential part of any successful SEO strategy, even as search itself evolves.
+  
+  ### Targeting the right search intent with your blog
+  
+  As you’re doing keyword research, it’s important to know not only which keywords your audience uses but also what they’re looking for. People use search engines with a specific goal, so they have a particular intent for each query. The results pages provide some insight into a query’s intent. AI search tools like [Google’s AI Overviews and AI Mode](https://yoast.com/google-ai-mode/) now prioritize content that directly matches what users are looking for, whether they want to learn, compare, or buy.
+  
+  In many cases, people are looking for information, so search engines favor informational pages. This is where your blog shines. For example, if you run an online shop, your product pages target commercial or transactional intent, but informational blog posts can attract a much larger audience. Write relevant, helpful articles to pull people into your site early in their research phase.
+  
+  Which intent to target depends on your niche and goals. Are you trying to educate, entertain, or convert? Either way, aligning your content with intent is non-negotiable today.
+  
+  Read on: [Keyword research: the Ultimate Guide »](https://yoast.com/keyword-research-ultimate-guide/)
+  
+  ### Where do you get inspiration for your posts?
+  
+  If you’ve done your keyword research properly, you’ll end up with a long list of keywords and keyphrases to write content about, and you know which intent you want to target. A keyphrase is not yet a topic, though. You’ll need an angle or a specific story around a keyword to write a decent blog post, as well as a keyword.
+  
+  Current events, your own work, and comments from your readers are just some things that could inspire new posts. For example, if customers keep asking the same question, that’s a sign you should write about it. Reading a lot is also a good [way to find inspiration for your articles](https://yoast.com/tips-for-blog-ideas/). Read magazines, newspapers, and other posts.
+  
+  Of course, AI platforms and LLMs like OpenAI’s ChatGPT, Google’s Gemini, Perplexity, or Anthropic’s Claude can help, while [Yoast AI Brand Insights](https://yoast.com/product/yoast-seo-ai-plus/) can help you find out how you appear in chatbots.
+  
+  Looking at your site’s stats or browsing the internet can also lead to inspiration. Which posts get the most traffic? Which ones keep readers on the page longest? Double down on what works. Pay attention to trending topics in your industry, but don’t just copy what’s already out there. Always ask yourself, how can you make this better or more engaging?
+  
+  Be sure to keep a list of ideas for new posts on your mobile phone. Inspiration strikes when you least expect it.
+  
+  Keep on reading: [How to get blog post ideas: 11 tips to find inspiration »](https://yoast.com/tips-for-blog-ideas/)
+  
+  ### Beat writer’s block with Yoast AI Content Planner
+  
+  [Yoast AI Content Planner](https://yoast.com/features/content-planner/), available to Yoast SEO Premium users, helps you overcome frustrations about what to write next. It scans your existing content, identifies gaps, and generates five tailored post ideas. Each proposed post comes with a ready-to-use draft framework. Just pick an idea, and Yoast SEO provides a title, outline, focus keyphrase, meta description, and section notes to jumpstart your writing. If the first set of ideas doesn’t fit, refresh for new options. It’s all built into the WordPress editor, so you can go from blank page to first draft quickly.
+  
+  ![Yoast AI Content planner feature example, showing possible article ideas for a travel site](https://yoast.com/app/uploads/2026/05/content_planner-600x338.png)An example of content suggested by the Yoast AI Content Planner
+  
+  ## How to write a high-quality blog post
+  
+  Writing requires some skills, and it’s more difficult for some people than for others. We’ll give you some tips to make writing easier for you later on, but first, let’s discuss two important aspects of high-quality posts: originality and readability.
+  
+  ### Original content
+  
+  Your posts should always be fresh, new, and original. Each one should stand out from other articles on the same topic. Today, this matters more than ever. Google’s AI search tools now filter out generic, repetitive content, so your posts need to offer something unique. Focus on what makes you different, even in a crowded niche. Your content should also be something people want to read. With competition fiercer than ever, good isn’t enough, so you need to go further.
+  
+  Avoid commodity content. These kinds of posts rehash what’s already out there without adding value. [Google recently warned](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) that AI-generated summaries and search results prioritize content that stands out, not just repeats the same ideas. If your post doesn’t offer a new perspective or a fresh take, it risks being ignored. Don’t forget to ask yourself if this post teaches or solves a problem in a way others don’t.
+  
+  With AI-generated content flooding search results, Google prioritizes human expertise and unique insights. These are the things AI can’t fake. Your [blog](https://yoast.com/seo-friendly-blog-post/) can provide those, if you do it well.
+  
+  Read more: [The importance of original content for SEO »](https://yoast.com/importance-original-content/)
+  
+  ### Readable content
+  
+  After writing a post with original content, you should ensure your article is easy to read. Readability is vital for your audience. If your text is well structured and clearly written, people will understand your message. Readability also impacts SEO, as Google’s AI tools favor content that’s simple to scan and digest. If your post is easy to read, with [a clear structure](https://yoast.com/text-structure-important-seo/) with [subheadings](https://yoast.com/how-to-use-headings-on-your-site/) and logical paragraphs, chances are it’ll rank higher in the search engines, too.
+  
+  Keep reading: [Does readability rank? »](https://yoast.com/does-readability-rank/)
+  
+  ### Practical tips on how to write high-quality blog posts
+  
+  #### Plan before you write
+  
+  Before you start, take a little time to think about what you want to write. Who is your audience, and what do you want to tell them? What should they know, understand, or do after reading your post? Which topics will you cover, and in what order? Answering these questions upfront saves time and keeps your writing focused.
+  
+  Read on: [How to write a blog post »](https://yoast.com/how-to-write-a-blog-post/)
+  
+  #### Write clear paragraphs
+  
+  Start each paragraph with the most important sentence, then explain or expand on it. This way, readers and AI systems can grasp your main points just by skimming the first sentences. Keep paragraphs short; seven or eight sentences is plenty. Think about the order of your paragraphs and ensure they flow logically. Avoid complex words when simpler ones work. Your goal is to be clear, not to confuse readers with jargon.
+  
+  Keep on reading: [Practical tips to set up a clear text structure »](https://yoast.com/writing-blog-creating-clear-blog-post-structure/)
+  
+  #### Get help and ask for feedback
+  
+  Our Yoast SEO plugin helps you write readable posts. For example, the readability analysis checks for long sentences and suggests [transition words](https://yoast.com/transition-words-why-and-how-to-use-them/). This is especially useful today, as AI search tools prioritize well-structured, easy-to-read content. If you use [Yoast SEO Premium](https://yoast.com/product/yoast-seo-premium-wordpress/), you’ll also get AI features like [Yoast AI Optimize](https://yoast.com/product/yoast-seo-premium-wordpress/) to refine your writing.
+  
+  However, tools aren’t everything. Always have someone proofread your post. A fresh pair of eyes catches typos and ensures your message is clear. If your proofreader struggles to understand your post, your audience will too.
+  
+  Need more guidance? Here’s a step-by-step [guide to crafting the perfect blog post](https://yoast.com/how-to-write-a-blog-post/)!
+  
+  Read more: [5 tips to write readable blogposts »](https://yoast.com/5-tips-improve-readability-blog-post/)
+  
+  ## Optimize posts for search engines
+  
+  After you’ve written a blog post that’s both original and readable, you should make sure your [content is optimized](https://yoast.com/optimize-blog-post-checklist/) for search engines. You should maximize the likelihood that Google will pick up your content. Don’t try to game the system, but make sure your article is genuinely good for search engines and readers alike. You must take this final step _after_ you’ve written your post, though. SEO should never compromise your idea’s originality or the readability of your text.
+  
+  ![the yoast seo premium analyse for a post about site structure, which has two red traffic lights, one for keyphrase in subheading use and one for competing links](https://yoast.com/app/uploads/2020/01/yoast-seo-premium-analysis-2026.png)Yoast SEO helps you optimize your blog post
+  
+  ### How Yoast SEO helps
+  
+  [Yoast SEO](https://yoast.com/product/yoast-seo-premium-wordpress/) gives you the tools to fine-tune your post without guesswork. We call this process “ [Yoast your post](https://yoast.com/how-to-yoast-your-post/).” It’s about making small, smart adjustments to improve visibility.
+  
+  - The red and orange traffic lights highlight areas that need attention, like keyword placement or readability.
+  - The plugin might suggest adding your focus keyword in the first paragraph or a heading to signal relevance.
+  - It also helps you craft a compelling Google preview, which includes the titles and descriptions users see in search results.
+  
+  [Don’t just set it and forget it](https://yoast.com/what-cant-yoast-seo-do-what-should-you-do-yourself/). Use Yoast SEO to spot opportunities, make improvements, and give your post its best shot at being discovered.
+  
+  Keep reading: [Use Yoast SEO to make your content findable »](https://yoast.com/using-yoast-seo-make-content-findable/)
+  
+  ## Blog engagement
+  
+  Blog engagement is an important SEO factor. If your audience leaves comments on your posts and you respond, Google will see that your blog is very much alive and active. If people share your post on social media or talk about it online, it will definitely drive more traffic. Engagement goes beyond just comments and shares. Citations, when others reference your content, and mentions, even without links, also signal authority and trust.
+  
+  Replying to comments is important for building engagement, but it takes effort. Answering questions and joining discussions shows your audience you value them, which encourages more interaction. Positive feedback is easy to handle, but negative comments require care. Please just stay professional and keep the conversation constructive.
+  
+  For more tips, check out our guide on [handling comments](https://yoast.com/how-to-handle-comments-on-your-blog/).
+  
+  ## Marketing your blog
+  
+  If you’re writing posts, you need an audience. Nobody wants to perform in an empty room! Ranking well in search engines through flawless SEO will, of course, help. But there is always more you can do.
+  
+  Read on: [Marketing your blog »](https://yoast.com/marketing-your-blog/)
+  
+  ### Social media and newsletters
+  
+  [Social media](https://yoast.com/use-social-media/) is a powerful way to connect with your audience and drive traffic. Start with a Facebook page and an X or Reddit account, but don’t stop there. If your audience is younger, Instagram and TikTok are essential for engagement. Short-form video content, such as Instagram Reels or TikTok videos, can help your posts reach a wider audience.
+  
+  A newsletter is another great way to keep readers coming back. Collect email subscribers and send regular updates with your latest posts, exclusive insights, special discounts or gifts, or behind-the-scenes content. This builds a direct line to your audience, independent of algorithm changes.
+  
+  Keep on reading: [Does social media influence SEO? »](https://yoast.com/social-media-influence-seo/)
+  
+  ### Monetizing your blog
+  
+  Growing your audience doesn’t automatically mean growing your income. Many bloggers focus on goals beyond money, like building a community or sharing expertise. But if you do want to monetize, here are the most effective strategies:
+  
+  - **Advertising:** Display ads like Google AdSense can generate revenue, but they work best with high traffic.
+  - **Affiliate marketing:** Promote products you trust and earn commissions on sales made through your links.
+  - **Sponsored posts:** Brands may pay you to write about their products or services.
+  - **Sell your own products or services:** Use your blog to drive traffic to your online shop, courses, or consulting services
+  
+  If you have an online shop, your blog can boost its rankings by attracting organic traffic and linking to your products.
+  
+  Read more: [Monetizing your blog »](https://yoast.com/monetizing-your-blog/)
+  
+  ## Maintaining a blog
+  
+  Starting a blog is easier than [maintaining](https://yoast.com/content-maintenance-strategy/) one. Writing blog posts regularly can be a lot of work. You don’t need to blog daily, but you should decide on a frequency and stick to it so your audience will know what to expect. Consistency builds trust, and trust keeps readers coming back. Blogging does require some discipline.
+  
+  As your blog grows, you’ll probably face new SEO problems. How do you keep coming up with new content and [keep your old content up to date](https://yoast.com/keep-your-content-fresh-and-up-to-date/)? How do you manage different authors? What do you do [when traffic to your blog is decreasing](https://yoast.com/analyze-drop-traffic/)? And how will you keep your blog’s structure in shape?
+  
+  ### Some challenges and how to solve them
+  
+  As your blog grows, new problems pop up. Here’s how to tackle them:
+  
+  - **Running out of ideas**. Repurpose old content, and update outdated posts with new data or insights. Use the Yoast AI Content Planner to generate fresh topic ideas from your existing content. Don’t forget to listen to your audience, as their comments, emails, and social media threads can contain questions to answer.
+  - **Keeping old content fresh.** Please audit your blog every six months, fix broken links, and refresh outdated advice. It might make sense to add “Last Updated” dates to show readers and Google that your content is up to date. AI search tools prioritize fresh content, which can revive traffic for old posts. If you have a lot of similar content, you can merge posts and combine thin or overlapping articles into a single comprehensive guide.
+  - **Declining traffic.** Please check Google Search Console regularly to see which posts have lost rankings and why. Then, you can improve this underperforming content by adding depth, updating keywords, or merging with stronger posts. Promote strategically, and share old but valuable posts on social media or in newsletters.
+  
+  ### Site structure
+  
+  As your blog grows, it’s important to regularly analyze its structure. Organize your categories, subcategories, and tags well. As your blog grows, its structure will change and evolve. To keep your site structure clean, you can organize by topic clusters. Group related posts under pillar pages, like “SEO basics” linking to “Keyword research,” “On-page SEO,” et cetera. Don’t forget to update internal links. When you publish new posts, link to 2-3 relevant older ones. If your site becomes unwieldy, [prune low-value content](https://yoast.com/content-pruning/). Delete or redirect posts that no longer serve your audience. As long as you stay on top of that, your structure will remain SEO-friendly!
+  
+  Keep reading: [Why you should add links to a new post as soon as possible »](https://yoast.com/internal-links-to-new-posts/)
+  
+  ### Content planning
+  
+  As your blog grows, writing shifts from spontaneous posts to strategic planning. Without a system, teams risk duplicate topics, inconsistent tones, or missed opportunities. A clear plan keeps your content organized and aligned with your goals, whether that’s driving traffic or conversions. Use tools such as editorial calendars, topic clusters, and the Yoast AI Content Planner to streamline the process. Assign roles and document guidelines for voice, style, and formatting to maintain consistency.
+  
+  Planning saves time and reduces last-minute stress. An editorial calendar maps out topics, deadlines, and authors in advance, while topic clusters group related posts to boost SEO and reader navigation. Regular audits help you spot gaps and adapt to trends, keeping your blog relevant and valuable.
+  
+  Read on: [Content planning for a (growing) blog: 6 easy-to-use tips »](https://yoast.com/managing-a-growing-blog-content-planning/)
+  
+  ### Avoiding content cannibalization
+  
+  If you’ve been blogging in a certain niche for a long time, you’re bound to address the same topic more than once in your blog posts. That’s not necessarily a problem, but do make sure you’re not eating into your own ranking chances. [Keyword cannibalization](https://yoast.com/keyword-cannibalization/) occurs when you have several different articles that could rank for the same and similar keyphrases. When a search engine can’t tell which article should rank highest for a certain query, it’s likely both will rank lower. The solution: stay on top of this by regularly doing an [SEO audit](https://yoast.com/seo-audit/) of your blog posts to [find and fix keyword cannibalization](https://yoast.com/find-fix-keyword-cannibalization-issues/).
+  
+  ## Conclusion
+  
+  Blogging is great. It’s one of the most powerful tools for growing your website, whether it’s an online shop or personal blog. It boosts your search visibility and turns visitors into followers. But to get the best results, you’ll need more than just good writing.
+  
+  Start with a good keyword strategy to target what your audience is searching for. Keep your content original and structured for AI search. Google’s algorithms, and your readers, reward clarity and depth. As your blog grows, stay organized with planning tools and engage with your audience to stay in the flow. Use our tips to build a blog that ranks and delivers real value. Now, go write something great!
+  
+  Keep on reading: [WordPress SEO: The definitive guide to higher rankings for WordPress sites »](https://yoast.com/wordpress-seo/)
+  
+  Share this post
+  
+  [Share on X](https://twitter.com/share?url=https%3A%2F%2Fyoast.com%2Fultimate-guide-blogging%2F&via=yoast&text=Build%20a%20blog%20that%20drives%20real%20results%20by%20Yoast "Share on X") [Share on LinkedIn](https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fyoast.com%2Fultimate-guide-blogging%2F&title=Build%20a%20blog%20that%20drives%20real%20results%20by%20Yoast "Share on LinkedIn") [Share on WhatsApp](https://wa.me/?text=Build%20a%20blog%20that%20drives%20real%20results%20by%20Yoast%20-%20https%3A%2F%2Fyoast.com%2Fultimate-guide-blogging%2F "Share on WhatsApp") [Share on Telegram](https://telegram.me/share/url?url=https%3A%2F%2Fyoast.com%2Fultimate-guide-blogging%2F&text=Build%20a%20blog%20that%20drives%20real%20results%20by%20Yoast "Share on Telegram") [Share on Mastodon](https://mastodonshare.com/?text=Build%20a%20blog%20that%20drives%20real%20results%20by%20Yoast&url=https%3A%2F%2Fyoast.com%2Fultimate-guide-blogging%2F "Share on Mastodon") [Copy to clipboard](https://yoast.com/ultimate-guide-blogging/# "Copy to clipboard") [Share](https://yoast.com/ultimate-guide-blogging/#)
+  
+  ![Avatar of Edwin Toonen](https://yoast.com/cdn-cgi/image/width=75,height=85,f=auto,onerror=redirect/app/uploads/2019/04/edwin_toonen_bubble-250x285.png)
+  
+  [Edwin Toonen](https://yoast.com/about-us/team/edwin-toonen/)
+  
+  Edwin is an experienced strategic content specialist. Before joining Yoast, he worked for a top-tier web design magazine, where he developed a keen understanding of how to create great content.
+  
+  * * *
+  
+  * * *
+  --- End Content ---
