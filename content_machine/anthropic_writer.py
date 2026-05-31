@@ -7,6 +7,7 @@ from typing import Any
 import httpx
 
 from .content_optimizer import optimize_content
+from .content_structure import generate_structure_prompt
 from .config import Settings
 from .models import AuditReport, GeneratedContent, Opportunity
 from .supermemory import SuperMemoryClient
@@ -358,6 +359,10 @@ You MUST include exactly one HTML link to the parent pillar page in the main bod
 =========================================
 """
 
+        # Determine content type for structure requirements
+        content_type = getattr(opportunity.kind, 'value', 'listicle')
+        structure_section = generate_structure_prompt(content_type)
+        
         return f"""You are the autonomous writer for an SEO content machine.
 
 Brand: {site.brand_name}
@@ -372,11 +377,13 @@ Research JSON: {json.dumps(research, default=str)}
 {parent_link_instruction}
 Return ONLY valid JSON. The main content body must be returned in the 'markdown' key. However, despite the key being named 'markdown', the value MUST be publish-ready Gutenberg-formatted HTML (NOT Markdown).
 
-Rules:
+{structure_section}
+
+Core Writing Rules:
 - Write publish-ready Gutenberg-formatted HTML (NOT Markdown). Wrap all text in proper WordPress block comments (e.g., <!-- wp:paragraph --><p>...</p><!-- /wp:paragraph -->).
 - Do NOT include an H1 tag. The WordPress title is the only H1.
 - Word count requirement: The value of the 'markdown' key in the JSON response MUST be a detailed, long-form, comprehensive, and complete article of 1,800 to 2,200 words. Do not write a summary or a short overview. Write multiple long-form paragraphs under each of the 5+ H2 headings, expanding on definitions, step-by-step instructions, practical applications, and strategic advice.
-- Include at least 5 H2s, short scannable paragraphs, and internal links where useful.
+- Include at least 5 H2s following proper H2>H3>H4 hierarchy
 - Copywriting Style (Ahrefs-style):
   - Use extremely short, scannable paragraphs (1-3 sentences max).
   - Bold key terms, core takeaways, and action items to support skimming.
@@ -384,6 +391,7 @@ Rules:
   - Create visual takeaway callouts or warning boxes.
 - Link Requirements:
   - Use 3-5 contextual internal links from Research JSON when available.
+  - Use natural anchor text patterns like "we've covered this in our guide to" or "learn more about"
   - Link to `blog.meetlyra.app` for other blog posts, guides, comparisons, and articles.
   - Any links to the main product, app, features, pricing, signup, or login MUST point to the waitlist: `https://waitlist.meetlyra.app`. Do NOT link to `meetlyra.app` directly or `meetlyra.com`.
   - Do not use the exact focus keyphrase as internal-link anchor text.

@@ -31,68 +31,86 @@ class ImageSpec:
     purpose: str = "hero"  # hero, diagram, illustration, screenshot-style
 
 
-# Style modifiers for different visual approaches
-STYLE_MODIFIERS = {
-    "realistic": "professional photography, natural lighting, high detail, photorealistic, 8k quality",
-    "minimalist": "clean minimal design, flat colors, simple composition, modern UI aesthetic, ample whitespace",
-    "tech": "futuristic tech aesthetic, neon accents, digital interface elements, holographic, cyberpunk",
-    "editorial": "magazine editorial style, bold typography integration, professional layout, high contrast",
-    "abstract": "abstract geometric shapes, gradient backgrounds, conceptual visualization, artistic",
-    "isometric": "isometric 3D illustration, clean vector style, professional business illustration",
+# Jasper-style abstract visual styles - NO laptops, NO offices, NO people at desks
+ABSTRACT_STYLE_MODIFIERS = {
+    "gradient_flow": "bold vector illustration, flowing gradient curves, vibrant purple-blue-orange palette, abstract liquid forms, modern SaaS aesthetic, NO text, NO realistic humans, conceptual representation",
+    "geometric_nodes": "abstract geometric nodes, interconnected shapes, coral-blue-mint palette, network visualization, clean vector style, NO photography, NO office scenes",
+    "abstract_layers": "layered abstract planes, overlapping gradient forms, deep blue-coral-teal palette, dimensional depth, artistic interpretation, NO realistic elements",
+    "particle_field": "particle stream visualization, abstract dot patterns, violet-cyan-amber palette, scientific modern look, flowing energy, NO laptops, NO people",
+    "wave_interference": "wave pattern interference, moiré effect lines, teal-purple-lime palette, rhythmic harmony, abstract frequencies, conceptual waves",
+    "orbital_system": "orbital abstract visualization, radial gradient patterns, space blue-purple-orange palette, celestial concept, expansive visionary feel",
+    "fractal_organic": "organic fractal branching, natural growth patterns, green-blue-orange palette, biomorphic abstraction, evolving forms",
+    "light_refraction": "prismatic light effects, rainbow refractions, crystal spectrum colors, illuminating clarity, lens flare abstractions",
 }
 
-# Diverse image concepts by content type
-CONTENT_IMAGE_STRATEGIES = {
+# Abstract conceptual themes by content type - NO generic office imagery
+CONTENT_ABSTRACT_STRATEGIES = {
     "listicle": [
-        "collage of featured items/tools arranged aesthetically",
-        "person working with multiple tools on desk",
-        "comparison workspace showing before/after",
-        "floating product showcase with annotations",
-        "animated-style characters using the tools",
+        "multiple interconnected elements in harmony",
+        "abstract collection of possibilities",
+        "diverse unified concepts flowing together",
+        "interconnected idea network visualization",
     ],
     "how_to": [
-        "step-by-step process visualization with arrows",
-        "person performing the task in clean environment",
-        "close-up detail shot of key technique",
-        "overhead view of workspace setup",
-        "before/during/after sequence",
+        "step-by-step progression abstraction",
+        "building knowledge conceptual layers",
+        "transformation journey visualization",
+        "learning path abstract flow",
     ],
     "ultimate_guide": [
-        "comprehensive mind map visualization",
-        "expert at whiteboard explaining concepts",
-        "layered infographic showing depth of topic",
-        "tools and resources arranged in ecosystem",
-        "abstract concept visualization with depth",
+        "comprehensive knowledge depth layers",
+        "mastering complexity abstract system",
+        "holistic understanding visualization",
+        "complete conceptual ecosystem",
     ],
     "comparison": [
-        "side-by-side split screen comparison",
-        "pros/cons balance scale visualization",
-        "feature matrix as modern graphic",
-        "two paths diverging metaphor",
-        "checklist comparison with visual indicators",
+        "balancing options abstract visualization",
+        "weighing choices conceptual balance",
+        "contrasting paths diverging abstractly",
+        "decision points in abstract space",
     ],
     "tutorial": [
-        "screenshot-style interface with highlights",
-        "hands performing the actions",
-        "code on screen with visual callouts",
-        "workspace with multiple monitors showing workflow",
-        "progress indicator visualization",
+        "skill acquisition abstract progression",
+        "hands-on learning conceptual flow",
+        "mastery building abstract layers",
+        "practice visualization in abstract forms",
+    ],
+    "case_study": [
+        "real-world application abstract visualization",
+        "success story conceptual representation",
+        "transformation abstract journey",
+        "proven results in abstract form",
+    ],
+    "thought_leadership": [
+        "innovative thinking abstract concept",
+        "forward vision conceptual visualization",
+        "strategic insight abstract representation",
+        "industry evolution abstract flow",
     ],
     "review": [
-        "product hero shot with dramatic lighting",
-        "person using product in real environment",
-        "detail shots of key features",
-        "product in context of use",
-        "rating visualization with stars/metrics",
+        "feature comparison abstract visualization",
+        "product concept abstract representation",
+        "evaluation abstract balance",
+        "assessment conceptual visualization",
     ],
     "beginner_guide": [
-        "welcoming workspace with beginner-friendly setup",
-        "step 1 visualization - getting started",
-        "simple infographic breaking down complexity",
-        "person celebrating small win",
-        "resource collection visual",
+        "getting started abstract welcome",
+        "simplicity abstract visualization",
+        "first steps conceptual journey",
+        "learning foundation abstract forms",
     ],
 }
+
+# Negative prompts to avoid generic stock photos
+NEGATIVE_ELEMENTS = [
+    "laptop", "computer", "person working", "office desk", "workspace",
+    "business meeting", "hand typing", "person at computer", "corporate office",
+    "stock photo", "realistic photography of people", "generic business image",
+    "man in suit", "woman at desk", "team meeting", "office environment",
+]
+
+# Import abstract style functions
+from .image_styles import generate_abstract_prompt, get_negative_prompt
 
 
 def generate_varied_prompts(
@@ -100,7 +118,10 @@ def generate_varied_prompts(
     content_type: str,
     num_images: int = 5,
 ) -> List[ImageSpec]:
-    """Generate diverse, topic-relevant image prompts.
+    """Generate diverse, abstract image prompts in Jasper style.
+    
+    Creates colorful, conceptual, non-literal imagery that represents
+    ideas abstractly rather than showing generic laptop/office scenes.
     
     Args:
         keyword: Target keyword/topic
@@ -108,47 +129,74 @@ def generate_varied_prompts(
         num_images: Number of images to generate
         
     Returns:
-        List of ImageSpec with varied prompts and styles
+        List of ImageSpec with abstract visual prompts
     """
     specs = []
     
-    # Get strategies for this content type
-    strategies = CONTENT_IMAGE_STRATEGIES.get(content_type, CONTENT_IMAGE_STRATEGIES["ultimate_guide"])
-    styles = list(STYLE_MODIFIERS.keys())
+    # Get abstract strategies for this content type
+    concepts = CONTENT_ABSTRACT_STRATEGIES.get(content_type, CONTENT_ABSTRACT_STRATEGIES["ultimate_guide"])
+    styles = list(ABSTRACT_STYLE_MODIFIERS.keys())
     
     # Ensure variety
-    selected_strategies = random.sample(strategies, min(len(strategies), num_images))
+    selected_concepts = random.sample(concepts, min(len(concepts), num_images))
     selected_styles = random.sample(styles, min(len(styles), num_images))
     
-    # Header/hero image (first image)
-    hero_prompt = f"{keyword}: {selected_strategies[0]}, professional hero image for blog post, {STYLE_MODIFIERS[selected_styles[0]]}"
+    # Header/hero image (first image) - Jasper-style abstract
+    concept = selected_concepts[0]
+    style = selected_styles[0]
+    
+    hero_prompt = f"""Abstract conceptual illustration for '{keyword}': {concept}
+
+Style: {ABSTRACT_STYLE_MODIFIERS[style]}
+
+Requirements:
+- Bold vector illustration aesthetic with vibrant gradients
+- NO laptops, NO office scenes, NO people at desks
+- NO realistic photography of people working
+- Abstract conceptual representation only
+- Modern SaaS blog header style
+- High visual impact and contrast
+- Clean composition suitable for hero image
+- 16:9 wide format, 1200x675 pixels
+
+Negative: {', '.join(NEGATIVE_ELEMENTS)}
+"""
+    
     specs.append(ImageSpec(
         prompt=hero_prompt,
-        style=selected_styles[0],
+        style=style,
         aspect_ratio="16:9",
         section="header",
         purpose="hero"
     ))
     
-    # Section images
+    # Section images - rotate through different abstract styles
     for i in range(1, num_images):
-        strategy = selected_strategies[i % len(selected_strategies)]
+        concept = selected_concepts[i % len(selected_concepts)]
         style = selected_styles[i % len(selected_styles)]
         
-        # Vary the prompt structure
-        prompt_variations = [
-            f"{keyword} - {strategy}, {STYLE_MODIFIERS[style]}",
-            f"Illustration of {keyword} showing {strategy}, {STYLE_MODIFIERS[style]}",
-            f"Visual guide to {keyword}: {strategy}, {STYLE_MODIFIERS[style]}",
-        ]
-        
-        prompt = random.choice(prompt_variations)
+        section_prompt = f"""Abstract illustration for section {i} about '{keyword}': {concept}
+
+Style: {ABSTRACT_STYLE_MODIFIERS[style]}
+
+Requirements:
+- Conceptual abstract visualization
+- NO realistic photography, NO office imagery
+- NO people, NO laptops, NO corporate scenes
+- Bold colors, vector-style illustration
+- Represents the concept metaphorically
+- Modern SaaS blog illustration style
+- Clean and professional aesthetic
+- 16:9 format, 800px wide
+
+Negative: {', '.join(NEGATIVE_ELEMENTS)}
+"""
         
         # Alternate aspect ratios for variety
         aspect = "16:9" if i % 2 == 0 else "4:3"
         
         specs.append(ImageSpec(
-            prompt=prompt,
+            prompt=section_prompt,
             style=style,
             aspect_ratio=aspect,
             section=f"section_{i}",
