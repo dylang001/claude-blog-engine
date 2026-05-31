@@ -135,6 +135,45 @@ class CircuitBreaker:
             "last_failure": self._last_failure_time,
         }
 
+    def is_available(self) -> bool:
+        """Check if circuit breaker allows calls."""
+        if self._state == CircuitState.CLOSED:
+            return True
+        if self._state == CircuitState.OPEN:
+            # Check if we should attempt reset (half-open)
+            if self._should_attempt_reset():
+                return True
+            return False
+        if self._state == CircuitState.HALF_OPEN:
+            return self._half_open_calls < self.config.half_open_max_calls
+        return False
+
+    def record_success(self):
+        """Record a successful call."""
+        # Schedule the async success handler
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.create_task(self._on_success())
+            else:
+                loop.run_until_complete(self._on_success())
+        except RuntimeError:
+            # No event loop, skip
+            pass
+
+    def record_failure(self):
+        """Record a failed call."""
+        # Schedule the async failure handler
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.create_task(self._on_failure())
+            else:
+                loop.run_until_complete(self._on_failure())
+        except RuntimeError:
+            # No event loop, skip
+            pass
+
 
 class CircuitBreakerOpen(Exception):
     """Exception raised when circuit breaker is open."""
