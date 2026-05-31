@@ -1,0 +1,47 @@
+
+=== Deploying to 'aeo-seo-agents-team'...
+
+i  deploying functions
+i  functions: preparing codebase default for deployment
+i  functions: ensuring required API cloudfunctions.googleapis.com is enabled...
+i  functions: ensuring required API cloudbuild.googleapis.com is enabled...
+i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled...
+i  functions: Loading and analyzing source code for codebase default to determine what to deploy
+ * Serving Flask app 'serving'
+ * Debug mode: off
+
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8081
+
+[33mPress CTRL+C to quit[0m
+
+2026-05-31 09:53:45,781 - content_machine_functions - INFO - Loaded environment variables: WP_APP_PASSWORD, WP_BASE_URL, WP_USERNAME, DATAFORSEO_LOGIN, DATAFORSEO_PASSWORD, ANTHROPIC_API_KEY
+
+2026-05-31 09:53:46,081 - content_machine_functions - INFO - Loaded Firebase function settings. Timezone: Africa/Johannesburg
+
+127.0.0.1 - - [31/May/2026 09:53:46] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+2026-05-31 09:53:46,084 - werkzeug - INFO - 127.0.0.1 - - [31/May/2026 09:53:46] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+127.0.0.1 - - [31/May/2026 09:53:46] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+2026-05-31 09:53:46,098 - werkzeug - INFO - 127.0.0.1 - - [31/May/2026 09:53:46] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+/bin/sh: line 1: 94151 Terminated: 15          python3.13 "/Users/dylanangloher/claude-blog-engine/.venv/lib/python3.13/site-packages/firebase_functions/private/serving.py"
+
+i  functions: Loaded environment variables from .env.
+i  functions: preparing . directory for uploading...
+i  functions: packaged /Users/dylanangloher/claude-blog-engine (16.33 MB) for uploading
+i  functions: ensuring required API run.googleapis.com is enabled...
+i  functions: ensuring required API eventarc.googleapis.com is enabled...
+i  functions: ensuring required API pubsub.googleapis.com is enabled...
+i  functions: ensuring required API storage.googleapis.com is enabled...
+i  functions: generating the service identity for pubsub.googleapis.com...
+i  functions: generating the service identity for eventarc.googleapis.com...
+✔  functions: . source uploaded successfully
+
+Error: The following functions are found in your project but do not exist in your local source code:
+	daily_email_report(us-central1)
+
+Aborting because deletion cannot proceed in non-interactive mode. To fix, manually delete the functions by running:
+	firebase functions:delete daily_email_report --region us-central1

@@ -67,7 +67,7 @@ class DataForSEOClient:
         except Exception as e:
             DATAFORSEO_CB.record_failure()
             logger.error(f"DataForSEO keyword_ideas failed: {e}")
-            raise
+            return []  # Return empty list to allow pipeline to continue
 
     async def competitor_keywords(self, domain: str, limit: int = 50) -> list[dict[str, Any]]:
         if not domain:
@@ -107,7 +107,7 @@ class DataForSEOClient:
         except Exception as e:
             DATAFORSEO_CB.record_failure()
             logger.error(f"DataForSEO competitor_keywords failed: {e}")
-            raise
+            return []  # Return empty list to allow pipeline to continue
 
     async def serp(self, keyword: str, limit: int = 10) -> dict[str, Any]:
         cache_key = f"serp:{keyword}:{limit}"
@@ -139,7 +139,7 @@ class DataForSEOClient:
         except Exception as e:
             DATAFORSEO_CB.record_failure()
             logger.error(f"DataForSEO serp failed: {e}")
-            raise
+            return {}  # Return empty dict to allow pipeline to continue
 
 
 def normalize_keyword_item(item: dict[str, Any]) -> dict[str, Any]:

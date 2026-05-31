@@ -1,0 +1,63 @@
+
+=== Deploying to 'aeo-seo-agents-team'...
+
+i  deploying functions
+i  functions: preparing codebase default for deployment
+i  functions: ensuring required API cloudfunctions.googleapis.com is enabled...
+i  functions: ensuring required API cloudbuild.googleapis.com is enabled...
+i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled...
+i  functions: Loading and analyzing source code for codebase default to determine what to deploy
+ * Serving Flask app 'serving'
+ * Debug mode: off
+
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8081
+
+[33mPress CTRL+C to quit[0m
+
+2026-05-31 09:54:37,426 - content_machine_functions - INFO - Loaded environment variables: WP_APP_PASSWORD, WP_BASE_URL, WP_USERNAME, DATAFORSEO_LOGIN, DATAFORSEO_PASSWORD, ANTHROPIC_API_KEY
+
+2026-05-31 09:54:37,784 - content_machine_functions - INFO - Loaded Firebase function settings. Timezone: Africa/Johannesburg
+
+127.0.0.1 - - [31/May/2026 09:54:37] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+2026-05-31 09:54:37,788 - werkzeug - INFO - 127.0.0.1 - - [31/May/2026 09:54:37] "GET /__/functions.yaml HTTP/1.1" 200 -
+
+127.0.0.1 - - [31/May/2026 09:54:37] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+2026-05-31 09:54:37,808 - werkzeug - INFO - 127.0.0.1 - - [31/May/2026 09:54:37] "GET /__/quitquitquit HTTP/1.1" 200 -
+
+/bin/sh: line 1: 94999 Terminated: 15          python3.13 "/Users/dylanangloher/claude-blog-engine/.venv/lib/python3.13/site-packages/firebase_functions/private/serving.py"
+
+i  functions: Loaded environment variables from .env.
+i  functions: preparing . directory for uploading...
+i  functions: packaged /Users/dylanangloher/claude-blog-engine (16.33 MB) for uploading
+i  functions: ensuring required API run.googleapis.com is enabled...
+i  functions: ensuring required API eventarc.googleapis.com is enabled...
+i  functions: ensuring required API pubsub.googleapis.com is enabled...
+i  functions: ensuring required API storage.googleapis.com is enabled...
+i  functions: generating the service identity for pubsub.googleapis.com...
+i  functions: generating the service identity for eventarc.googleapis.com...
+✔  functions: . source uploaded successfully
+i  functions: updating Python 3.13 (2nd Gen) function health_check(us-central1)...
+i  functions: updating Python 3.13 (2nd Gen) function content_machine_worker(us-central1)...
+i  functions: updating Python 3.13 (2nd Gen) function run_now(us-central1)...
+i  functions: updating Python 3.13 (2nd Gen) function weekly_review(us-central1)...
+i  functions: updating Python 3.13 (2nd Gen) function send_daily_report(us-central1)...
+✔  functions[health_check(us-central1)] Successful update operation.
+✔  functions[content_machine_worker(us-central1)] Successful update operation.
+✔  functions[run_now(us-central1)] Successful update operation.
+✔  functions[weekly_review(us-central1)] Successful update operation.
+✔  functions[send_daily_report(us-central1)] Successful update operation.
+i  functions: deleting Python 3.13 (2nd Gen) function daily_email_report(us-central1)...
+Request to https://cloudscheduler.googleapis.com/v1/projects/aeo-seo-agents-team/locations/us-central1/jobs/firebase-schedule-daily_email_report-us-central1 had HTTP Error: 404, Job not found.
+
+Functions deploy had errors with the following functions:
+	daily_email_report(us-central1)
+Function URL (content_machine_worker(us-central1)): https://content-machine-worker-cohbkza25a-uc.a.run.app
+Function URL (health_check(us-central1)): https://health-check-cohbkza25a-uc.a.run.app
+Function URL (run_now(us-central1)): https://run-now-cohbkza25a-uc.a.run.app
+Function URL (send_daily_report(us-central1)): https://send-daily-report-cohbkza25a-uc.a.run.app
+Function URL (weekly_review(us-central1)): https://weekly-review-cohbkza25a-uc.a.run.app
+
+Error: There was an error deploying functions
