@@ -423,10 +423,14 @@ Core Writing Rules:
   - Represent concepts metaphorically through abstract forms, flowing gradients, geometric nodes, or layered shapes.
   - Use vibrant color palettes: deep purple, electric blue, coral orange, soft teal, golden yellow.
   - The image should conceptually represent the article topic through abstract visualization, not literal depiction.
-- Image Alt Text:
-  - Write descriptive alt text in 'image_alt_text' that describes the abstract conceptual illustration.
-  - Include the focus keyphrase naturally in the alt text.
-  - Example: "Abstract gradient flow visualization representing AI marketing automation concepts with vibrant purple and blue hues"
+- Image Alt Text (CRITICAL - MUST BE ABSTRACT):
+  - Write alt text in 'image_alt_text' that describes an ABSTRACT conceptual illustration, NOT a literal scene.
+  - NEVER mention: laptops, computers, desks, offices, people, screens, monitors, workspaces, or realistic photography.
+  - ALWAYS describe: abstract forms, flowing gradients, geometric shapes, conceptual visualization, vibrant colors.
+  - Include the focus keyphrase naturally.
+  - CORRECT: "Abstract gradient flow visualization representing AI marketing automation concepts with vibrant purple and blue hues"
+  - INCORRECT: "A desk showing a laptop with a dashboard..." (NEVER use this style)
+  - The alt text must match the abstract Jasper-style image being generated.
 - No invented statistics, fake case studies, anonymous customer examples, or unsupported performance claims. Attribute specific claims from research or remove them.
 - Product Availability Guardrail: {site.brand_name} is currently in PRIVATE BETA and NOT publicly available to the general public yet. Do NOT write about how to try, sign up, use, log in, or run the product. Do not describe specific product screens, pricing plans, or step-by-step product usage. Any CTAs or references to acquiring the product must strictly refer to joining the private beta waitlist or signing up for early access updates (using `https://waitlist.meetlyra.app`).
 - Optimize for Google search and AI answer engines.
