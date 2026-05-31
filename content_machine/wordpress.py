@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 from typing import Any
 import json
@@ -8,9 +9,13 @@ from urllib.parse import urlencode
 
 import httpx
 
+from .cache import get_cache
+from .circuit_breaker import WORDPRESS_CB
 from .config import Settings
 from .models import GeneratedContent, PublishDecision
 from .utils import slugify
+
+logger = logging.getLogger(__name__)
 
 
 class WordPressClient:
@@ -20,6 +25,7 @@ class WordPressClient:
         self.username = settings.wp_username
         self.app_password = settings.wp_app_password
         self.api_base = f"{self.base_url}/wp-json/wp/v2"
+        self._cache = get_cache()
 
     def _auth(self) -> tuple[str, str]:
         return (self.username, self.app_password)
@@ -28,41 +34,105 @@ class WordPressClient:
         return await self._request_json("GET", "/types")
 
     async def list_posts(self, limit: int = 100) -> list[dict[str, Any]]:
-        return await self._request_json(
-            "GET",
-            "/posts",
-            params={"per_page": min(limit, 100), "status": "publish,draft,future"},
-        )
+        cache_key = f"wp:list_posts:{limit}"
+
+        if self._cache:
+            cached = self._cache.get_wordpress_post(cache_key)
+            if cached is not None:
+                return cached
+
+        if not WORDPRESS_CB.is_available():
+            logger.warning("WordPress circuit breaker is OPEN - returning empty list")
+            return []
+
+        try:
+            result = await self._request_json(
+                "GET",
+                "/posts",
+                params={"per_page": min(limit, 100), "status": "publish,draft,future"},
+            )
+            WORDPRESS_CB.record_success()
+
+            if self._cache:
+                self._cache.set_wordpress_post(cache_key, result)
+
+            return result
+        except Exception as e:
+            WORDPRESS_CB.record_failure()
+            raise
 
     async def internal_link_candidates(self, limit: int = 20) -> list[dict[str, str]]:
-        posts = await self._request_json(
-            "GET",
-            "/posts",
-            params={"per_page": min(limit, 100), "status": "publish", "context": "view"},
-        )
-        pages = await self._request_json(
-            "GET",
-            "/pages",
-            params={"per_page": min(limit, 100), "status": "publish", "context": "view"},
-        )
-        candidates: list[dict[str, str]] = []
-        for item in list(posts or []) + list(pages or []):
-            title = item.get("title", {}).get("rendered") if isinstance(item.get("title"), dict) else item.get("title", "")
-            link = item.get("link", "")
-            slug = item.get("slug", "")
-            if title and link:
-                candidates.append({"title": _strip_tags(str(title)), "url": str(link), "slug": str(slug)})
-        return candidates[:limit]
+        cache_key = f"wp:internal_links:{limit}"
+
+        if self._cache:
+            cached = self._cache.get_wordpress_post(cache_key)
+            if cached is not None:
+                return cached
+
+        if not WORDPRESS_CB.is_available():
+            logger.warning("WordPress circuit breaker is OPEN - returning empty link candidates")
+            return []
+
+        try:
+            posts = await self._request_json(
+                "GET",
+                "/posts",
+                params={"per_page": min(limit, 100), "status": "publish", "context": "view"},
+            )
+            pages = await self._request_json(
+                "GET",
+                "/pages",
+                params={"per_page": min(limit, 100), "status": "publish", "context": "view"},
+            )
+            WORDPRESS_CB.record_success()
+
+            candidates: list[dict[str, str]] = []
+            for item in list(posts or []) + list(pages or []):
+                title = item.get("title", {}).get("rendered") if isinstance(item.get("title"), dict) else item.get("title", "")
+                link = item.get("link", "")
+                slug = item.get("slug", "")
+                if title and link:
+                    candidates.append({"title": _strip_tags(str(title)), "url": str(link), "slug": str(slug)})
+
+            result = candidates[:limit]
+
+            if self._cache:
+                self._cache.set_wordpress_post(cache_key, result)
+
+            return result
+        except Exception as e:
+            WORDPRESS_CB.record_failure()
+            raise
 
     async def find_post_by_slug(self, slug: str) -> dict[str, Any] | None:
-        posts = await self._request_json(
-            "GET",
-            "/posts",
-            params={"slug": slug, "status": "publish,draft,future,pending,private", "context": "edit"},
-        )
-        if isinstance(posts, list) and posts:
-            return posts[0]
-        return None
+        cache_key = f"wp:post_by_slug:{slug}"
+
+        if self._cache:
+            cached = self._cache.get_wordpress_post(cache_key)
+            if cached is not None:
+                return cached
+
+        if not WORDPRESS_CB.is_available():
+            logger.warning("WordPress circuit breaker is OPEN - cannot find post by slug")
+            return None
+
+        try:
+            posts = await self._request_json(
+                "GET",
+                "/posts",
+                params={"slug": slug, "status": "publish,draft,future,pending,private", "context": "edit"},
+            )
+            WORDPRESS_CB.record_success()
+
+            result = posts[0] if isinstance(posts, list) and posts else None
+
+            if self._cache:
+                self._cache.set_wordpress_post(cache_key, result)
+
+            return result
+        except Exception as e:
+            WORDPRESS_CB.record_failure()
+            raise
 
     async def upload_media(self, image_path: str, alt_text: str = "") -> dict[str, Any] | None:
         path = Path(image_path)

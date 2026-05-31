@@ -6,6 +6,8 @@ from typing import Any
 
 import httpx
 
+from .cache import get_cache
+from .circuit_breaker import DATAFORSEO_CB
 from .config import Settings
 from .dataforseo_auth import dataforseo_headers
 from .models import Opportunity, WorkItemType
@@ -20,41 +22,124 @@ class DataForSEOClient:
         self.headers = dataforseo_headers(settings)
         self.base_url = "https://api.dataforseo.com"
         self.location_code = 2840
+        self._cache = get_cache()
 
     async def keyword_ideas(self, seeds: list[str], limit: int = 25) -> list[dict[str, Any]]:
         if not seeds:
             return []
-        payload = [{"keywords": seeds[:20], "location_code": self.location_code, "language_code": "en", "limit": limit}]
-        async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
-            resp = await client.post(f"{self.base_url}/v3/dataforseo_labs/google/keyword_ideas/live", json=payload)
-            resp.raise_for_status()
-            data = resp.json()
-        items = []
-        for task in data.get("tasks", []):
-            for result in task.get("result") or []:
-                items.extend(result.get("items") or [])
-        return items
+
+        # Create cache key from sorted seeds and limit
+        cache_key = f"keyword_ideas:{','.join(sorted(seeds))}:{limit}"
+
+        # Try cache first
+        if self._cache:
+            cached = self._cache.get_keyword_data(cache_key)
+            if cached is not None:
+                logger.info(f"Cache hit for keyword ideas: {seeds[:3]}...")
+                return cached
+
+        # Check circuit breaker
+        if not DATAFORSEO_CB.is_available():
+            logger.warning("DataForSEO circuit breaker is OPEN - skipping API call")
+            return []
+
+        try:
+            payload = [{"keywords": seeds[:20], "location_code": self.location_code, "language_code": "en", "limit": limit}]
+            async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
+                resp = await client.post(f"{self.base_url}/v3/dataforseo_labs/google/keyword_ideas/live", json=payload)
+                resp.raise_for_status()
+                data = resp.json()
+
+            DATAFORSEO_CB.record_success()
+
+            items = []
+            for task in data.get("tasks", []):
+                for result in task.get("result") or []:
+                    items.extend(result.get("items") or [])
+
+            # Cache the results
+            if self._cache:
+                self._cache.set_keyword_data(cache_key, items)
+                logger.info(f"Cached keyword ideas for {len(seeds)} seeds ({len(items)} results)")
+
+            return items
+
+        except Exception as e:
+            DATAFORSEO_CB.record_failure()
+            logger.error(f"DataForSEO keyword_ideas failed: {e}")
+            raise
 
     async def competitor_keywords(self, domain: str, limit: int = 50) -> list[dict[str, Any]]:
         if not domain:
             return []
-        payload = [{"target": domain, "location_code": self.location_code, "language_code": "en", "limit": limit}]
-        async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
-            resp = await client.post(f"{self.base_url}/v3/dataforseo_labs/google/competitor_keywords/live", json=payload)
-            resp.raise_for_status()
-            data = resp.json()
-        items = []
-        for task in data.get("tasks", []):
-            for result in task.get("result") or []:
-                items.extend(result.get("items") or [])
-        return items
+
+        cache_key = f"competitor_keywords:{domain}:{limit}"
+
+        if self._cache:
+            cached = self._cache.get_keyword_data(cache_key)
+            if cached is not None:
+                logger.info(f"Cache hit for competitor keywords: {domain}")
+                return cached
+
+        if not DATAFORSEO_CB.is_available():
+            logger.warning("DataForSEO circuit breaker is OPEN - skipping competitor keywords API call")
+            return []
+
+        try:
+            payload = [{"target": domain, "location_code": self.location_code, "language_code": "en", "limit": limit}]
+            async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
+                resp = await client.post(f"{self.base_url}/v3/dataforseo_labs/google/competitor_keywords/live", json=payload)
+                resp.raise_for_status()
+                data = resp.json()
+
+            DATAFORSEO_CB.record_success()
+
+            items = []
+            for task in data.get("tasks", []):
+                for result in task.get("result") or []:
+                    items.extend(result.get("items") or [])
+
+            if self._cache:
+                self._cache.set_keyword_data(cache_key, items)
+
+            return items
+
+        except Exception as e:
+            DATAFORSEO_CB.record_failure()
+            logger.error(f"DataForSEO competitor_keywords failed: {e}")
+            raise
 
     async def serp(self, keyword: str, limit: int = 10) -> dict[str, Any]:
-        payload = [{"keyword": keyword, "location_code": self.location_code, "language_code": "en", "device": "desktop", "os": "windows", "depth": limit}]
-        async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
-            resp = await client.post(f"{self.base_url}/v3/serp/google/organic/live/advanced", json=payload)
-            resp.raise_for_status()
-            return resp.json()
+        cache_key = f"serp:{keyword}:{limit}"
+
+        if self._cache:
+            cached = self._cache.get_keyword_data(cache_key)
+            if cached is not None:
+                logger.info(f"Cache hit for SERP: {keyword}")
+                return cached
+
+        if not DATAFORSEO_CB.is_available():
+            logger.warning("DataForSEO circuit breaker is OPEN - skipping SERP API call")
+            return {}
+
+        try:
+            payload = [{"keyword": keyword, "location_code": self.location_code, "language_code": "en", "device": "desktop", "os": "windows", "depth": limit}]
+            async with httpx.AsyncClient(timeout=60, headers=self.headers) as client:
+                resp = await client.post(f"{self.base_url}/v3/serp/google/organic/live/advanced", json=payload)
+                resp.raise_for_status()
+                data = resp.json()
+
+            DATAFORSEO_CB.record_success()
+
+            if self._cache:
+                self._cache.set_keyword_data(cache_key, data)
+
+            return data
+
+        except Exception as e:
+            DATAFORSEO_CB.record_failure()
+            logger.error(f"DataForSEO serp failed: {e}")
+            raise
 
 
 def normalize_keyword_item(item: dict[str, Any]) -> dict[str, Any]:
