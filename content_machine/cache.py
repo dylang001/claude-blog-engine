@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import pickle
 import time
 from dataclasses import dataclass
@@ -15,9 +16,16 @@ from pathlib import Path
 from typing import Any, Optional
 from datetime import datetime, timedelta
 
-import diskcache as dc
+try:
+    import diskcache as dc
+    DISKCACHE_AVAILABLE = True
+except ImportError:
+    DISKCACHE_AVAILABLE = False
+    dc = None
 
 from .config import load_settings
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -59,19 +67,30 @@ class CacheManager:
     
     def __init__(self, cache_dir: Optional[Path] = None):
         """Initialize cache manager.
-        
+
         Args:
             cache_dir: Directory for cache storage (default: ~/.cache/content_machine)
         """
+        self._available = DISKCACHE_AVAILABLE
+        self._cache = None
+
+        if not self._available:
+            logger.warning("diskcache not available - caching disabled")
+            return
+
         if cache_dir is None:
             cache_dir = Path.home() / ".cache" / "content_machine"
-        
+
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Initialize diskcache
-        self._cache = dc.Cache(str(self.cache_dir))
-        
+        try:
+            self._cache = dc.Cache(str(self.cache_dir))
+        except Exception as e:
+            logger.error(f"Failed to initialize diskcache: {e}")
+            self._available = False
+
         # Stats tracking
         self._stats = {
             "hits": 0,
@@ -98,16 +117,19 @@ class CacheManager:
         category: str = "default",
     ) -> Optional[Any]:
         """Get value from cache.
-        
+
         Args:
             key: Cache key
             category: Cache category for namespacing
-            
+
         Returns:
             Cached value or None if not found/expired
         """
+        if not self._available or self._cache is None:
+            return None
+
         full_key = f"{category}:{key}"
-        
+
         try:
             value = self._cache.get(full_key)
             if value is not None:
@@ -127,42 +149,48 @@ class CacheManager:
         ttl: Optional[int] = None,
     ) -> bool:
         """Set value in cache.
-        
+
         Args:
             key: Cache key
             value: Value to cache
             category: Cache category
             ttl: Time to live in seconds (default: from DEFAULT_TTLS)
-            
+
         Returns:
             True if successful
         """
+        if not self._available or self._cache is None:
+            return False
+
         full_key = f"{category}:{key}"
-        
+
         # Get default TTL for category
         if ttl is None:
             ttl = self.DEFAULT_TTLS.get(category, 3600)
-        
+
         try:
             self._cache.set(full_key, value, expire=ttl)
             self._stats["sets"] += 1
             return True
         except Exception as e:
-            print(f"Cache set error: {e}")
+            logger.warning(f"Cache set error: {e}")
             return False
     
     def delete(self, key: str, category: str = "default") -> bool:
         """Delete value from cache.
-        
+
         Args:
             key: Cache key
             category: Cache category
-            
+
         Returns:
             True if deleted
         """
+        if not self._available or self._cache is None:
+            return False
+
         full_key = f"{category}:{key}"
-        
+
         try:
             result = self._cache.delete(full_key)
             if result:
