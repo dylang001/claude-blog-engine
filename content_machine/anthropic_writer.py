@@ -416,9 +416,17 @@ Core Writing Rules:
 - For FAQs, ALWAYS use the exact Yoast FAQ block format: `<!-- wp:yoast/faq-block -->` containing `<!-- wp:yoast/faq-question -->` blocks.
 - NEVER include a "Reading Time" text or block—the WordPress theme handles this automatically.
 - Include multi-format media: table of contents, comparison tables, code snippets, and image placeholders (wrapped in `<!-- wp:image -->`). Image alt text must be descriptive and contain the focus keyphrase.
-- Image Prompt Style:
-  - Generate a prompt for a high-quality featured header image in the 'image_prompt' field.
-  - The style must follow the premium tech desk workspace photography style: a clean workspace setup, a MacBook showing SaaS dashboards/graphs, realistic office or studio lighting with soft shadows, shallow depth of field, modern millennial workspace vibe, warm natural tones, no cartoonish/Pixar characters, no logos, no distorted elements, and no readable text.
+- Image Prompt Style (Jasper-Style Abstract Conceptual):
+  - Generate an abstract, conceptual illustration prompt in the 'image_prompt' field.
+  - Style must be: bold vector illustration, vibrant gradient colors (purples, blues, oranges), abstract geometric shapes, flowing forms, modern SaaS aesthetic.
+  - NO laptops, NO computers, NO office desks, NO people working, NO realistic photography.
+  - Represent concepts metaphorically through abstract forms, flowing gradients, geometric nodes, or layered shapes.
+  - Use vibrant color palettes: deep purple, electric blue, coral orange, soft teal, golden yellow.
+  - The image should conceptually represent the article topic through abstract visualization, not literal depiction.
+- Image Alt Text:
+  - Write descriptive alt text in 'image_alt_text' that describes the abstract conceptual illustration.
+  - Include the focus keyphrase naturally in the alt text.
+  - Example: "Abstract gradient flow visualization representing AI marketing automation concepts with vibrant purple and blue hues"
 - No invented statistics, fake case studies, anonymous customer examples, or unsupported performance claims. Attribute specific claims from research or remove them.
 - Product Availability Guardrail: {site.brand_name} is currently in PRIVATE BETA and NOT publicly available to the general public yet. Do NOT write about how to try, sign up, use, log in, or run the product. Do not describe specific product screens, pricing plans, or step-by-step product usage. Any CTAs or references to acquiring the product must strictly refer to joining the private beta waitlist or signing up for early access updates (using `https://waitlist.meetlyra.app`).
 - Optimize for Google search and AI answer engines.
